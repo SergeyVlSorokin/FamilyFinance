@@ -1,0 +1,20 @@
+{
+  "id": "FR-005",
+  "title": "Account Balances Dashboard",
+  "description": "The system shall display a dashboard screen showing all accounts with their name, type, and current balance, plus an aggregated total wealth figure. Balances shall be derived reactively from persisted transactions using Flow-based data streams.",
+  "priority": "Must-have",
+  "stability": "Stable",
+  "verification_method": "Demonstration",
+  "acceptance_criteria": [
+    "Dashboard loads and displays all accounts without manual refresh",
+    "Total wealth is the sum of all account balances",
+    "Adding a new transaction updates the relevant account balance within 1 second without screen refresh",
+    "Empty state (no accounts) shows a helpful prompt to create an account"
+  ],
+  "trace_to": {
+    "user_requirements": ["UR-004"],
+    "business_rules": ["BR-003"],
+    "design_nodes": ["VIEW-001", "VIEW-002", "VIEW-004", "DATA-001", "ADR-003"],
+    "verification_plans": ["SCN-005"]
+  }
+}

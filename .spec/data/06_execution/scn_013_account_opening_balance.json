@@ -1,0 +1,15 @@
+{
+  "id": "SCN-013",
+  "title": "Create account with opening balance",
+  "objective": "Verify that a new account created with a non-zero opening balance has a correct initial balance on the dashboard and an auto-generated OPENING_BALANCE transaction in the timeline",
+  "type": "Manual",
+  "status": "Draft",
+  "trace_to": { "requirements": ["FR-007", "UR-007"] },
+  "steps": [
+    { "step": "Open Settings → Accounts → Add New", "expected_result": "Account creation form opens with fields: name, type, owner_label, opening balance" },
+    { "step": "Enter name = 'ICA Banken', type = Bank, owner_label = 'Serge', opening balance = 12500, tap Save", "expected_result": "Account appears in the Accounts list" },
+    { "step": "Open Dashboard", "expected_result": "'ICA Banken' shows balance 12500; total wealth includes 12500" },
+    { "step": "Open Timeline", "expected_result": "An 'Opening Balance' system entry of +12500 for 'ICA Banken' is visible, dated today, visually distinct from regular transactions" },
+    { "step": "Check Expense-by-Category report", "expected_result": "The 12500 opening balance does NOT appear in any income or expense totals" }
+  ]
+}

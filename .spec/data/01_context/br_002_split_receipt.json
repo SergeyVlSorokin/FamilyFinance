@@ -1,0 +1,9 @@
+{
+  "id": "BR-002",
+  "title": "Split Receipt — Flat Records with Shared Group ID",
+  "statement": "A single physical receipt split across multiple categories MUST be stored as separate, independent TransactionEntity rows in the database. All rows from the same split receipt MUST share a common receipt_group_id (UUID). The UI must allow dynamic splitting on a single screen without navigation.",
+  "source": "Brainstorm — Key Decisions: Expense Splitting Structure",
+  "trace_to": {
+    "stakeholders": ["STK-001", "STK-003"]
+  }
+}

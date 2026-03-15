@@ -1,0 +1,13 @@
+{
+  "id": "SCN-006",
+  "title": "Timeline filter by category",
+  "objective": "Verify that the timeline can be filtered by category and shows only matching transactions",
+  "type": "Manual",
+  "status": "Draft",
+  "trace_to": { "requirements": ["FR-006", "UR-005"] },
+  "steps": [
+    { "step": "Ensure at least 3 transactions exist with different categories (Food, Salary, Consumables)", "expected_result": "All 3 visible in unfiltered timeline" },
+    { "step": "Apply category filter = 'Food'", "expected_result": "Only Food transactions are displayed; others are hidden" },
+    { "step": "Clear filter", "expected_result": "All transactions are visible again" }
+  ]
+}

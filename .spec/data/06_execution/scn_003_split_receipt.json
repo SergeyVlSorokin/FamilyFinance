@@ -1,0 +1,15 @@
+{
+  "id": "SCN-003",
+  "title": "Split receipt into two categories",
+  "objective": "Verify that a split receipt is saved as two linked rows and grouped in the timeline",
+  "type": "Manual",
+  "status": "Draft",
+  "trace_to": { "requirements": ["FR-003", "UR-002"] },
+  "steps": [
+    { "step": "Open Fast Entry, enter total amount = 100, select Account = 'Cash'", "expected_result": "Entry screen shows total = 100, one line" },
+    { "step": "Add a split line: amount = 80, Category = 'Food'", "expected_result": "Remaining amount updates to 20" },
+    { "step": "Add a second split line: amount = 20, Category = 'Consumables'", "expected_result": "Remaining amount shows 0" },
+    { "step": "Tap Save", "expected_result": "Sheet closes. Timeline shows a receipt group with two child lines (Food: 80, Consumables: 20)" },
+    { "step": "Query database directly (or via debug screen)", "expected_result": "Two TransactionEntity rows exist, both sharing the same non-null receipt_group_id" }
+  ]
+}

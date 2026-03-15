@@ -1,0 +1,9 @@
+{
+  "id": "BR-001",
+  "title": "Fully Shared Vault — No Inter-Family Privacy Isolation",
+  "statement": "All family members share a single data vault. Every user can view all accounts and transactions, regardless of who created them. Row-Level Security (RLS) between family members is explicitly excluded. Owner labels are used for filtering convenience only.",
+  "source": "Brainstorm — Key Decisions: Privacy Model",
+  "trace_to": {
+    "stakeholders": ["STK-001", "STK-002", "STK-003"]
+  }
+}

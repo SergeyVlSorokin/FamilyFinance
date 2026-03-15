@@ -1,0 +1,16 @@
+{
+  "id": "UR-007",
+  "user_role": "Active Recorder",
+  "story": "As an Active Recorder, I want to manage Accounts, Categories, and Projects from a Settings area, so that the app's reference data matches our family's actual financial structure.",
+  "priority": "High",
+  "acceptance_criteria": [
+    "User can create, edit, and delete Accounts (name, type, owner_label, opening balance)",
+    "User can create, edit, and delete Categories (name, icon, color)",
+    "User can create, edit, and delete Projects (name, start_date, end_date)",
+    "Changes appear immediately in entry forms and the dashboard"
+  ],
+  "trace_to": {
+    "stakeholders": ["STK-001", "STK-003"],
+    "business_goals": []
+  }
+}

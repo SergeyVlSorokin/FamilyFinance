@@ -1,0 +1,47 @@
+{
+  "id": "TASK-105",
+  "title": "Settings Screens — Accounts, Categories, Projects",
+  "type": "Feature",
+  "routine": "Feature",
+  "objective": "Build Settings hub with dedicated screens for CRUD of Accounts, Categories, and Projects. Account creation must include opening balance field and auto-create OPENING_BALANCE transaction.",
+  "status": "Pending",
+  "priority": 65,
+  "verification_regime": "Hybrid",
+  "dependencies": ["TASK-103"],
+  "trace_to": {
+    "requirements": ["FR-007", "UR-007"],
+    "design_nodes": ["VIEW-001", "VIEW-004"]
+  },
+  "tdd_cycle": {
+    "test_file": "app/src/test/java/com/familyfinance/ui/settings/SettingsViewModelTest.kt",
+    "implementation_file": "app/src/main/java/com/familyfinance/ui/settings/SettingsScreen.kt",
+    "verification_command": "./gradlew testDebugUnitTest"
+  },
+  "execution_steps": [
+    "Run 'loom start TASK-105'",
+    "Run 'loom context TASK-105'",
+    "Create SettingsScreen as a hub navigating to AccountsManageScreen, CategoriesManageScreen, ProjectsManageScreen",
+    "Build AccountsManageScreen: list accounts, create account form (name, type picker, owner_label, opening_balance field)",
+    "On account save with opening_balance > 0: call SaveTransactionUseCase to create OPENING_BALANCE transaction (is_system_generated=1)",
+    "Build CategoriesManageScreen: list, create (name, icon, color), edit, delete",
+    "Build ProjectsManageScreen: list, create (name, start_date, end_date), edit, delete",
+    "All changes immediately available in entry form pickers via Flow",
+    "Write ViewModel unit test: creating account with opening balance creates OPENING_BALANCE transaction",
+    "Manual check: create category 'Pet Care', verify it appears in FastEntry picker",
+    "Run ./gradlew testDebugUnitTest",
+    "Run 'loom complete TASK-105'"
+  ],
+  "definition_of_done": [
+    "Full CRUD working for all 3 entity types",
+    "Account creation with non-zero opening balance creates OPENING_BALANCE transaction",
+    "OPENING_BALANCE transaction has is_system_generated=1",
+    "New items appear immediately in entry forms"
+  ],
+  "context": {
+    "relevant_files": [
+      ".spec/data/04_system/fr_007_settings.json",
+      ".spec/data/06_execution/scn_007_settings_category.json",
+      ".spec/data/06_execution/scn_013_account_opening_balance.json"
+    ]
+  }
+}

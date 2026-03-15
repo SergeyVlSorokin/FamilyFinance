@@ -1,0 +1,18 @@
+{
+  "id": "VIEW-004",
+  "name": "Development View — Package Structure",
+  "viewpoint": "Development",
+  "concerns": ["Maintainability", "Build Speed", "Module Boundaries"],
+  "diagram_source": "graph TD\n  App[\"app/src/main/java/com/familyfinance/\"]\n  App --> UI[\"ui/\"]\n  App --> Domain[\"domain/\"]\n  App --> Data[\"data/\"]\n  App --> DI[\"di/\"]\n\n  UI --> UIDash[\"ui/dashboard/\\nDashboardScreen, DashboardViewModel\"]\n  UI --> UIEntry[\"ui/entry/\\nFastEntrySheet, FastEntryViewModel\"]\n  UI --> UITimeline[\"ui/timeline/\\nTimelineScreen, TimelineViewModel\"]\n  UI --> UISettings[\"ui/settings/\\nSettingsScreen, AccountsManageScreen,\\nCategoriesManageScreen, ProjectsManageScreen\"]\n  UI --> UIReconcile[\"ui/reconcile/\\nReconciliationScreen, ReconciliationViewModel\"]\n  UI --> UINav[\"ui/navigation/\\nNavGraph, Routes\"]\n\n  Domain --> UCases[\"domain/usecase/\\nSaveTransactionUseCase\\nSaveSplitReceiptUseCase\\nSaveTransferUseCase\\nReconcileAccountUseCase\\nGetAccountBalancesUseCase\"]\n\n  Data --> Entities[\"data/local/entity/\\nAccountEntity, TransactionEntity,\\nCategoryEntity, ProjectEntity\"]\n  Data --> DAOs[\"data/local/dao/\\nAccountDao, TransactionDao,\\nCategoryDao, ProjectDao\"]\n  Data --> DB[\"data/local/\\nAppDatabase\"]\n  Data --> Repo[\"data/repository/\\nFinanceRepository\"]\n\n  DI --> Modules[\"di/\\nDatabaseModule, RepositoryModule\"]",
+  "elements": [
+    { "name": "ui/", "type": "Package", "description": "All Compose screens, ViewModels, and navigation. One sub-package per screen/feature." },
+    { "name": "domain/usecase/", "type": "Package", "description": "Pure business logic use cases. No Android dependencies — easily unit tested." },
+    { "name": "data/local/", "type": "Package", "description": "Room entities, DAOs, and the AppDatabase configuration." },
+    { "name": "data/repository/", "type": "Package", "description": "FinanceRepository — the single interface between domain and data layers." },
+    { "name": "di/", "type": "Package", "description": "Hilt modules wiring the dependency graph." }
+  ],
+  "trace_to": {
+    "functional_requirements": ["FR-001","FR-002","FR-003","FR-004","FR-005","FR-006","FR-007","FR-008","FR-009","FR-010","FR-011","FR-012"],
+    "adrs": ["ADR-002"]
+  }
+}

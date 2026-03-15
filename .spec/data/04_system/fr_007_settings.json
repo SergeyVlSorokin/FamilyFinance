@@ -1,0 +1,24 @@
+{
+  "id": "FR-007",
+  "title": "Configuration Management (Accounts, Categories, Projects)",
+  "description": "The system shall provide a Settings hub with dedicated sub-screens for creating, editing, and deleting Accounts, Categories, and Projects. Changes shall be immediately reflected app-wide.",
+  "priority": "Must-have",
+  "stability": "Stable",
+  "verification_method": "Demonstration",
+  "acceptance_criteria": [
+    "User can navigate from a Settings hub to dedicated screens for Accounts, Categories, and Projects",
+    "User can create an Account with name, type (Bank/Cash/Investment/CreditCard), owner_label, and an opening balance (defaults to 0 if left empty)",
+    "When an account is created with a non-zero opening balance, the system shall automatically create a system-generated OPENING_BALANCE transaction for that amount, dated at account creation time",
+    "OPENING_BALANCE transactions are excluded from expense/income category reports; they represent starting state, not real cash flow",
+    "User can create a Category with name, icon, and color",
+    "User can create a Project with name, start_date, and end_date",
+    "User can edit and delete existing items of all three types",
+    "Newly created items appear immediately in entry form pickers"
+  ],
+  "trace_to": {
+    "user_requirements": ["UR-007"],
+    "business_rules": [],
+    "design_nodes": ["VIEW-001", "VIEW-004", "DATA-001"],
+    "verification_plans": ["SCN-007", "SCN-013"]
+  }
+}

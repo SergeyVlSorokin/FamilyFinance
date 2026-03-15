@@ -1,0 +1,13 @@
+{
+  "id": "STK-001",
+  "name": "Primary Family Member",
+  "role": "End User — the person who actively records transactions and manages accounts on a daily basis.",
+  "influence": "Critical",
+  "interests": [
+    "Fast, low-friction expense entry (especially receipt splitting)",
+    "Accurate account balance visibility at a glance",
+    "Ability to categorize and tag expenses for later reporting",
+    "Reliable offline functionality — app should work without internet",
+    "Clear timeline of all family spending"
+  ]
+}

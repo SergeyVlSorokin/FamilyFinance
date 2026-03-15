@@ -1,0 +1,51 @@
+{
+  "id": "TASK-108",
+  "title": "Account Reconciliation Screen",
+  "type": "Feature",
+  "routine": "Feature",
+  "objective": "Build the ReconciliationScreen where the user enters the actual account balance, sees the discrepancy, and creates a correction transaction (RECONCILIATION_ADJUSTMENT for Bank/Cash/CreditCard, REVALUATION for Investment).",
+  "status": "Pending",
+  "priority": 50,
+  "verification_regime": "Hybrid",
+  "dependencies": ["TASK-103", "TASK-104"],
+  "trace_to": {
+    "requirements": ["FR-010", "FR-011", "FR-012", "UR-009"],
+    "design_nodes": ["VIEW-001", "VIEW-004", "ADR-003"]
+  },
+  "tdd_cycle": {
+    "test_file": "app/src/test/java/com/familyfinance/ui/reconcile/ReconciliationViewModelTest.kt",
+    "implementation_file": "app/src/main/java/com/familyfinance/ui/reconcile/ReconciliationScreen.kt",
+    "verification_command": "./gradlew testDebugUnitTest"
+  },
+  "execution_steps": [
+    "Run 'loom start TASK-108'",
+    "Run 'loom context TASK-108'",
+    "Create ReconciliationViewModel: accept account, fetch recorded balance via GetAccountBalancesUseCase, compute discrepancy = actual - recorded",
+    "Build ReconciliationScreen: show account name, recorded balance, actual balance input, computed discrepancy (color-coded: green=0, red=negative, amber=positive)",
+    "Zero discrepancy: show 'Reconciled ✓' + timestamp confirmation, no transaction created",
+    "Non-zero + non-investment account: show 'Create Correction' button, call ReconcileAccountUseCase to create RECONCILIATION_ADJUSTMENT row (amount locked = abs(discrepancy), optional note)",
+    "Non-zero + investment account: show 'Create Revaluation' button, call ReconcileAccountUseCase to create REVALUATION row with gain/loss label",
+    "Add reconcile shortcut button to Dashboard account cards",
+    "Write ViewModel unit tests: discrepancy computation, correct transaction type by account type",
+    "Manual check via SCN-010, SCN-011, SCN-012",
+    "Run ./gradlew testDebugUnitTest",
+    "Run 'loom complete TASK-108'"
+  ],
+  "definition_of_done": [
+    "Zero discrepancy shows confirmation, no transaction created",
+    "RECONCILIATION_ADJUSTMENT amount is locked to discrepancy (user cannot edit)",
+    "REVALUATION only offered for Investment account type",
+    "After correction save, account balance equals entered actual value",
+    "ViewModel unit tests pass"
+  ],
+  "context": {
+    "relevant_files": [
+      ".spec/data/04_system/fr_010_reconciliation_verify.json",
+      ".spec/data/04_system/fr_011_reconciliation_adjust.json",
+      ".spec/data/04_system/fr_012_reconciliation_revaluation.json",
+      ".spec/data/06_execution/scn_010_reconcile_clean.json",
+      ".spec/data/06_execution/scn_011_reconcile_adjust.json",
+      ".spec/data/06_execution/scn_012_reconcile_revaluation.json"
+    ]
+  }
+}

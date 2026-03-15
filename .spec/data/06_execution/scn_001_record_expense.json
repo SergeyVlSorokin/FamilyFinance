@@ -1,0 +1,14 @@
+{
+  "id": "SCN-001",
+  "title": "Record a valid single expense",
+  "objective": "Verify that a user can save an expense with mandatory fields and it appears in the timeline",
+  "type": "Manual",
+  "status": "Draft",
+  "trace_to": { "requirements": ["FR-001", "UR-001"] },
+  "steps": [
+    { "step": "Open the Fast Entry sheet", "expected_result": "Entry sheet opens with empty fields" },
+    { "step": "Select type = Expense, enter amount = 50, select Category = 'Food', select Account = 'Bank'", "expected_result": "All mandatory fields are populated" },
+    { "step": "Tap Save", "expected_result": "Sheet closes and a new expense row appears at the top of the Timeline" },
+    { "step": "Open the Dashboard", "expected_result": "Bank account balance has decreased by 50" }
+  ]
+}

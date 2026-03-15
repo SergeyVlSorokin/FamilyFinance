@@ -1,0 +1,19 @@
+{
+  "id": "FR-008",
+  "title": "Local-Only Data Persistence (Room)",
+  "description": "The system shall persist all financial data exclusively to a local Room (SQLite) database. No network call shall be required for any create, read, update, or delete operation. The system shall function fully without internet connectivity.",
+  "priority": "Must-have",
+  "stability": "Stable",
+  "verification_method": "Test",
+  "acceptance_criteria": [
+    "All CRUD operations complete successfully with no network connection",
+    "Data is persisted across app restarts",
+    "No network permission usage is required for core offline functionality"
+  ],
+  "trace_to": {
+    "user_requirements": ["UR-008"],
+    "business_rules": ["BR-003"],
+    "design_nodes": ["VIEW-003", "DATA-001", "ADR-001"],
+    "verification_plans": ["SCN-008"]
+  }
+}

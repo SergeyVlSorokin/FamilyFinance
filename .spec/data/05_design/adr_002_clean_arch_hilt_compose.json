@@ -1,0 +1,35 @@
+{
+  "id": "ADR-002",
+  "title": "Clean Architecture with Hilt DI and Jetpack Compose UI",
+  "status": "Accepted",
+  "context": "We need a maintainable code structure that supports rapid development now and SaaS scaling later. Android has multiple architecture patterns (MVP, MVC, MVI, MVVM + Clean). We also need dependency injection for testability.",
+  "decision": "Use Clean Architecture layering (UI → Domain/UseCases → Repository → Data) with Hilt for dependency injection and Jetpack Compose for UI. ViewModels hold StateFlow-based UI state. Use Cases contain business logic and are pure Kotlin (no Android framework dependencies). The Repository abstracts the data layer.",
+  "alternatives": [
+    {
+      "name": "MVVM without Use Cases",
+      "description": "ViewModels call the Repository directly, no separate domain layer.",
+      "pros": ["Less boilerplate", "Faster to set up"],
+      "cons": [
+        "Business logic leaks into ViewModels — harder to unit test",
+        "ViewModels become bloated as features grow"
+      ]
+    }
+  ],
+  "consequences": {
+    "positive": [
+      "Use Cases are pure Kotlin — unit tests need no Android emulator",
+      "Hilt provides compile-time DI validation — fewer runtime crashes",
+      "Repository interface means the data source can be swapped (Room → Supabase) without touching ViewModels or Use Cases",
+      "Compose + StateFlow gives a predictable unidirectional data flow"
+    ],
+    "negative": [
+      "More files and layers to set up initially",
+      "Hilt requires understanding of annotation processing"
+    ],
+    "neutral": []
+  },
+  "trace_to": {
+    "stakeholders": ["STK-003"],
+    "affected_design_nodes": ["VIEW-001", "VIEW-004"]
+  }
+}

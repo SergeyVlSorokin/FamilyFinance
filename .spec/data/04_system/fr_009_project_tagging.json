@@ -1,0 +1,20 @@
+{
+  "id": "FR-009",
+  "title": "Project Tagging on Transactions",
+  "description": "The system shall allow the user to optionally tag any transaction with a pre-configured Project. The project_id field on TransactionEntity is nullable; untagged transactions are valid. The timeline shall support filtering by project.",
+  "priority": "Should-have",
+  "stability": "Stable",
+  "verification_method": "Test",
+  "acceptance_criteria": [
+    "Project picker appears as an optional field in the transaction entry screen",
+    "A transaction can be saved with project_id = null (no project)",
+    "Filtering the timeline by a project shows all transactions tagged to it, regardless of category",
+    "Transactions tagged to a project remain correctly linked after the project is edited"
+  ],
+  "trace_to": {
+    "user_requirements": ["UR-006"],
+    "business_rules": [],
+    "design_nodes": ["VIEW-001", "VIEW-004", "DATA-001"],
+    "verification_plans": ["SCN-009"]
+  }
+}

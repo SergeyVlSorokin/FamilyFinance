@@ -1,0 +1,22 @@
+{
+  "id": "FR-012",
+  "title": "Reconciliation Correction — Investment Accounts (Revaluation)",
+  "description": "When a reconciliation discrepancy is detected on an Investment account, the system shall allow the user to create a REVALUATION transaction. A positive discrepancy (current market value > last recorded value) represents unrealized capital gain. A negative discrepancy represents unrealized capital loss. The transaction amount equals the absolute discrepancy value, signed appropriately. Revaluation transactions are stored as a distinct type and displayed separately from regular Income/Expense entries in the timeline.",
+  "priority": "Must-have",
+  "stability": "Stable",
+  "verification_method": "Test",
+  "acceptance_criteria": [
+    "Revaluation is only offered for account type = Investment; non-investment accounts use FR-011 instead",
+    "Revaluation transaction is pre-filled with the absolute discrepancy amount and labeled 'Revaluation'",
+    "Positive revaluation (gain) and negative revaluation (loss) are visually distinguishable in the timeline",
+    "Revaluation transactions are excluded from expense/income category reports by default (they are not real cash flows)",
+    "After saving, querying the account balance returns the user-entered actual market value",
+    "Multiple revaluations over time form a history of investment value development visible in the timeline"
+  ],
+  "trace_to": {
+    "user_requirements": ["UR-009"],
+    "business_rules": [],
+    "design_nodes": ["VIEW-001", "VIEW-004", "DATA-001"],
+    "verification_plans": ["SCN-012"]
+  }
+}

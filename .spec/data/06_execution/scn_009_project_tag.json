@@ -1,0 +1,14 @@
+{
+  "id": "SCN-009",
+  "title": "Tag transaction with project and filter timeline",
+  "objective": "Verify that a project tag is saved and the timeline can be filtered by project",
+  "type": "Manual",
+  "status": "Draft",
+  "trace_to": { "requirements": ["FR-006", "FR-009", "UR-006"] },
+  "steps": [
+    { "step": "Create a Project named 'Lulea Trip' in Settings → Projects", "expected_result": "Project appears in Projects list" },
+    { "step": "Record two expenses: one tagged to 'Lulea Trip', one with no project", "expected_result": "Both expenses saved successfully" },
+    { "step": "Open Timeline and filter by Project = 'Lulea Trip'", "expected_result": "Only the tagged expense is shown; the untagged expense is hidden" },
+    { "step": "Clear project filter", "expected_result": "Both expenses are visible again" }
+  ]
+}

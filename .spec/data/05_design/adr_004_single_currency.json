@@ -1,0 +1,37 @@
+{
+  "id": "ADR-004",
+  "title": "Single-Currency MVP — No Currency Column on Transaction",
+  "status": "Accepted",
+  "context": "The brainstorm listed multi-currency support as in-scope. However, adding currency conversion requires an exchange rate source, complex UI, and significantly more data model complexity. BR-005 explicitly defers multi-currency to post-MVP.",
+  "decision": "For the MVP, the app operates in a single implicit default currency. There is NO currency field on the Transaction or Account tables. All amounts are stored as plain REAL values in the same implicit currency. When multi-currency is added post-MVP, a migration will add a currency_code column to both accounts and transactions, and a currencies table with exchange rates.",
+  "alternatives": [
+    {
+      "name": "Add currency_code column now (even if unused)",
+      "description": "Include currency fields in the schema from day one, defaulting to a single currency.",
+      "pros": ["Avoids a future schema migration"],
+      "cons": [
+        "Increases schema complexity before it provides any value",
+        "Risk of UI showing an irrelevant currency picker, confusing users",
+        "Exchange rate logic must be thoughtfully designed — premature addition risks a bad data model"
+      ]
+    }
+  ],
+  "consequences": {
+    "positive": [
+      "Simpler schema and UI for MVP — no currency picker, no exchange rate concerns",
+      "Faster to build MVP features",
+      "Multi-currency can be designed correctly once the core app is proven"
+    ],
+    "negative": [
+      "A Room schema migration (adding currency_code columns) will be required when multi-currency is added",
+      "Existing data rows will need DEFAULT currency values during migration"
+    ],
+    "neutral": [
+      "Room's migration framework handles additive column migrations cleanly"
+    ]
+  },
+  "trace_to": {
+    "stakeholders": ["STK-003"],
+    "affected_design_nodes": ["DATA-001", "VIEW-003"]
+  }
+}

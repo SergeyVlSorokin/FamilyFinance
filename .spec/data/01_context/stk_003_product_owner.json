@@ -1,0 +1,13 @@
+{
+  "id": "STK-003",
+  "name": "Product Owner / Developer",
+  "role": "Sponsor, Architect, and sole developer. Defines product vision, priorities, and technical decisions. Also the primary end-user for the MVP phase.",
+  "influence": "Critical",
+  "interests": [
+    "Fast, maintainable codebase using modern Android stack (Jetpack Compose, Hilt, Room)",
+    "Scalable architecture capable of growing into a SaaS/B2C product",
+    "Predictable infrastructure costs as user base grows (motivates Supabase over Firestore)",
+    "Well-structured SQL schema enabling complex financial reports without heavy client-side processing",
+    "Clean separation of concerns (Repository pattern, ViewModel) for long-term maintainability"
+  ]
+}

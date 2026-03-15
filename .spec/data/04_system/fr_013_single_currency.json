@@ -1,0 +1,19 @@
+{
+  "id": "FR-013",
+  "title": "Single Default Currency — No Multi-Currency Support (MVP)",
+  "description": "The system shall operate exclusively in a single implicit default currency for the MVP. The system shall NOT provide currency selection, currency conversion, or exchange rate functionality. All monetary amounts are stored as plain numeric values without a currency code.",
+  "priority": "Must-have",
+  "stability": "Stable",
+  "verification_method": "Inspection",
+  "acceptance_criteria": [
+    "No currency picker appears anywhere in the UI",
+    "The TransactionEntity and AccountEntity schemas have no currency_code column",
+    "All amounts are displayed with a single app-wide currency symbol configured at build time"
+  ],
+  "trace_to": {
+    "user_requirements": ["UR-008"],
+    "business_rules": ["BR-005"],
+    "design_nodes": ["DATA-001", "ADR-004"],
+    "verification_plans": ["SCN-008"]
+  }
+}

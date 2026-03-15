@@ -1,0 +1,9 @@
+{
+  "id": "BR-004",
+  "title": "Every Transaction MUST Have a Category and Account",
+  "statement": "Every transaction (Income, Expense, Transfer) MUST be linked to a Category and an Account at save time. Neither field may be null for a completed transaction. This is enforced at both the UI and database schema level.",
+  "source": "Brainstorm — Chosen Approach: Data Taxonomy (Transactions mandatory link to Category and Account)",
+  "trace_to": {
+    "stakeholders": ["STK-001", "STK-003"]
+  }
+}

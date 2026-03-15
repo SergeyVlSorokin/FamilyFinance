@@ -1,0 +1,16 @@
+{
+  "id": "SCN-012",
+  "title": "Reconcile investment account — value has grown",
+  "objective": "Verify that a positive discrepancy on an Investment account creates a Revaluation (gain) transaction visible in the timeline",
+  "type": "Manual",
+  "status": "Draft",
+  "trace_to": { "requirements": ["FR-010", "FR-012", "UR-009"] },
+  "steps": [
+    { "step": "Ensure Investment account recorded balance = 5000 (original deposit)", "expected_result": "Starting state confirmed" },
+    { "step": "Open Reconciliation for 'Investments', enter actual balance = 5430 (market value today)", "expected_result": "Discrepancy shows as +430 (unrealized gain)" },
+    { "step": "System shows 'Create Revaluation (+430 gain)', tap Create", "expected_result": "Revaluation transaction pre-filled with +430, labeled 'Revaluation (Gain)'" },
+    { "step": "Tap Save", "expected_result": "Investment account balance now shows 5430" },
+    { "step": "Open Timeline", "expected_result": "A 'Revaluation (Gain) +430' entry appears, visually distinct from income entries" },
+    { "step": "View Expense-by-Category report", "expected_result": "The +430 revaluation does NOT appear in the income or expense totals" }
+  ]
+}

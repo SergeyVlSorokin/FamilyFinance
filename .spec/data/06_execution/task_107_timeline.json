@@ -1,0 +1,47 @@
+{
+  "id": "TASK-107",
+  "title": "Transaction Timeline Screen",
+  "type": "Feature",
+  "routine": "Feature",
+  "objective": "Build a scrollable, filterable transaction timeline grouped by month, with visual grouping of split receipt rows and transfer pairs. Filters: owner_label, category, project.",
+  "status": "Pending",
+  "priority": 55,
+  "verification_regime": "Hybrid",
+  "dependencies": ["TASK-103", "TASK-106"],
+  "trace_to": {
+    "requirements": ["FR-006", "FR-009", "UR-005", "UR-006"],
+    "design_nodes": ["VIEW-001", "VIEW-004"]
+  },
+  "tdd_cycle": {
+    "test_file": "app/src/test/java/com/familyfinance/ui/timeline/TimelineViewModelTest.kt",
+    "implementation_file": "app/src/main/java/com/familyfinance/ui/timeline/TimelineScreen.kt",
+    "verification_command": "./gradlew testDebugUnitTest"
+  },
+  "execution_steps": [
+    "Run 'loom start TASK-107'",
+    "Run 'loom context TASK-107'",
+    "Create TimelineViewModel: collect all transactions Flow, apply filters (owner_label, category_id, project_id), group by month",
+    "Build TimelineScreen with LazyColumn: month header separators, regular rows, split-receipt grouped rows (indented children), transfer pair indicator",
+    "Implement filter bar: owner_label chip, category picker, project picker — all optional, combinable",
+    "System-generated rows (OPENING_BALANCE) shown with a distinct system indicator, not hidden",
+    "REVALUATION and RECONCILIATION_ADJUSTMENT shown with distinct icons/labels (⚖, 📈/📉)",
+    "Write ViewModel unit tests: month grouping, category filter, project filter",
+    "Manual check: record transactions, verify month grouping, test filters",
+    "Run ./gradlew testDebugUnitTest",
+    "Run 'loom complete TASK-107'"
+  ],
+  "definition_of_done": [
+    "Transactions in descending date order with month separator headers",
+    "Split receipt rows visually grouped",
+    "Category, owner_label, and project filters all work correctly",
+    "REVALUATION and RECONCILIATION_ADJUSTMENT labeled distinctly",
+    "ViewModel unit tests pass"
+  ],
+  "context": {
+    "relevant_files": [
+      ".spec/data/04_system/fr_006_timeline.json",
+      ".spec/data/06_execution/scn_006_timeline_filter.json",
+      ".spec/data/06_execution/scn_009_project_tag.json"
+    ]
+  }
+}

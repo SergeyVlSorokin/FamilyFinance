@@ -1,0 +1,22 @@
+{
+  "id": "FR-006",
+  "title": "Transaction Timeline",
+  "description": "The system shall provide a scrollable timeline screen listing all transactions in descending date order, grouped by month. Split receipt rows shall be visually grouped. The screen shall support filtering by owner_label, category, and project.",
+  "priority": "Must-have",
+  "stability": "Stable",
+  "verification_method": "Demonstration",
+  "acceptance_criteria": [
+    "All transactions appear in descending date order",
+    "Month separator headers divide transactions by calendar month",
+    "Transactions sharing a receipt_group_id are shown as an indented group",
+    "Filtering by category shows only transactions of that category",
+    "Filtering by owner_label shows only transactions with that label",
+    "Filtering by project shows only transactions tagged to that project, regardless of category"
+  ],
+  "trace_to": {
+    "user_requirements": ["UR-005"],
+    "business_rules": ["BR-001"],
+    "design_nodes": ["VIEW-001", "VIEW-004", "DATA-001"],
+    "verification_plans": ["SCN-006", "SCN-009"]
+  }
+}

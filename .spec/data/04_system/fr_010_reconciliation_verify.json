@@ -1,0 +1,21 @@
+{
+  "id": "FR-010",
+  "title": "Account Reconciliation — Balance Verification",
+  "description": "The system shall provide a Reconciliation flow for any account where the user enters the actual real-world balance. The system shall compute and display the discrepancy (actual minus recorded balance). If the discrepancy is zero, the system shall record a reconciliation timestamp on the account and require no further action. If a discrepancy exists, the system shall present the appropriate correction action based on account type (see FR-011 for non-investment, FR-012 for investment).",
+  "priority": "Must-have",
+  "stability": "Stable",
+  "verification_method": "Test",
+  "acceptance_criteria": [
+    "Reconciliation can be initiated for any existing account",
+    "The screen shows: account name, currently recorded balance, user-entered actual balance, and computed discrepancy",
+    "Discrepancy = actual balance − recorded balance; a negative value means the app shows more money than exists",
+    "When discrepancy is exactly 0, a 'Reconciled ✓' confirmation is shown with a timestamp; no transaction is created",
+    "When discrepancy is non-zero, the flow proceeds to account-type-appropriate correction (FR-011 or FR-012)"
+  ],
+  "trace_to": {
+    "user_requirements": ["UR-009"],
+    "business_rules": ["BR-001"],
+    "design_nodes": ["VIEW-001", "VIEW-004", "DATA-001", "ADR-003"],
+    "verification_plans": ["SCN-010"]
+  }
+}

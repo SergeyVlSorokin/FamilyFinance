@@ -1,0 +1,16 @@
+{
+  "id": "UR-003",
+  "user_role": "Active Recorder",
+  "story": "As an Active Recorder, I want to transfer money between two accounts (e.g., from bank to cash wallet), so that my account balances always reflect reality.",
+  "priority": "High",
+  "acceptance_criteria": [
+    "User can select a source account and a destination account",
+    "Both accounts must be different",
+    "System creates two linked transaction rows sharing a transfer_linked_id",
+    "Dashboard balances update correctly (source decreases, destination increases)"
+  ],
+  "trace_to": {
+    "stakeholders": ["STK-001"],
+    "business_goals": ["BR-004"]
+  }
+}
