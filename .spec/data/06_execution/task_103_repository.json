@@ -4,13 +4,32 @@
   "type": "Feature",
   "routine": "Feature",
   "objective": "Implement FinanceRepository wrapping all DAOs and the five domain use cases. Use cases must be pure Kotlin with no Android framework dependencies.",
-  "status": "Pending",
+  "status": "Done",
   "priority": 80,
   "verification_regime": "Automated",
-  "dependencies": ["TASK-102"],
+  "dependencies": [
+    "TASK-102"
+  ],
   "trace_to": {
-    "requirements": ["FR-001", "FR-002", "FR-003", "FR-004", "FR-005", "FR-008", "FR-009", "FR-010", "FR-011", "FR-012"],
-    "design_nodes": ["VIEW-001", "VIEW-002", "ADR-001", "ADR-002", "ADR-003"]
+    "requirements": [
+      "FR-001",
+      "FR-002",
+      "FR-003",
+      "FR-004",
+      "FR-005",
+      "FR-008",
+      "FR-009",
+      "FR-010",
+      "FR-011",
+      "FR-012"
+    ],
+    "design_nodes": [
+      "VIEW-001",
+      "VIEW-002",
+      "ADR-001",
+      "ADR-002",
+      "ADR-003"
+    ]
   },
   "tdd_cycle": {
     "test_file": "app/src/test/java/com/familyfinance/domain/usecase/SaveSplitReceiptUseCaseTest.kt",

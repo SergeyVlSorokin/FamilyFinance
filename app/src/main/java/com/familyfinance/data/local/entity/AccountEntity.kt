@@ -17,6 +17,5 @@ data class AccountEntity(
     val name: String,
     val type: AccountType,
     val currency: String,
-    val currentBalanceCents: Long,
     val color: Int
 )

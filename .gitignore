@@ -30,6 +30,7 @@ captures/
 
 # Dependency Graph
 .spec/graph.db
+.spec/.lock
 
 # OS Files
 .DS_Store
