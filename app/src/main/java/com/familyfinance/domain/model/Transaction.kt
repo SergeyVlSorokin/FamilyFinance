@@ -1,0 +1,17 @@
+package com.familyfinance.domain.model
+
+enum class TransactionType {
+    EXPENSE, INCOME, TRANSFER, OPENING_BALANCE, REVALUATION, RECONCILIATION_ADJUSTMENT
+}
+
+data class Transaction(
+    val id: Long = 0,
+    val date: Long,
+    val amountCents: Long,
+    val accountId: Long,
+    val categoryId: Long?,
+    val projectId: Long?,
+    val note: String,
+    val type: TransactionType,
+    val targetAccountId: Long? = null
+)

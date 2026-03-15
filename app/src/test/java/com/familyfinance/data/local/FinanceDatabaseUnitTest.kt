@@ -45,7 +45,6 @@ class FinanceDatabaseUnitTest {
             name = "Test Account",
             type = AccountType.BANK,
             currency = "USD",
-            currentBalanceCents = 10000,
             color = 0xFF00FF00.toInt()
         )
         dao.upsertAccount(account)
@@ -54,12 +53,11 @@ class FinanceDatabaseUnitTest {
     }
 
     @Test
-    fun insertTransactionUpdatesBalance() = runBlocking {
+    fun insertAndReadTransaction() = runBlocking {
         val account = AccountEntity(
             name = "Main Wallet",
             type = AccountType.CASH,
             currency = "USD",
-            currentBalanceCents = 1000,
             color = 0xFF00FF00.toInt()
         )
         val accountId = dao.upsertAccount(account)
@@ -74,10 +72,10 @@ class FinanceDatabaseUnitTest {
             type = TransactionType.EXPENSE
         )
         
-        dao.insertTransactionAndUpdateBalance(transaction)
+        dao.insertTransaction(transaction)
 
-        val updatedAccount = dao.getAccountById(accountId)
-        assertNotNull(updatedAccount)
-        assertEquals(800L, updatedAccount?.currentBalanceCents)
+        val transactions = dao.getTransactionsByAccountFlow(accountId).first()
+        assertEquals(1, transactions.size)
+        assertEquals(-200L, transactions[0].amountCents)
     }
 }

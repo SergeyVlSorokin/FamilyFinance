@@ -53,24 +53,8 @@ interface FinanceDao {
     suspend fun insertTransaction(transaction: TransactionEntity): Long
 
     @Transaction
-    suspend fun insertTransactionAndUpdateBalance(transaction: TransactionEntity) {
-        insertTransaction(transaction)
-        val account = getAccountById(transaction.accountId)
-        if (account != null) {
-            // Basic balance update logic - will be more complex in TASK-103
-            val newBalance = account.currentBalanceCents + transaction.amountCents
-            upsertAccount(account.copy(currentBalanceCents = newBalance))
-        }
-        
-        // Handle transfer target account
-        if (transaction.targetAccountId != null) {
-            val targetAccount = getAccountById(transaction.targetAccountId)
-            if (targetAccount != null) {
-                val targetNewBalance = targetAccount.currentBalanceCents - transaction.amountCents
-                upsertAccount(targetAccount.copy(currentBalanceCents = targetNewBalance))
-            }
-        }
-    }
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertTransactions(transactions: List<TransactionEntity>): List<Long>
 
     @Query("DELETE FROM transactions WHERE id = :id")
     suspend fun deleteTransaction(id: Long)
