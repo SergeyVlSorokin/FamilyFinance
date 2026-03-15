@@ -1,0 +1,16 @@
+{
+  "id": "VIEW-003",
+  "name": "Physical View — Deployment Topology",
+  "viewpoint": "Physical",
+  "concerns": ["Offline-First", "Deployment Simplicity", "Future Cloud Sync"],
+  "diagram_source": "graph LR\n  subgraph Device [\"Android Device (User's Phone)\"]\n    App[\"Family Finance APK\"]\n    RoomDB[(\"Room / SQLite\\n(local file)\")]\n    App -->|\"read/write\"| RoomDB\n  end\n  subgraph Cloud [\"Cloud (Post-MVP)\"]\n    Supabase[\"Supabase\\n(PostgreSQL)\"]\n  end\n  App -.->|\"WorkManager sync\\n(post-MVP only)\"| Supabase\n  style Cloud stroke-dasharray: 5 5",
+  "elements": [
+    { "name": "Android Device", "type": "Node", "description": "Single deployment target for MVP. Application runs entirely on the user's personal phone." },
+    { "name": "Room/SQLite (local file)", "type": "Storage", "description": "Primary and only data store for MVP. File is private to the app sandbox — no external access.", "trace_refs": ["FR-008"] },
+    { "name": "Supabase (PostgreSQL)", "type": "Cloud Service", "description": "Post-MVP cloud backend. WorkManager will push synced rows when connectivity is available. Not present in MVP build.", "trace_refs": [] }
+  ],
+  "trace_to": {
+    "functional_requirements": ["FR-008"],
+    "adrs": ["ADR-001", "ADR-004"]
+  }
+}

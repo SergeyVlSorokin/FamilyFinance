@@ -1,0 +1,53 @@
+{
+  "id": "TASK-101",
+  "title": "Initialize Android Project Foundation",
+  "type": "Scaffold",
+  "routine": "Feature",
+  "objective": "Bootstrap a working Jetpack Compose Android project with Hilt DI, Compose Navigation, and the clean architecture package structure. The blank app must compile and run.",
+  "status": "Done",
+  "priority": 100,
+  "verification_regime": "Automated",
+  "dependencies": [],
+  "trace_to": {
+    "system_requirements": [
+      "SYS-DEFINE"
+    ],
+    "requirements": [
+      "FR-008"
+    ],
+    "design_nodes": [
+      "VIEW-004",
+      "ADR-002"
+    ]
+  },
+  "tdd_cycle": {
+    "test_file": "app/src/test/java/com/familyfinance/ExampleUnitTest.kt",
+    "implementation_file": "app/build.gradle.kts",
+    "verification_command": "./gradlew assembleDebug"
+  },
+  "execution_steps": [
+    "Run 'loom start TASK-101'",
+    "Run 'loom context TASK-101'",
+    "Generate standard Android project structure with Jetpack Compose template",
+    "Add dependencies to app/build.gradle.kts: Compose, Room, Hilt, Compose Navigation, Kotlin Coroutines",
+    "Set up HiltApplication class with @HiltAndroidApp",
+    "Create NavHost with placeholder routes: Dashboard, Timeline, FastEntry, Settings, Reconcile",
+    "Create package structure: ui/, domain/usecase/, data/local/, data/repository/, di/",
+    "Create DatabaseModule and RepositoryModule (empty Hilt modules)",
+    "Update AGENTS.md: set BUILD_CMD=./gradlew assembleDebug and LINT_CMD=./gradlew lint",
+    "Run ./gradlew assembleDebug — must succeed",
+    "Run 'loom complete TASK-101'"
+  ],
+  "definition_of_done": [
+    "./gradlew assembleDebug completes without errors",
+    "Package structure matches VIEW-004",
+    "NavHost with all 5 routes compiles",
+    "AGENTS.md BUILD_CMD and LINT_CMD filled in"
+  ],
+  "context": {
+    "relevant_files": [
+      ".spec/data/05_design/view_004_development.json",
+      ".spec/data/05_design/adr_002_clean_arch_hilt_compose.json"
+    ]
+  }
+}

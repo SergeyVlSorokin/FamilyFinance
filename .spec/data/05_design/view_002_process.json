@@ -1,0 +1,17 @@
+{
+  "id": "VIEW-002",
+  "name": "Process View — Data Flow and Concurrency",
+  "viewpoint": "Process",
+  "concerns": ["Concurrency", "Offline Safety", "Reactive UI Updates", "Atomic Writes"],
+  "diagram_source": "sequenceDiagram\n  participant U as User\n  participant VM as ViewModel\n  participant UC as UseCase\n  participant Repo as FinanceRepository\n  participant DAO as Room DAO\n  participant DB as SQLite\n\n  Note over U,DB: Happy Path: Record Split Receipt\n  U->>VM: enterAmount(100), addSplit(Food,80), addSplit(Consumables,20)\n  VM->>VM: StateFlow updates remainder in real-time\n  U->>VM: tapSave()\n  VM->>UC: SaveSplitReceiptUseCase(lines, account)\n  UC->>UC: validate(lines.sum <= total)\n  UC->>UC: generate receipt_group_id = UUID.randomUUID()\n  UC->>Repo: saveSplitReceipt(rows) [coroutine, IO dispatcher]\n  Repo->>DAO: insertAll(rows) [Room atomic transaction]\n  DAO->>DB: BEGIN; INSERT x2; COMMIT\n  DB-->>DAO: success\n  DAO-->>Repo: Unit\n  Repo-->>UC: Unit\n  UC-->>VM: Result.Success\n  VM->>VM: emit UI state — sheet closes\n  Note over DB,VM: Room emits Flow update\n  DB-->>DAO: new rows\n  DAO-->>Repo: Flow<List<Transaction>>\n  Repo-->>VM: Flow collected on Main dispatcher\n  VM->>U: Timeline recomposes with new rows",
+  "elements": [
+    { "name": "StateFlow (ViewModel)", "type": "Concurrency Primitive", "description": "All UI state is held in StateFlow/MutableStateFlow. Compose collectors recompose automatically on emission.", "trace_refs": ["FR-001","FR-003","FR-005"] },
+    { "name": "Kotlin Coroutines (IO Dispatcher)", "type": "Concurrency Primitive", "description": "All DAO operations are suspend functions executed on Dispatchers.IO to avoid blocking the main thread.", "trace_refs": ["FR-008"] },
+    { "name": "Room Flow", "type": "Reactive Stream", "description": "DAOs return Flow<T> for all read queries. Any write triggers automatic re-emission to all collectors, driving reactive UI updates.", "trace_refs": ["FR-005", "FR-006"] },
+    { "name": "Room @Transaction (atomic write)", "type": "Atomicity Guarantee", "description": "saveSplitReceipt() and saveTransfer() are wrapped in a Room @Transaction to ensure both rows are committed together or not at all.", "trace_refs": ["FR-003", "FR-004"] }
+  ],
+  "trace_to": {
+    "functional_requirements": ["FR-001","FR-003","FR-004","FR-005","FR-008"],
+    "adrs": ["ADR-001", "ADR-003"]
+  }
+}

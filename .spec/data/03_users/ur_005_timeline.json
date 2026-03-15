@@ -1,0 +1,16 @@
+{
+  "id": "UR-005",
+  "user_role": "Passive Viewer",
+  "story": "As a Passive Viewer, I want to scroll through a chronological timeline of all transactions, so that I can understand what happened when and find specific transactions.",
+  "priority": "High",
+  "acceptance_criteria": [
+    "Timeline shows all transactions ordered by date descending",
+    "Transactions are visually grouped by month",
+    "Split receipt rows are visually grouped together",
+    "User can filter by owner_label, category, or project"
+  ],
+  "trace_to": {
+    "stakeholders": ["STK-001", "STK-002"],
+    "business_goals": ["BR-001"]
+  }
+}

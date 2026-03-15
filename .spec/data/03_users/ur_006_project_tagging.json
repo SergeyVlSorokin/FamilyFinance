@@ -1,0 +1,16 @@
+{
+  "id": "UR-006",
+  "user_role": "Active Recorder",
+  "story": "As an Active Recorder, I want to tag transactions with a Project (e.g., 'Barcelona Trip'), so that I can later view and report on spending grouped by that project across any categories.",
+  "priority": "Medium",
+  "acceptance_criteria": [
+    "User can optionally select a Project when entering a transaction",
+    "Projects are pre-configured via Settings",
+    "Timeline can be filtered by Project",
+    "Project is stored on the transaction row and does not change the Category"
+  ],
+  "trace_to": {
+    "stakeholders": ["STK-001"],
+    "business_goals": []
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "id": "TASK-102",
+  "title": "Room Database — Entities and DAOs",
+  "type": "Feature",
+  "routine": "Feature",
+  "objective": "Define all four Room entities (Account, Category, Project, Transaction) and their DAOs. All six transaction types must be represented in the type enum. DAOs must return Flow<T> for reactive queries.",
+  "status": "Done",
+  "priority": 90,
+  "verification_regime": "Automated",
+  "dependencies": [
+    "TASK-101"
+  ],
+  "trace_to": {
+    "requirements": [
+      "FR-001",
+      "FR-002",
+      "FR-003",
+      "FR-004",
+      "FR-008",
+      "FR-009",
+      "FR-013"
+    ],
+    "design_nodes": [
+      "DATA-001",
+      "ADR-001",
+      "ADR-003",
+      "ADR-004"
+    ]
+  },
+  "tdd_cycle": {
+    "test_file": "app/src/test/java/com/familyfinance/data/local/dao/TransactionDaoTest.kt",
+    "implementation_file": "app/src/main/java/com/familyfinance/data/local/AppDatabase.kt",
+    "verification_command": "./gradlew testDebugUnitTest"
+  },
+  "execution_steps": [
+    "Run 'loom start TASK-102'",
+    "Run 'loom context TASK-102'",
+    "Create AccountEntity: id(UUID), name, type(enum: BANK/CASH/CREDIT_CARD/INVESTMENT), owner_label, created_at",
+    "Create CategoryEntity: id, name, icon, color",
+    "Create ProjectEntity: id, name, start_date, end_date",
+    "Create TransactionEntity with ALL fields per DATA-001 schema: id, account_id, category_id, project_id(nullable), type(enum: INCOME/EXPENSE/TRANSFER/OPENING_BALANCE/RECONCILIATION_ADJUSTMENT/REVALUATION), amount, date, created_at, owner_label, receiver, note, receipt_group_id(nullable), transfer_linked_id(nullable), is_system_generated",
+    "Add indexes: account_id, date DESC, receipt_group_id, project_id",
+    "Create AccountDao: insert, update, delete, getAll(): Flow<List<Account>>, getById()",
+    "Create CategoryDao: insert, update, delete, getAll(): Flow<List<Category>>",
+    "Create ProjectDao: insert, update, delete, getAll(): Flow<List<Project>>",
+    "Create TransactionDao: insert, insertAll(@Transaction), getAll(): Flow, getByAccount(), getByProject(), getByCategory()",
+    "Create AppDatabase @Database wiring all entities and DAOs",
+    "Wire DatabaseModule Hilt provider for AppDatabase and all DAOs",
+    "Write DAO unit tests: insert/query/delete for each entity",
+    "Run ./gradlew testDebugUnitTest — must pass",
+    "Run 'loom complete TASK-102'"
+  ],
+  "definition_of_done": [
+    "All 4 entities compile with Room annotation processing",
+    "TransactionEntity type enum contains all 6 types",
+    "All DAOs return Flow<T> for read queries",
+    "./gradlew testDebugUnitTest passes for all DAO tests",
+    "No balance column on AccountEntity (ADR-003)"
+  ],
+  "context": {
+    "relevant_files": [
+      ".spec/data/05_design/data_001_schema.dbml",
+      ".spec/data/05_design/adr_001_room_local_first.json",
+      ".spec/data/05_design/adr_003_computed_balance.json",
+      ".spec/data/05_design/adr_004_single_currency.json"
+    ]
+  }
+}

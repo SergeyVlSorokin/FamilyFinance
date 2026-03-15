@@ -1,0 +1,14 @@
+{
+  "id": "UCH-002",
+  "user_type": "Passive Viewer — a family co-member (spouse/partner) who primarily browses account balances and transaction history rather than actively entering data.",
+  "technical_expertise": "Novice",
+  "frequency_of_use": "Occasional",
+  "known_constraints": [
+    "Wants to quickly see account balances without navigating deep menus",
+    "May filter by owner_label to see only their own transactions",
+    "Expects a clear, uncluttered view — not overwhelmed by entry UI"
+  ],
+  "trace_to": {
+    "stakeholders": ["STK-002"]
+  }
+}

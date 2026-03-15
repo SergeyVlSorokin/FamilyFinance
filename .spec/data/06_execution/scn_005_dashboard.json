@@ -1,0 +1,13 @@
+{
+  "id": "SCN-005",
+  "title": "Dashboard shows reactive balance after new transaction",
+  "objective": "Verify that the dashboard updates automatically when a new transaction is recorded",
+  "type": "Manual",
+  "status": "Draft",
+  "trace_to": { "requirements": ["FR-005", "UR-004"] },
+  "steps": [
+    { "step": "Open Dashboard, note total wealth figure", "expected_result": "Total wealth is displayed" },
+    { "step": "Record a new expense of 75 against Bank account", "expected_result": "Transaction saved" },
+    { "step": "Return to Dashboard without manually refreshing", "expected_result": "Bank balance and total wealth have decreased by 75 with no manual refresh needed" }
+  ]
+}

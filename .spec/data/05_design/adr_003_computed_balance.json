@@ -1,0 +1,37 @@
+{
+  "id": "ADR-003",
+  "title": "Balance Computed from Transactions (No Stored Balance Column)",
+  "status": "Accepted",
+  "context": "Account balances change every time a transaction is added, edited, or deleted. We need to decide whether to store a running balance on the Account row (cache) or compute it on-the-fly from transaction history.",
+  "decision": "Account balance is always computed by aggregating TransactionEntity rows (SUM by account_id and type direction). There is NO balance column on the accounts table. This is the single source of truth. Room DAOs will expose a Flow<AccountWithBalance> query that Room re-evaluates reactively on any transaction change.",
+  "alternatives": [
+    {
+      "name": "Stored balance column on Account",
+      "description": "Maintain a running balance field on the Account row, updated atomically with each transaction write.",
+      "pros": ["O(1) balance lookup", "Simpler queries"],
+      "cons": [
+        "Risk of balance corruption if any transaction write fails after the balance update (requires careful Room @Transaction usage everywhere)",
+        "Editing or deleting past transactions requires recalculating and updating the stored balance — complex and error-prone",
+        "Reconciliation becomes more complex — two sources of truth"
+      ]
+    }
+  ],
+  "consequences": {
+    "positive": [
+      "Single source of truth — balance is always mathematically correct relative to all recorded transactions",
+      "Editing or deleting transactions automatically updates balance via Room Flow re-evaluation",
+      "Reconciliation only needs to compare the computed balance vs actual — no separate balance field to keep in sync"
+    ],
+    "negative": [
+      "Balance query is O(n) over all transactions for that account",
+      "At very large transaction counts (>10,000 per account), may need a snapshot/checkpoint strategy — acceptable risk for MVP"
+    ],
+    "neutral": [
+      "Room query optimization (indexed account_id) mitigates performance concerns at realistic data sizes"
+    ]
+  },
+  "trace_to": {
+    "stakeholders": ["STK-003"],
+    "affected_design_nodes": ["DATA-001", "VIEW-002"]
+  }
+}

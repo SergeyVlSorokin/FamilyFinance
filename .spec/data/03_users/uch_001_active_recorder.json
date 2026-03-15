@@ -1,0 +1,14 @@
+{
+  "id": "UCH-001",
+  "user_type": "Active Recorder — the primary family member who enters transactions daily (receipts, income, transfers).",
+  "technical_expertise": "Intermediate",
+  "frequency_of_use": "Frequent",
+  "known_constraints": [
+    "Often enters expenses right at point of purchase — needs speed above all else",
+    "Deals with real paper receipts split across multiple categories",
+    "Must work offline (no guarantee of connectivity while shopping)"
+  ],
+  "trace_to": {
+    "stakeholders": ["STK-001", "STK-003"]
+  }
+}

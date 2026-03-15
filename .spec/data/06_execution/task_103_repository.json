@@ -1,0 +1,51 @@
+{
+  "id": "TASK-103",
+  "title": "FinanceRepository and Use Cases",
+  "type": "Feature",
+  "routine": "Feature",
+  "objective": "Implement FinanceRepository wrapping all DAOs and the five domain use cases. Use cases must be pure Kotlin with no Android framework dependencies.",
+  "status": "Pending",
+  "priority": 80,
+  "verification_regime": "Automated",
+  "dependencies": ["TASK-102"],
+  "trace_to": {
+    "requirements": ["FR-001", "FR-002", "FR-003", "FR-004", "FR-005", "FR-008", "FR-009", "FR-010", "FR-011", "FR-012"],
+    "design_nodes": ["VIEW-001", "VIEW-002", "ADR-001", "ADR-002", "ADR-003"]
+  },
+  "tdd_cycle": {
+    "test_file": "app/src/test/java/com/familyfinance/domain/usecase/SaveSplitReceiptUseCaseTest.kt",
+    "implementation_file": "app/src/main/java/com/familyfinance/data/repository/FinanceRepository.kt",
+    "verification_command": "./gradlew testDebugUnitTest"
+  },
+  "execution_steps": [
+    "Run 'loom start TASK-103'",
+    "Run 'loom context TASK-103'",
+    "Create FinanceRepository as Hilt @Singleton wrapping AccountDao, TransactionDao, CategoryDao, ProjectDao",
+    "Expose Flow-based reads and suspend writes for all entities",
+    "Implement GetAccountBalancesUseCase: query TransactionDao, compute balance per account by summing credits minus debits per type direction (ADR-003)",
+    "Implement SaveTransactionUseCase: validate mandatory category+account, persist single row (FR-001, FR-002)",
+    "Implement SaveSplitReceiptUseCase: validate sum<=total, generate receipt_group_id UUID, insertAll in @Transaction (FR-003)",
+    "Implement SaveTransferUseCase: validate distinct accounts, generate transfer_linked_id UUID, insert both legs atomically in @Transaction (FR-004)",
+    "Implement ReconcileAccountUseCase: compute discrepancy, create RECONCILIATION_ADJUSTMENT or REVALUATION row (FR-010/011/012)",
+    "Wire RepositoryModule Hilt provider for FinanceRepository",
+    "Write unit tests for SaveSplitReceiptUseCase (sum validation, group ID assignment) and GetAccountBalancesUseCase (balance direction logic)",
+    "Run ./gradlew testDebugUnitTest — must pass",
+    "Run 'loom complete TASK-103'"
+  ],
+  "definition_of_done": [
+    "FinanceRepository is a Hilt @Singleton injectable",
+    "All 5 use cases are pure Kotlin (no Android imports)",
+    "saveSplitReceipt and saveTransfer use Room @Transaction",
+    "GetAccountBalancesUseCase correctly handles all 6 transaction types",
+    "./gradlew testDebugUnitTest passes"
+  ],
+  "context": {
+    "relevant_files": [
+      ".spec/data/05_design/view_001_logical.json",
+      ".spec/data/05_design/view_002_process.json",
+      ".spec/data/05_design/adr_003_computed_balance.json",
+      ".spec/data/04_system/fr_003_split_receipt.json",
+      ".spec/data/04_system/fr_004_transfer.json"
+    ]
+  }
+}

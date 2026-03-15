@@ -1,0 +1,47 @@
+{
+  "id": "TASK-104",
+  "title": "Dashboard Screen — Account Balances",
+  "type": "Feature",
+  "routine": "Feature",
+  "objective": "Build the DashboardScreen with DashboardViewModel showing all accounts with reactive balances and total wealth using Material 3 design (spacious layout, large typography).",
+  "status": "Pending",
+  "priority": 70,
+  "verification_regime": "Hybrid",
+  "dependencies": ["TASK-103"],
+  "trace_to": {
+    "requirements": ["FR-005", "UR-004"],
+    "design_nodes": ["VIEW-001", "VIEW-002", "ADR-002", "ADR-003"]
+  },
+  "tdd_cycle": {
+    "test_file": "app/src/test/java/com/familyfinance/ui/dashboard/DashboardViewModelTest.kt",
+    "implementation_file": "app/src/main/java/com/familyfinance/ui/dashboard/DashboardScreen.kt",
+    "verification_command": "./gradlew testDebugUnitTest"
+  },
+  "execution_steps": [
+    "Run 'loom start TASK-104'",
+    "Run 'loom context TASK-104'",
+    "Create DashboardViewModel (Hilt-injected): collect GetAccountBalancesUseCase Flow, expose UiState with list of AccountWithBalance and totalWealth",
+    "Build DashboardScreen with Material 3 Cards — one card per account showing name, type icon, and balance",
+    "Show total wealth prominently at the top",
+    "Add empty state prompt when no accounts exist",
+    "Wire DashboardScreen to the NavGraph dashboard route",
+    "Write ViewModel unit test: verify totalWealth sums correctly, verify empty state",
+    "Manual check: open app, observe accounts with spacious modern layout",
+    "Run ./gradlew testDebugUnitTest — must pass",
+    "Run 'loom complete TASK-104'"
+  ],
+  "definition_of_done": [
+    "DashboardScreen renders all accounts reactively without manual refresh",
+    "Total wealth = sum of all account balances",
+    "Empty state shown when no accounts",
+    "ViewModel unit test passes",
+    "Wired to NavGraph"
+  ],
+  "context": {
+    "relevant_files": [
+      ".spec/data/04_system/fr_005_dashboard.json",
+      ".spec/data/06_execution/scn_005_dashboard.json",
+      ".spec/data/05_design/adr_003_computed_balance.json"
+    ]
+  }
+}

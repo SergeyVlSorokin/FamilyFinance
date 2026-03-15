@@ -1,0 +1,19 @@
+{
+  "id": "FR-001",
+  "title": "Record Single Expense",
+  "description": "The system shall allow the user to create an expense transaction linked to a mandatory Category and Account, with an amount, date, optional note, and optional receiver.",
+  "priority": "Must-have",
+  "stability": "Stable",
+  "verification_method": "Test",
+  "acceptance_criteria": [
+    "Saving an expense without a Category is rejected with a validation message",
+    "Saving an expense without an Account is rejected with a validation message",
+    "A valid expense is persisted to Room and appears in the timeline immediately"
+  ],
+  "trace_to": {
+    "user_requirements": ["UR-001"],
+    "business_rules": ["BR-004"],
+    "design_nodes": ["VIEW-001", "VIEW-004", "DATA-001"],
+    "verification_plans": ["SCN-001"]
+  }
+}

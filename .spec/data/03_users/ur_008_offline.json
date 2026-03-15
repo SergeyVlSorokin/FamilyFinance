@@ -1,0 +1,15 @@
+{
+  "id": "UR-008",
+  "user_role": "Active Recorder",
+  "story": "As an Active Recorder, I want to use the app fully offline without any connectivity, so that I can record expenses anywhere — in a store, on a trip, or with no signal.",
+  "priority": "High",
+  "acceptance_criteria": [
+    "All create/read operations work without internet access",
+    "Data is persisted immediately to local storage (no network required)",
+    "No network error messages appear during normal offline usage"
+  ],
+  "trace_to": {
+    "stakeholders": ["STK-001"],
+    "business_goals": ["BR-003"]
+  }
+}

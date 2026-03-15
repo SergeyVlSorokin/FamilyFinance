@@ -1,0 +1,15 @@
+{
+  "id": "SCN-011",
+  "title": "Reconcile bank account with missing expense",
+  "objective": "Verify that a discrepancy on a Bank account leads to an Unrecorded Expense correction transaction that restores the correct balance",
+  "type": "Manual",
+  "status": "Draft",
+  "trace_to": { "requirements": ["FR-010", "FR-011", "UR-009"] },
+  "steps": [
+    { "step": "Ensure Bank account recorded balance = 1000", "expected_result": "Starting state confirmed" },
+    { "step": "Open Reconciliation for 'Bank', enter actual balance = 970", "expected_result": "Discrepancy shows as −30 (app overstates by 30)" },
+    { "step": "Tap 'Create Correction' — system pre-fills 'Unrecorded Expense' of 30", "expected_result": "Correction transaction form shows amount = 30 (locked), type = Unrecorded Expense" },
+    { "step": "Add optional note 'ATM fee not recorded', tap Save", "expected_result": "Correction saved. Bank balance now shows 970." },
+    { "step": "Open Timeline", "expected_result": "A '⚖ Reconciliation Adjustment' entry of −30 appears, clearly distinct from regular expenses" }
+  ]
+}

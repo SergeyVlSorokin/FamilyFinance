@@ -1,0 +1,13 @@
+{
+  "id": "SCN-010",
+  "title": "Reconcile account with no discrepancy",
+  "objective": "Verify that reconciling an account where the actual balance matches the recorded balance produces a clean confirmation and no transaction",
+  "type": "Manual",
+  "status": "Draft",
+  "trace_to": { "requirements": ["FR-010", "UR-009"] },
+  "steps": [
+    { "step": "Note the recorded balance of the 'Bank' account (e.g. 1000)", "expected_result": "Recorded balance is known" },
+    { "step": "Open Reconciliation for the 'Bank' account, enter actual balance = 1000", "expected_result": "Discrepancy shows as 0" },
+    { "step": "Confirm reconciliation", "expected_result": "Screen shows 'Reconciled ✓' with today's timestamp. No new transaction appears in the Timeline." }
+  ]
+}

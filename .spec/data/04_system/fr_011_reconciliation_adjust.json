@@ -1,0 +1,21 @@
+{
+  "id": "FR-011",
+  "title": "Reconciliation Correction — Bank, Cash, Credit Card Accounts",
+  "description": "When a reconciliation discrepancy is detected on a Bank, Cash, or Credit Card account, the system shall allow the user to create a correction transaction of type RECONCILIATION_ADJUSTMENT. If discrepancy is negative (app overstates balance), the transaction is an 'Unrecorded Expense'. If discrepancy is positive (app understates balance), the transaction is an 'Unrecorded Income'. The transaction amount equals the absolute value of the discrepancy. After saving, the account's recorded balance shall match the entered actual balance exactly.",
+  "priority": "Must-have",
+  "stability": "Stable",
+  "verification_method": "Test",
+  "acceptance_criteria": [
+    "Correction transaction is pre-filled with the discrepancy amount and labeled 'Reconciliation Adjustment'",
+    "User cannot change the amount of the pre-filled correction (it is locked to the discrepancy)",
+    "User can optionally add a note to the correction transaction",
+    "After saving, querying the account balance returns the user-entered actual value",
+    "Correction transaction appears in the timeline distinctly labeled (e.g. '⚖ Reconciliation Adjustment') and is filterable/excludable"
+  ],
+  "trace_to": {
+    "user_requirements": ["UR-009"],
+    "business_rules": ["BR-004"],
+    "design_nodes": ["VIEW-001", "VIEW-004", "DATA-001"],
+    "verification_plans": ["SCN-011"]
+  }
+}

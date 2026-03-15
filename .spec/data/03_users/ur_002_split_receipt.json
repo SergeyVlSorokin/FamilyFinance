@@ -1,0 +1,16 @@
+{
+  "id": "UR-002",
+  "user_role": "Active Recorder",
+  "story": "As an Active Recorder, I want to split a single receipt into multiple categorized expense lines on one screen, so that I can accurately record mixed-category shopping trips without multiple separate entries.",
+  "priority": "High",
+  "acceptance_criteria": [
+    "User can add multiple split lines on the same entry screen without navigating away",
+    "The remainder auto-calculates as the user adds split amounts",
+    "All split lines are saved as separate rows sharing the same receipt_group_id",
+    "The timeline visually groups receipt splits together"
+  ],
+  "trace_to": {
+    "stakeholders": ["STK-001"],
+    "business_goals": ["BR-002"]
+  }
+}

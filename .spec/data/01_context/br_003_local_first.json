@@ -1,0 +1,9 @@
+{
+  "id": "BR-003",
+  "title": "Local-First Architecture — Room Before Supabase",
+  "statement": "The application MUST function fully offline using a local Room (SQLite) database. Cloud sync via Supabase is strictly a post-MVP concern and MUST NOT be introduced before the local schema is stable. The Repository layer must abstract storage so sync can be added transparently.",
+  "source": "Plan — Implementation Preferences: Data Sync (Deferred)",
+  "trace_to": {
+    "stakeholders": ["STK-001", "STK-003"]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "SCN-008",
+  "title": "Full CRUD works in airplane mode",
+  "objective": "Verify the app functions completely offline with no network connection",
+  "type": "Manual",
+  "status": "Draft",
+  "trace_to": { "requirements": ["FR-008", "UR-008"] },
+  "steps": [
+    { "step": "Enable Airplane Mode on the device", "expected_result": "No network connectivity" },
+    { "step": "Open the app", "expected_result": "App loads normally with no network error" },
+    { "step": "Record an expense of 30 (Food / Bank)", "expected_result": "Expense saved, appears in Timeline" },
+    { "step": "Open Dashboard", "expected_result": "Bank balance updated correctly" },
+    { "step": "Disable Airplane Mode and restart app", "expected_result": "Previously entered expense is still present" }
+  ]
+}

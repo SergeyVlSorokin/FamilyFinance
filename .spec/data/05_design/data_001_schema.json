@@ -1,0 +1,14 @@
+{
+  "id": "DATA-001",
+  "specification": {
+    "type": "DBML",
+    "path": ".spec/data/05_design/data_001_schema.dbml"
+  },
+  "trace_to": {
+    "functional_requirements": [
+      "FR-001", "FR-002", "FR-003", "FR-004",
+      "FR-005", "FR-006", "FR-007", "FR-008",
+      "FR-009", "FR-010", "FR-011", "FR-012"
+    ]
+  }
+}

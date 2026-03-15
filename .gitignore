@@ -1,0 +1,53 @@
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+
+# Android Studio
+*.jks
+*.keystore
+*.pk8
+*.pem
+core.uuid
+
+# Gradle files
+.gradle/
+build/
+*/build/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Log files
+*.log
+
+# Android Studio Navigation editor temp files
+.navigation/
+
+# Android Studio captures
+captures/
+
+# Dependency Graph
+.spec/graph.db
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# External Native Build
+.externalNativeBuild
+.cxx
+
+# NDK
+obj/
+
+# Kotlin
+.kotlin/
+
+# Antigravity Specific
+.claude/
+research/
+build_*.txt
+test_results*.txt
+brain/

@@ -1,0 +1,14 @@
+{
+  "id": "SCN-004",
+  "title": "Transfer between two accounts",
+  "objective": "Verify that a transfer correctly adjusts both account balances and creates two linked rows",
+  "type": "Manual",
+  "status": "Draft",
+  "trace_to": { "requirements": ["FR-004", "UR-003"] },
+  "steps": [
+    { "step": "Note balances: Bank = 1000, Cash = 50", "expected_result": "Starting balances recorded" },
+    { "step": "Open Fast Entry, select type = Transfer, amount = 200, From = 'Bank', To = 'Cash', tap Save", "expected_result": "Transfer saved successfully" },
+    { "step": "Open Dashboard", "expected_result": "Bank balance = 800, Cash balance = 250" },
+    { "step": "Open Timeline", "expected_result": "Two linked transfer entries visible for today's date" }
+  ]
+}

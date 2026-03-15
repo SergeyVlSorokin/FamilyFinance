@@ -1,0 +1,19 @@
+{
+  "id": "UR-009",
+  "user_role": "Active Recorder",
+  "story": "As an Active Recorder, I want to periodically reconcile an account by entering its actual real-world balance, so that I can detect discrepancies between the app's records and reality and correct them with a proper audit trail.",
+  "priority": "High",
+  "acceptance_criteria": [
+    "User can initiate a reconciliation for any account from the dashboard or account detail screen",
+    "The app displays the account's currently recorded balance alongside a field to enter the actual verified balance",
+    "The app shows the discrepancy amount (actual minus recorded)",
+    "If discrepancy is zero, the account is marked as reconciled with a timestamp, no transaction is created",
+    "For Bank, Cash, and Credit Card accounts: if a discrepancy exists, user can create a correction transaction (Unrecorded Expense or Unrecorded Income) to bring the recorded balance in line with reality",
+    "For Investment accounts: if a discrepancy exists, user can create a Revaluation transaction to record the change in asset value",
+    "All correction transactions are clearly labeled and distinct from manual entries in the timeline"
+  ],
+  "trace_to": {
+    "stakeholders": ["STK-001", "STK-003"],
+    "business_goals": ["BR-001"]
+  }
+}

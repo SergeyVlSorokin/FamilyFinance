@@ -1,0 +1,12 @@
+{
+  "id": "STK-002",
+  "name": "Secondary Family Member (Spouse/Partner)",
+  "role": "End User — a co-owner of the shared vault who can view all accounts and transactions and optionally contribute entries.",
+  "influence": "High",
+  "interests": [
+    "Visibility into full family financial picture without needing to enter data themselves",
+    "Filtering by owner_label to see only their own transactions",
+    "Trust that data will not be accidentally modified or deleted",
+    "Simple onboarding into an existing family vault"
+  ]
+}

@@ -1,0 +1,56 @@
+// Family Finance App — Room/SQLite Data Model
+// Notation: DBML (Database Markup Language)
+// All tables map 1:1 to Room @Entity classes.
+
+Table accounts {
+  id          TEXT [pk, note: "UUID"]
+  name        TEXT [not null]
+  type        TEXT [not null, note: "Enum: BANK | CASH | CREDIT_CARD | INVESTMENT"]
+  owner_label TEXT [not null, note: "E.g. 'Serge', 'Julia' — for filtering, NOT security"]
+  created_at  INTEGER [not null, note: "Epoch millis"]
+
+  Note: "No 'balance' column — balance is always computed from TransactionEntity rows to maintain a single source of truth."
+}
+
+Table categories {
+  id    TEXT [pk, note: "UUID"]
+  name  TEXT [not null]
+  icon  TEXT [note: "Icon identifier string"]
+  color TEXT [note: "Hex color string, e.g. #FF5733"]
+}
+
+Table projects {
+  id         TEXT [pk, note: "UUID"]
+  name       TEXT [not null]
+  start_date INTEGER [note: "Epoch millis, optional"]
+  end_date   INTEGER [note: "Epoch millis, optional"]
+}
+
+Table transactions {
+  id                  TEXT [pk, note: "UUID"]
+  account_id          TEXT [not null, ref: > accounts.id]
+  category_id         TEXT [not null, ref: > categories.id,
+                            note: "Mandatory per BR-004. For TRANSFER rows, a system 'Transfer' category is used."]
+  project_id          TEXT [ref: > projects.id, note: "Nullable — optional project tag (FR-009)"]
+  type                TEXT [not null,
+                            note: "Enum: INCOME | EXPENSE | TRANSFER | OPENING_BALANCE | RECONCILIATION_ADJUSTMENT | REVALUATION"]
+  amount              REAL [not null,
+                            note: "Always positive. Direction inferred from type: EXPENSE/TRANSFER(debit)/REVALUATION(loss) subtract from balance; INCOME/TRANSFER(credit)/OPENING_BALANCE/REVALUATION(gain)/RECONCILIATION_ADJUSTMENT(income) add to balance."]
+  date                INTEGER [not null, note: "Epoch millis — user-selected transaction date"]
+  created_at          INTEGER [not null, note: "Epoch millis — system record creation time"]
+  owner_label         TEXT [note: "Family member label for filtering — mirrors account owner by default"]
+  receiver            TEXT [note: "Payee / counterparty (optional, for EXPENSE)"]
+  note                TEXT [note: "Free-text memo (optional)"]
+  receipt_group_id    TEXT [note: "UUID — non-null only for split receipt rows. All rows of one receipt share this ID. (FR-003)"]
+  transfer_linked_id  TEXT [note: "UUID — non-null only for TRANSFER rows. Pairs the debit and credit legs. (FR-004)"]
+  is_system_generated INTEGER [not null, default: 0,
+                                note: "Boolean (0/1). True for OPENING_BALANCE rows auto-created on account creation. Excluded from cash-flow reports."]
+
+  Note: "Balance for an account = SUM(amount WHERE type IN (INCOME, RECONCILIATION_ADJUSTMENT[positive], REVALUATION[gain], OPENING_BALANCE, TRANSFER[credit leg])) - SUM(amount WHERE type IN (EXPENSE, RECONCILIATION_ADJUSTMENT[negative], REVALUATION[loss], TRANSFER[debit leg]))"
+}
+
+// Key Indexes for query performance
+// idx_transactions_account_id  ON transactions(account_id)  -- balance queries
+// idx_transactions_date        ON transactions(date DESC)    -- timeline ordering
+// idx_transactions_receipt_group ON transactions(receipt_group_id) -- split grouping
+// idx_transactions_project_id  ON transactions(project_id)  -- project filter

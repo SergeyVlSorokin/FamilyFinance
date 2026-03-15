@@ -1,0 +1,15 @@
+{
+  "id": "UR-001",
+  "user_role": "Active Recorder",
+  "story": "As an Active Recorder, I want to quickly record an expense with a category and account, so that my spending is tracked without interrupting my day.",
+  "priority": "High",
+  "acceptance_criteria": [
+    "User can open the expense entry UI in 1 tap from the dashboard",
+    "User must select at least a Category and Account before saving",
+    "Expense is persisted immediately and appears in the timeline"
+  ],
+  "trace_to": {
+    "stakeholders": ["STK-001"],
+    "business_goals": ["BR-004"]
+  }
+}

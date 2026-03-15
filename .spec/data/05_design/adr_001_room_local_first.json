@@ -1,0 +1,48 @@
+{
+  "id": "ADR-001",
+  "title": "Local-First Architecture with Room (SQLite) for MVP",
+  "status": "Accepted",
+  "context": "The app must work fully offline (BR-003, FR-008). We need a database for the MVP that requires no network, is well-supported on Android, and allows complex aggregate queries for balance computation and reporting. The future requires a migration path to cloud sync.",
+  "decision": "Use Room (an ORM over SQLite) as the sole data store for the MVP. All reads and writes go directly to the local Room database. Supabase cloud sync is explicitly deferred to post-MVP (T8 in the plan) and will be added via a WorkManager-based SyncWorker without changing the Repository interface.",
+  "alternatives": [
+    {
+      "name": "Firestore (Firebase)",
+      "description": "NoSQL cloud-first database with offline caching.",
+      "pros": ["Built-in offline support", "Real-time sync out of the box"],
+      "cons": [
+        "Complex and costly aggregate queries (no GROUP BY, SUM) — would require heavy client-side processing",
+        "Unpredictable cost scaling at thousands of users",
+        "Offline mode is a cache, not the primary store — subtle edge cases"
+      ]
+    },
+    {
+      "name": "Supabase from Day 1",
+      "description": "Use Supabase as the primary store, with local caching.",
+      "pros": ["Schema is production-ready immediately", "SQL aggregations available from day one"],
+      "cons": [
+        "Significantly more complex setup before core features are working",
+        "Requires auth/family group design before any feature can be built",
+        "Offline handling is a non-trivial problem requiring a full sync engine"
+      ]
+    }
+  ],
+  "consequences": {
+    "positive": [
+      "Zero network dependency for MVP — works anywhere, any time",
+      "Room's Flow-based queries provide automatic reactive UI updates",
+      "SQL schema for complex balance/reporting queries without client-side aggregation",
+      "Repository pattern already abstracts storage — adding Supabase sync later requires no ViewModel/UseCase changes"
+    ],
+    "negative": [
+      "Data lives only on one device until Supabase sync is built",
+      "Multi-device family sharing is not possible during MVP phase"
+    ],
+    "neutral": [
+      "Schema migrations will be needed when Supabase schema is introduced"
+    ]
+  },
+  "trace_to": {
+    "stakeholders": ["STK-003"],
+    "affected_design_nodes": ["VIEW-002", "VIEW-003", "DATA-001"]
+  }
+}

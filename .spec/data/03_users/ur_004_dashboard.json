@@ -1,0 +1,16 @@
+{
+  "id": "UR-004",
+  "user_role": "Passive Viewer",
+  "story": "As a Passive Viewer, I want to see all account balances at a glance on the dashboard, so that I understand the family's overall financial position without digging through transactions.",
+  "priority": "High",
+  "acceptance_criteria": [
+    "Dashboard shows each account with its name, type, and current balance",
+    "Dashboard shows an aggregated total wealth figure",
+    "Balances update reactively as new transactions are recorded",
+    "Layout is spacious and readable without scrolling for typical family (3-6 accounts)"
+  ],
+  "trace_to": {
+    "stakeholders": ["STK-001", "STK-002"],
+    "business_goals": ["BR-001"]
+  }
+}

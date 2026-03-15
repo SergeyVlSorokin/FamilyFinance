@@ -1,0 +1,21 @@
+{
+  "id": "FR-003",
+  "title": "Split Receipt Entry",
+  "description": "The system shall allow the user to split a single receipt into 2 or more expense lines on a single screen. Each line requires a Category and amount. The system shall auto-calculate the remaining unallocated amount as lines are added. On save, each line is persisted as a separate TransactionEntity row sharing a common receipt_group_id UUID.",
+  "priority": "Must-have",
+  "stability": "Stable",
+  "verification_method": "Test",
+  "acceptance_criteria": [
+    "User can add up to N split lines on the fast entry screen without changing screens",
+    "Remaining amount updates in real-time as line amounts change",
+    "Saving a split where lines sum > total amount is rejected with a validation message",
+    "All saved split rows share the same non-null receipt_group_id",
+    "Timeline groups split rows visually under one receipt heading"
+  ],
+  "trace_to": {
+    "user_requirements": ["UR-002"],
+    "business_rules": ["BR-002"],
+    "design_nodes": ["VIEW-001", "VIEW-002", "VIEW-004", "DATA-001"],
+    "verification_plans": ["SCN-003"]
+  }
+}

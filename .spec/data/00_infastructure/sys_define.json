@@ -1,0 +1,6 @@
+{
+  "id": "SYS-DEFINE",
+  "type": "system_requirement",
+  "title": "Process Definition",
+  "description": "The system must follow the SpecLoom V-Model process."
+}

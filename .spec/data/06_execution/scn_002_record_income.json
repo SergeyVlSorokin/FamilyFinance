@@ -1,0 +1,13 @@
+{
+  "id": "SCN-002",
+  "title": "Record income and verify balance increase",
+  "objective": "Verify that recording income correctly increases the account balance",
+  "type": "Manual",
+  "status": "Draft",
+  "trace_to": { "requirements": ["FR-002", "UR-001"] },
+  "steps": [
+    { "step": "Note the current balance of account 'Bank'", "expected_result": "Current balance is recorded" },
+    { "step": "Open Fast Entry, select type = Income, enter amount = 3000, Category = 'Salary', Account = 'Bank', tap Save", "expected_result": "Income row appears in Timeline" },
+    { "step": "Open the Dashboard", "expected_result": "Bank account balance has increased by exactly 3000" }
+  ]
+}
