@@ -1,0 +1,47 @@
+{
+  "id": "TASK-118",
+  "title": "Account Creation UI — Currency Picker (AccountManageScreen)",
+  "description": "Add a mandatory currency selector to the Add Account form. Display the currency as a read-only chip on the Edit Account screen. Integrate with AccountManageViewModel.",
+  "type": "Feature",
+  "priority": "High",
+  "status": "Pending",
+  "dependencies": ["TASK-114"],
+  "trace_to": {
+    "functional_requirements": ["FR-017", "FR-021"],
+    "user_requirements": ["UR-010"]
+  },
+  "context": [
+    "app/src/main/java/com/familyfinance/ui/settings/AccountManageScreen.kt",
+    "app/src/main/java/com/familyfinance/ui/settings/AccountManageViewModel.kt",
+    "app/src/main/java/com/familyfinance/domain/usecase/CreateAccountUseCase.kt",
+    ".spec/data/04_system/fr_017_account_currency.json",
+    ".spec/data/06_execution/scn_017_account_currency.json"
+  ],
+  "execution_steps": [
+    "Run 'loom start TASK-118' to lock active context",
+    "Run 'loom context TASK-118' to ingest requirements",
+    "Define a hardcoded list of supported currencies in a companion object or constants file: [EUR, USD, SEK, GBP, CHF, JPY, CAD, AUD, NOK, DKK, PLN]",
+    "Add `selectedCurrency: String` state to AccountManageViewModel; validate it is non-empty before allowing save",
+    "In AccountManageScreen Add Account form: add an ExposedDropdownMenuBox showing the currency list",
+    "Save button is disabled / shows error if currency not selected",
+    "In AccountManageScreen Edit Account view: show currency as a read-only Text or Chip (not editable)",
+    "Wire selected currency into CreateAccountUseCase call (already accepts Account which has currency)",
+    "Add `@trace TASK-118` to AccountManageScreen.kt and AccountManageViewModel.kt",
+    "Update SettingsViewModelTest or create AccountManageViewModelTest to verify: empty currency blocks save; valid currency passes through",
+    "Run './gradlew :app:testDebugUnitTest' and confirm tests pass",
+    "Run 'loom complete TASK-118'"
+  ],
+  "definition_of_done": [
+    "Currency dropdown appears in Add Account form with the supported currency list",
+    "Attempting to save without a currency selection is blocked (button disabled or validation error)",
+    "Currency is shown as read-only in Edit Account view",
+    "Unit test confirms ViewModel rejects empty currency",
+    "All modified files have @trace TASK-118",
+    "loom validate passes"
+  ],
+  "tdd_cycle": {
+    "test_file": "app/src/test/java/com/familyfinance/ui/settings/SettingsViewModelTest.kt",
+    "implementation_file": "app/src/main/java/com/familyfinance/ui/settings/AccountManageScreen.kt",
+    "verification_command": "./gradlew :app:testDebugUnitTest"
+  }
+}

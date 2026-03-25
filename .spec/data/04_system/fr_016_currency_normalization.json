@@ -1,17 +1,19 @@
 {
   "id": "FR-016",
   "title": "Uniform Monetary Entry Style",
-  "description": "The system shall provide a consistent monetary entry UI across all screens. Users shall enter values as decimals which the system automatically scales to integer cents for storage.",
+  "description": "The system shall provide a consistent monetary entry UI across all screens. Users shall enter values as decimals which the system automatically scales to integer cents for storage. The currency indicator displayed next to amount fields shall reflect the currency of the selected account (per FR-021), not a hardcoded global symbol.",
   "priority": "Must-have",
   "stability": "Stable",
   "verification_method": "Manual",
   "acceptance_criteria": [
-    "All amount fields use the same '$ ' prefix and bold typography",
+    "All amount fields use a consistent bold typography style",
     "Entry is decimal-based (no explicit 'cents' input required)",
+    "The currency indicator next to each amount field matches the account's currency_code",
     "Consistency across: New Transaction, Add Account, and Reconciliation"
   ],
   "trace_to": {
     "user_requirements": ["UR-001", "UR-007", "UR-009"],
-    "design_nodes": ["VIEW-005"]
+    "design_nodes": ["VIEW-005"],
+    "functional_requirements": ["FR-021"]
   }
 }

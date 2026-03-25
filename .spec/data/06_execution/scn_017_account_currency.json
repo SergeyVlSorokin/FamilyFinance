@@ -1,0 +1,26 @@
+{
+  "id": "SCN-017",
+  "title": "Account Creation — Currency Assignment (UR-010, FR-017)",
+  "type": "User Acceptance",
+  "trace_to": {
+    "user_requirements": ["UR-010"],
+    "functional_requirements": ["FR-017"]
+  },
+  "steps": [
+    {
+      "given": "The user is on the Add Account screen",
+      "when": "The user fills in account name, type, and owner, but does NOT select a currency",
+      "then": "The Save button is disabled or a validation error is shown preventing save"
+    },
+    {
+      "given": "The user is on the Add Account screen",
+      "when": "The user selects 'EUR' from the currency picker and fills all other mandatory fields, then taps Save",
+      "then": "The account is saved and appears in the account list with 'EUR' displayed on its card"
+    },
+    {
+      "given": "An existing account with currency 'EUR' is open in the Edit Account screen",
+      "when": "The user inspects the currency field",
+      "then": "The currency field is read-only and cannot be modified"
+    }
+  ]
+}

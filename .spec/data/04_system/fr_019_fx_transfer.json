@@ -1,0 +1,21 @@
+{
+  "id": "FR-019",
+  "title": "Cross-Currency Transfer (FX Transfer) — Dual Amount Entry",
+  "description": "The system shall support transfers between accounts that have different currency codes (FX Transfers). When the user initiates a transfer and the source and target accounts have different currencies, the system shall present two separate amount input fields: one labeled with the source account's currency code and one labeled with the target account's currency code. Both amounts must be populated before the transfer can be saved. The system shall store the two linked transaction legs (debit and credit) each with their own currency_code and amount. No exchange rate is computed or stored.",
+  "priority": "Must-have",
+  "stability": "Stable",
+  "verification_method": "Functional Test",
+  "acceptance_criteria": [
+    "When source and target accounts have different currency codes, two amount fields are displayed",
+    "When source and target accounts have the same currency code, only one amount field is displayed (standard transfer)",
+    "Attempting to save an FX transfer with either amount field empty is rejected",
+    "The debit leg TransactionEntity has the source account's currency_code and the source amount",
+    "The credit leg TransactionEntity has the target account's currency_code and the target amount",
+    "Both legs share the same transfer_linked_id UUID"
+  ],
+  "trace_to": {
+    "user_requirements": ["UR-011"],
+    "business_rules": ["BR-006"],
+    "design_nodes": ["DATA-001"]
+  }
+}

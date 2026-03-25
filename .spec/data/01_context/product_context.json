@@ -10,7 +10,10 @@
       "Record Income with source",
       "Record Expenses with Category, Account, Date, Amount, Receiver",
       "Fast receipt-splitting UI (single-screen, dynamic split lines)",
-      "Account-to-Account Transfers",
+      "Account-to-Account Transfers (same currency)",
+      "Cross-Currency Transfers (FX Transfer) — dual amount entry, no rate storage",
+      "Multi-Currency Accounts — each account assigned an ISO 4217 currency code",
+      "Per-Currency Balances and Totals — no aggregation across currencies",
       "Project/Trip tagging for grouped expense reporting",
       "Returns and Refunds",
       "Timeline view (chronological transactions grouped by month)",
@@ -24,8 +27,8 @@
       "iOS App",
       "Strict inter-family privacy / Row Level Security between spouses",
       "Live investment ticker tracking (manual balance updates only)",
-      "Multi-currency support (deferred post-MVP)",
       "Automated currency exchange rate API lookup",
+      "Cross-currency total aggregation (no unified home-currency dashboard total)",
       "User authentication and Family Group invitations (deferred with Supabase sync)"
     ]
   },
@@ -45,7 +48,11 @@
     },
     {
       "term": "Transfer",
-      "definition": "A movement of funds between two internal accounts. Stored as two linked TransactionEntity rows (debit + credit) sharing a transfer_linked_id UUID."
+      "definition": "A movement of funds between two internal accounts of the SAME currency. Stored as two linked TransactionEntity rows (debit + credit) sharing a transfer_linked_id UUID."
+    },
+    {
+      "term": "FX Transfer",
+      "definition": "A cross-currency transfer between two accounts with different currencies. The user enters both the source amount (in source account currency) and the target amount (in target account currency) manually. No exchange rate is stored; the effective rate is implied by the two amounts."
     },
     {
       "term": "Owner Label",

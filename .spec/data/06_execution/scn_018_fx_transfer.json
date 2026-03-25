@@ -1,0 +1,31 @@
+{
+  "id": "SCN-018",
+  "title": "FX Transfer — Dual Amount Entry (UR-011, FR-019)",
+  "type": "User Acceptance",
+  "trace_to": {
+    "user_requirements": ["UR-011"],
+    "functional_requirements": ["FR-019"]
+  },
+  "steps": [
+    {
+      "given": "The user has a EUR account ('Savings EUR') and a USD account ('US Wallet')",
+      "when": "The user starts a Transfer from 'Savings EUR' to 'US Wallet'",
+      "then": "The UI displays two amount fields: one labeled 'EUR' (source) and one labeled 'USD' (destination)"
+    },
+    {
+      "given": "The FX Transfer screen is open with source EUR and target USD",
+      "when": "The user tries to save without entering the USD amount",
+      "then": "Validation error is shown; the transfer is not saved"
+    },
+    {
+      "given": "The FX Transfer screen is open",
+      "when": "The user enters 1000 EUR and 1100 USD and saves",
+      "then": "Two linked transaction rows are created: debit leg (1000, EUR, 'Savings EUR') and credit leg (1100, USD, 'US Wallet'), sharing a transfer_linked_id"
+    },
+    {
+      "given": "The user has two accounts with the SAME currency (both EUR)",
+      "when": "The user starts a Transfer between them",
+      "then": "Only ONE amount field is shown (standard transfer behavior, no FX mode)"
+    }
+  ]
+}

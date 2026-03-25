@@ -1,0 +1,44 @@
+{
+  "id": "TASK-114",
+  "title": "DB Schema Migration — Add currencyCode and targetAmountCents to TransactionEntity",
+  "description": "Add currency tracking fields to the transaction table. Bump DB version to 6 with destructive migration. This is the foundation for all other multi-currency tasks.",
+  "type": "Feature",
+  "priority": "Critical",
+  "status": "Pending",
+  "dependencies": [],
+  "trace_to": {
+    "functional_requirements": ["FR-017", "FR-018", "FR-019"],
+    "design_nodes": ["ADR-007", "DATA-001"]
+  },
+  "context": [
+    "app/src/main/java/com/familyfinance/data/local/entity/TransactionEntity.kt",
+    "app/src/main/java/com/familyfinance/data/local/FamilyFinanceDatabase.kt",
+    ".spec/data/05_design/data_001_schema.dbml"
+  ],
+  "execution_steps": [
+    "Run 'loom start TASK-114' to lock active context",
+    "Run 'loom context TASK-114' to ingest requirements",
+    "Write a failing unit test in FinanceDatabaseUnitTest.kt asserting that TransactionEntity has currencyCode and targetAmountCents fields (Red Phase)",
+    "Add `val currencyCode: String` and `val targetAmountCents: Long? = null` to TransactionEntity data class",
+    "Add `@trace TASK-114` comment to TransactionEntity.kt",
+    "Bump FamilyFinanceDatabase version from 5 to 6",
+    "Ensure `.fallbackToDestructiveMigration()` is set in the Room builder (check DatabaseModule or AppModule in di/)",
+    "Add `@trace TASK-114` comment to FamilyFinanceDatabase.kt",
+    "Build project — verify it compiles (schema change will break mapper — fix stubs if needed to compile, but leave mappers for TASK-115)",
+    "Run './gradlew :app:testDebugUnitTest' and confirm tests pass",
+    "Run 'loom complete TASK-114'"
+  ],
+  "definition_of_done": [
+    "TransactionEntity has non-null currencyCode: String and nullable targetAmountCents: Long?",
+    "FamilyFinanceDatabase version = 6 with fallbackToDestructiveMigration",
+    "Project compiles successfully",
+    "Unit tests pass",
+    "All modified files have @trace TASK-114 annotation",
+    "loom validate passes"
+  ],
+  "tdd_cycle": {
+    "test_file": "app/src/test/java/com/familyfinance/data/local/FinanceDatabaseUnitTest.kt",
+    "implementation_file": "app/src/main/java/com/familyfinance/data/local/entity/TransactionEntity.kt",
+    "verification_command": "./gradlew :app:testDebugUnitTest"
+  }
+}

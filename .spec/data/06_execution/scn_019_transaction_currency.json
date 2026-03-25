@@ -1,0 +1,25 @@
+{
+  "id": "SCN-019",
+  "title": "Transaction Currency Inherited from Account (FR-018)",
+  "type": "Functional",
+  "trace_to": {
+    "functional_requirements": ["FR-018"]
+  },
+  "steps": [
+    {
+      "given": "A EUR account exists",
+      "when": "The user records an expense against that account",
+      "then": "The stored TransactionEntity row has currency_code = 'EUR'"
+    },
+    {
+      "given": "A USD account exists",
+      "when": "The user records an income entry against that account",
+      "then": "The stored TransactionEntity row has currency_code = 'USD'"
+    },
+    {
+      "given": "The New Transaction screen is open",
+      "when": "The user selects an account",
+      "then": "No currency selector is shown — the currency is implied by the account selection"
+    }
+  ]
+}

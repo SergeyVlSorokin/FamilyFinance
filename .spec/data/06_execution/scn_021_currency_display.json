@@ -1,0 +1,25 @@
+{
+  "id": "SCN-021",
+  "title": "Currency Code Displayed Alongside All Amounts (FR-021)",
+  "type": "Functional",
+  "trace_to": {
+    "functional_requirements": ["FR-021"]
+  },
+  "steps": [
+    {
+      "given": "A EUR account exists with transactions",
+      "when": "The user views the account in the account list",
+      "then": "The balance is shown as 'X EUR' or '€X' (not as '$X' or a plain number)"
+    },
+    {
+      "given": "The user is in the Fast Entry sheet with a USD account selected",
+      "when": "The amount input field is rendered",
+      "then": "The currency indicator next to the input field shows 'USD' (not '$' or any other hardcoded symbol)"
+    },
+    {
+      "given": "A transaction row in the timeline belongs to a SEK account",
+      "when": "The timeline is rendered",
+      "then": "The transaction amount is shown with 'SEK' label"
+    }
+  ]
+}

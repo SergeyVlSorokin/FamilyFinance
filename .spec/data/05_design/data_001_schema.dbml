@@ -1,15 +1,17 @@
 // Family Finance App — Room/SQLite Data Model
 // Notation: DBML (Database Markup Language)
 // All tables map 1:1 to Room @Entity classes.
+// Schema version: 2 (multi-currency — ADR-007 supersedes ADR-004)
 
 Table accounts {
-  id          TEXT [pk, note: "UUID"]
-  name        TEXT [not null]
-  type        TEXT [not null, note: "Enum: BANK | CASH | CREDIT_CARD | INVESTMENT"]
-  owner_label TEXT [not null, note: "E.g. 'Serge', 'Julia' — for filtering, NOT security"]
-  created_at  INTEGER [not null, note: "Epoch millis"]
+  id            TEXT [pk, note: "UUID"]
+  name          TEXT [not null]
+  type          TEXT [not null, note: "Enum: BANK | CASH | CREDIT_CARD | INVESTMENT"]
+  currency_code TEXT [not null, note: "ISO 4217 code, e.g. 'EUR', 'USD', 'SEK'. Mandatory. Immutable after creation. (FR-017, ADR-007)"]
+  owner_label   TEXT [not null, note: "E.g. 'Serge', 'Julia' — for filtering, NOT security"]
+  created_at    INTEGER [not null, note: "Epoch millis"]
 
-  Note: "No 'balance' column — balance is always computed from TransactionEntity rows to maintain a single source of truth."
+  Note: "No 'balance' column — balance is always computed from TransactionEntity rows to maintain a single source of truth. Balance is always expressed in the account's currency_code."
 }
 
 Table categories {
@@ -36,17 +38,19 @@ Table transactions {
                             note: "Enum: INCOME | EXPENSE | TRANSFER | OPENING_BALANCE | RECONCILIATION_ADJUSTMENT | REVALUATION"]
   amount              REAL [not null,
                             note: "Always positive. Direction inferred from type: EXPENSE/TRANSFER(debit)/REVALUATION(loss) subtract from balance; INCOME/TRANSFER(credit)/OPENING_BALANCE/REVALUATION(gain)/RECONCILIATION_ADJUSTMENT(income) add to balance."]
+  currency_code       TEXT [not null,
+                            note: "ISO 4217 code. For standard transactions, inherited from the parent account at creation time. For FX Transfer legs, each leg stores its own account's currency code (debit leg = source currency, credit leg = target currency). (FR-018, FR-019, ADR-007)"]
   date                INTEGER [not null, note: "Epoch millis — user-selected transaction date"]
   created_at          INTEGER [not null, note: "Epoch millis — system record creation time"]
   owner_label         TEXT [note: "Family member label for filtering — mirrors account owner by default"]
   receiver            TEXT [note: "Payee / counterparty (optional, for EXPENSE)"]
   note                TEXT [note: "Free-text memo (optional)"]
   receipt_group_id    TEXT [note: "UUID — non-null only for split receipt rows. All rows of one receipt share this ID. (FR-003)"]
-  transfer_linked_id  TEXT [note: "UUID — non-null only for TRANSFER rows. Pairs the debit and credit legs. (FR-004)"]
+  transfer_linked_id  TEXT [note: "UUID — non-null only for TRANSFER rows. Pairs the debit and credit legs. For FX Transfers, debit and credit legs will have different currency_code values. (FR-004, FR-019)"]
   is_system_generated INTEGER [not null, default: 0,
                                 note: "Boolean (0/1). True for OPENING_BALANCE rows auto-created on account creation. Excluded from cash-flow reports."]
 
-  Note: "Balance for an account = SUM(amount WHERE type IN (INCOME, RECONCILIATION_ADJUSTMENT[positive], REVALUATION[gain], OPENING_BALANCE, TRANSFER[credit leg])) - SUM(amount WHERE type IN (EXPENSE, RECONCILIATION_ADJUSTMENT[negative], REVALUATION[loss], TRANSFER[debit leg]))"
+  Note: "Balance for an account = SUM(amount WHERE type IN (INCOME, RECONCILIATION_ADJUSTMENT[positive], REVALUATION[gain], OPENING_BALANCE, TRANSFER[credit leg])) - SUM(amount WHERE type IN (EXPENSE, RECONCILIATION_ADJUSTMENT[negative], REVALUATION[loss], TRANSFER[debit leg])). All values are in the account's currency_code — NEVER aggregate across accounts with different currency_code values."
 }
 
 // Key Indexes for query performance
@@ -54,3 +58,4 @@ Table transactions {
 // idx_transactions_date        ON transactions(date DESC)    -- timeline ordering
 // idx_transactions_receipt_group ON transactions(receipt_group_id) -- split grouping
 // idx_transactions_project_id  ON transactions(project_id)  -- project filter
+// idx_transactions_currency    ON transactions(currency_code) -- per-currency totals

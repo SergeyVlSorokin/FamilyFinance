@@ -1,0 +1,17 @@
+{
+  "id": "UR-011",
+  "title": "Cross-Currency Transfer (FX Transfer)",
+  "user_story": "As an Active Recorder, I want to record a transfer between two accounts of different currencies by entering both the source and target amounts manually, so that I can accurately log FX transactions without the system imposing an exchange rate.",
+  "priority": "Must-have",
+  "acceptance_criteria": [
+    "The transfer flow detects when the source and target accounts have different currencies",
+    "When currencies differ, the UI presents two amount fields: one in the source account's currency and one in the target account's currency",
+    "When currencies are the same, only a single amount field is shown (standard transfer)",
+    "Both amounts must be entered; the transfer cannot be saved with only one amount in FX mode",
+    "Both transaction legs are recorded with their respective currency codes"
+  ],
+  "trace_to": {
+    "user_characteristics": ["UCH-001"],
+    "business_rules": ["BR-006"]
+  }
+}

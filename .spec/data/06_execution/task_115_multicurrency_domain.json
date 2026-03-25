@@ -1,0 +1,41 @@
+{
+  "id": "TASK-115",
+  "title": "Domain Model + Repository Mapper — Add currencyCode and targetAmountCents",
+  "description": "Update the domain Transaction model and the FinanceRepositoryImpl entity↔domain mappers to carry currencyCode and targetAmountCents through the full data pipeline.",
+  "type": "Feature",
+  "priority": "Critical",
+  "status": "Pending",
+  "dependencies": ["TASK-114"],
+  "trace_to": {
+    "functional_requirements": ["FR-018", "FR-019"],
+    "design_nodes": ["ADR-007"]
+  },
+  "context": [
+    "app/src/main/java/com/familyfinance/domain/model/Transaction.kt",
+    "app/src/main/java/com/familyfinance/data/local/entity/TransactionEntity.kt",
+    "app/src/main/java/com/familyfinance/data/repository/FinanceRepositoryImpl.kt"
+  ],
+  "execution_steps": [
+    "Run 'loom start TASK-115' to lock active context",
+    "Run 'loom context TASK-115' to ingest requirements",
+    "Write failing tests for mapper round-trips: entity→domain and domain→entity preserve currencyCode and targetAmountCents (Red Phase)",
+    "Add `val currencyCode: String = \"\"` and `val targetAmountCents: Long? = null` to domain Transaction.kt",
+    "Add `@trace TASK-115` to Transaction.kt",
+    "Update FinanceRepositoryImpl toEntity()/toDomain() mapper functions to include the two new fields",
+    "Add `@trace TASK-115` to FinanceRepositoryImpl.kt",
+    "Run './gradlew :app:testDebugUnitTest' and confirm tests pass",
+    "Run 'loom complete TASK-115'"
+  ],
+  "definition_of_done": [
+    "Domain Transaction model has currencyCode and targetAmountCents fields",
+    "FinanceRepositoryImpl mappers round-trip both fields without loss",
+    "Unit tests for mappers pass",
+    "All modified files have @trace TASK-115 annotation",
+    "loom validate passes"
+  ],
+  "tdd_cycle": {
+    "test_file": "app/src/test/java/com/familyfinance/data/local/FinanceDatabaseUnitTest.kt",
+    "implementation_file": "app/src/main/java/com/familyfinance/data/repository/FinanceRepositoryImpl.kt",
+    "verification_command": "./gradlew :app:testDebugUnitTest"
+  }
+}

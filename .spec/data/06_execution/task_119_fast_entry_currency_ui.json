@@ -1,0 +1,52 @@
+{
+  "id": "TASK-119",
+  "title": "Fast Entry Sheet — Currency Display and FX Transfer Dual Amount UI",
+  "description": "Update FastEntrySheet and FastEntryViewModel to show the selected account's currency code next to the amount field. For Transfer transactions, detect when source and target accounts differ in currency and present a second amount field for the target amount.",
+  "type": "Feature",
+  "priority": "High",
+  "status": "Pending",
+  "dependencies": ["TASK-116", "TASK-117", "TASK-118"],
+  "trace_to": {
+    "functional_requirements": ["FR-019", "FR-021"],
+    "user_requirements": ["UR-011"]
+  },
+  "context": [
+    "app/src/main/java/com/familyfinance/ui/entry/FastEntrySheet.kt",
+    "app/src/main/java/com/familyfinance/ui/entry/FastEntryViewModel.kt",
+    "app/src/main/java/com/familyfinance/domain/usecase/SaveTransferUseCase.kt",
+    "app/src/main/java/com/familyfinance/domain/model/Account.kt",
+    ".spec/data/04_system/fr_019_fx_transfer.json",
+    ".spec/data/04_system/fr_021_currency_display.json",
+    ".spec/data/06_execution/scn_018_fx_transfer.json",
+    ".spec/data/06_execution/scn_021_currency_display.json"
+  ],
+  "execution_steps": [
+    "Run 'loom start TASK-119' to lock active context",
+    "Run 'loom context TASK-119' to ingest requirements",
+    "Write failing tests in FastEntryViewModelTest (Red Phase):",
+    "  - Selecting an account exposes its currencyCode in UI state",
+    "  - Transfer with same-currency accounts: isFxTransfer = false, targetAmountCents = null",
+    "  - Transfer with different-currency accounts: isFxTransfer = true, second amount field enabled",
+    "In FastEntryViewModel: add `val currencyCode` derived from selected account; add `val isFxTransfer` and `val targetAccountCurrency` for transfer mode; add `targetAmountCents` state",
+    "In FastEntrySheet: replace hardcoded '$' prefix on amount field with `currencyCode` from ViewModel state",
+    "In FastEntrySheet transfer section: when isFxTransfer == true, render a second OutlinedTextField labeled with targetAccountCurrency; otherwise hide it",
+    "Wire targetAmountCents into SaveTransferUseCase call (pass fromAccount + toAccount objects, not just IDs)",
+    "Add `@trace TASK-119` to FastEntrySheet.kt and FastEntryViewModel.kt",
+    "Run './gradlew :app:testDebugUnitTest' and confirm FastEntryViewModelTest passes",
+    "Run 'loom complete TASK-119'"
+  ],
+  "definition_of_done": [
+    "Amount field prefix in FastEntrySheet shows the selected account's currencyCode, not '$'",
+    "For Transfer with same-currency accounts: only one amount field shown",
+    "For Transfer with different-currency accounts: two amount fields shown, each labeled with their account's currency",
+    "FX transfer cannot be saved with missing target amount (ViewModel validation)",
+    "FastEntryViewModelTest covers currency display and FX mode toggling and passes",
+    "All modified files have @trace TASK-119",
+    "loom validate passes"
+  ],
+  "tdd_cycle": {
+    "test_file": "app/src/test/java/com/familyfinance/ui/entry/FastEntryViewModelTest.kt",
+    "implementation_file": "app/src/main/java/com/familyfinance/ui/entry/FastEntrySheet.kt",
+    "verification_command": "./gradlew :app:testDebugUnitTest"
+  }
+}

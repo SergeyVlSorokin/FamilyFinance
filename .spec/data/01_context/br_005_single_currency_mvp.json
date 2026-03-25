@@ -1,7 +1,9 @@
 {
   "id": "BR-005",
-  "title": "Multi-Currency Deferred — Single Default Currency for MVP",
-  "statement": "The MVP MUST operate in a single default currency. Multi-currency support (currency conversion, exchange rates, currency-aware account balances) is explicitly out of scope for the MVP and MUST NOT be built until the core single-currency app is stable. The schema design SHOULD leave room for a future Currency entity without requiring a breaking migration.",
+  "title": "Multi-Currency Deferred — Single Default Currency for MVP [SUPERSEDED]",
+  "status": "Superseded",
+  "superseded_by": "BR-006",
+  "statement": "SUPERSEDED. See BR-006. The original MVP single-currency constraint is lifted. Multi-currency account support is now in scope.",
   "source": "Plan — User Review Required: Multi-currency deferred warning",
   "trace_to": {
     "stakeholders": ["STK-003"]
