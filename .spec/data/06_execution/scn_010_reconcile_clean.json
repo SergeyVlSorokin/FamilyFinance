@@ -1,13 +1,15 @@
 {
   "id": "SCN-010",
-  "title": "Reconcile account with no discrepancy",
-  "objective": "Verify that reconciling an account where the actual balance matches the recorded balance produces a clean confirmation and no transaction",
+  "title": "Reconcile account at a specific date/time",
+  "objective": "Verify that reconciling an account at a past date displays the balance as of that date, ignoring subsequent transactions.",
   "type": "Manual",
   "status": "Draft",
   "trace_to": { "requirements": ["FR-010", "UR-009"] },
   "steps": [
-    { "step": "Note the recorded balance of the 'Bank' account (e.g. 1000)", "expected_result": "Recorded balance is known" },
-    { "step": "Open Reconciliation for the 'Bank' account, enter actual balance = 1000", "expected_result": "Discrepancy shows as 0" },
-    { "step": "Confirm reconciliation", "expected_result": "Screen shows 'Reconciled ✓' with today's timestamp. No new transaction appears in the Timeline." }
+    { "step": "Select the 'Bank' account which has multiple transactions over the last 2 days", "expected_result": "Current balance is known (e.g. 1000)" },
+    { "step": "Note the balance as of 'Yesterday' (e.g. 800) and ensure there are transactions dated 'Today'", "expected_result": "Check complete" },
+    { "step": "Open Reconciliation for 'Bank', change Date to 'Yesterday'", "expected_result": "Recorded balance updates to show 800 (excluding Today's transactions)" },
+    { "step": "Enter Actual Balance = 800", "expected_result": "Discrepancy shows as 0" },
+    { "step": "Confirm reconciliation", "expected_result": "Reconciliation record is saved for 'Yesterday'. Current balance remains 1000." }
   ]
 }

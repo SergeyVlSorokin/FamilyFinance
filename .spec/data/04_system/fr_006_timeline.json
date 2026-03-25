@@ -9,6 +9,10 @@
     "All transactions appear in descending date order",
     "Month separator headers divide transactions by calendar month",
     "Transactions sharing a receipt_group_id are shown as an indented group",
+    "Each row displays the full digital date (DD/MM/YY) on the left side",
+    "The account name is displayed on the right side, directly below the amount",
+    "Transfer transactions display both source and target accounts as 'From -> To'",
+    "System transactions (Opening balance, Reconciliation) use clean names without underscores and hide redundant notes",
     "Filtering by category shows only transactions of that category",
     "Filtering by owner_label shows only transactions with that label",
     "Filtering by project shows only transactions tagged to that project, regardless of category"
@@ -17,6 +21,6 @@
     "user_requirements": ["UR-005"],
     "business_rules": ["BR-001"],
     "design_nodes": ["VIEW-001", "VIEW-004", "DATA-001"],
-    "verification_plans": ["SCN-006", "SCN-009"]
+    "verification_plans": ["SCN-006", "SCN-009", "SCN-015"]
   }
 }

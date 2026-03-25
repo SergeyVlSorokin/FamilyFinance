@@ -1,0 +1,19 @@
+{
+  "id": "FR-014",
+  "title": "Application Navigation & Structure",
+  "description": "The system shall provide a centralized and type-safe navigation mechanism. All screens must be reachable via a defined navigation graph. Back navigation must be handled consistently across all feature areas.",
+  "priority": "Must-have",
+  "stability": "Stable",
+  "verification_method": "Test",
+  "acceptance_criteria": [
+    "All routes are defined in a centralized sealed class",
+    "NavGraph encapsulates the NavHost configuration",
+    "Back navigation from sub-screens always returns to the correct parent or hub",
+    "MainActivity contains zero navigation business logic"
+  ],
+  "trace_to": {
+    "user_requirements": ["UR-007"],
+    "design_nodes": ["VIEW-004", "ADR-005"],
+    "verification_plans": ["SCN-014"]
+  }
+}

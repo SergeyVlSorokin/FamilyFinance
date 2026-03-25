@@ -4,13 +4,25 @@
   "type": "Feature",
   "routine": "Feature",
   "objective": "Build the DashboardScreen with DashboardViewModel showing all accounts with reactive balances and total wealth using Material 3 design (spacious layout, large typography).",
-  "status": "Pending",
+  "status": "Done",
   "priority": 70,
   "verification_regime": "Hybrid",
-  "dependencies": ["TASK-103"],
+  "dependencies": [
+    "TASK-103"
+  ],
   "trace_to": {
-    "requirements": ["FR-005", "UR-004"],
-    "design_nodes": ["VIEW-001", "VIEW-002", "ADR-002", "ADR-003"]
+    "requirements": [
+      "FR-005",
+      "UR-004",
+      "FR-014"
+    ],
+    "design_nodes": [
+      "VIEW-001",
+      "VIEW-002",
+      "ADR-002",
+      "ADR-003",
+      "ADR-005"
+    ]
   },
   "tdd_cycle": {
     "test_file": "app/src/test/java/com/familyfinance/ui/dashboard/DashboardViewModelTest.kt",

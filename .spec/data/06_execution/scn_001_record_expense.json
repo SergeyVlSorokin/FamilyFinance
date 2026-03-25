@@ -1,14 +1,15 @@
 {
   "id": "SCN-001",
-  "title": "Record a valid single expense",
-  "objective": "Verify that a user can save an expense with mandatory fields and it appears in the timeline",
+  "title": "Record a valid single expense with custom date",
+  "objective": "Verify that a user can save an expense with a custom date and it appears correctly in the timeline",
   "type": "Manual",
   "status": "Draft",
   "trace_to": { "requirements": ["FR-001", "UR-001"] },
   "steps": [
-    { "step": "Open the Fast Entry sheet", "expected_result": "Entry sheet opens with empty fields" },
-    { "step": "Select type = Expense, enter amount = 50, select Category = 'Food', select Account = 'Bank'", "expected_result": "All mandatory fields are populated" },
-    { "step": "Tap Save", "expected_result": "Sheet closes and a new expense row appears at the top of the Timeline" },
-    { "step": "Open the Dashboard", "expected_result": "Bank account balance has decreased by 50" }
+    { "step": "Open the Fast Entry sheet", "expected_result": "Entry sheet opens; Date field is pre-filled with Today's date/time" },
+    { "step": "Select type = Expense, enter amount = 50, select Category = 'Food', select Account = 'Bank'", "expected_result": "Fields are populated" },
+    { "step": "Modify Date to 'Yesterday at 15:00'", "expected_result": "Selected date is displayed in the UI" },
+    { "step": "Tap Save", "expected_result": "Sheet closes and a new expense row appears in the Timeline under 'Yesterday'" },
+    { "step": "Open the Dashboard", "expected_result": "Bank account current balance has decreased by 50" }
   ]
 }

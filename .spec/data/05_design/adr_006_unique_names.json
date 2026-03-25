@@ -1,0 +1,29 @@
+{
+  "id": "ADR-006",
+  "title": "Unique Name Validation Strategy",
+  "status": "APPROVED",
+  "context": "Preventing duplicate names for key entities (Accounts, Categories, Projects) is critical for data integrity and user clarity. We need both a database-level safeguard and a user-friendly UI feedback mechanism.",
+  "decision": "Use Room's @Index(unique = true) on the 'name' column for AccountEntity, CategoryEntity, and ProjectEntity. Supplement this with FinanceRepository methods to check for name existence before save operations in the SettingsViewModel to provide immediate UI feedback without relying on SQLite exception handling for common validation.",
+  "consequences": {
+    "positive": [
+      "Rigid data integrity at the persistence layer.",
+      "Clean UI feedback via explicit ViewModel checks.",
+      "No duplicate names in selection lists."
+    ],
+    "negative": [
+      "Slight performance overhead on inserts due to index maintenance.",
+      "Need to handle isNameTaken checks in every save flow."
+    ]
+  },
+  "trace_to": {
+    "stakeholders": [
+      "STK-003"
+    ],
+    "constraints": [
+      "CON-001"
+    ],
+    "affected_design_nodes": [
+      "DATA-002"
+    ]
+  }
+}

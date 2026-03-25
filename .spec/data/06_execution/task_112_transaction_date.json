@@ -1,0 +1,24 @@
+{
+  "id": "TASK-112",
+  "title": "Date/Time Entry for Transactions",
+  "description": "Add user-editable date/time fields to Expense, Income, and Transfer forms (Fast Entry sheet).",
+  "type": "Feature",
+  "priority": "High",
+  "status": "Verified",
+  "trace_to": {
+    "functional_requirements": [
+      "FR-001",
+      "FR-002",
+      "FR-004"
+    ]
+  },
+  "context": [
+    "app/src/main/java/com/familyfinance/ui/screens/fastentry/FastEntryViewModel.kt",
+    "app/src/main/java/com/familyfinance/ui/screens/fastentry/FastEntrySheet.kt"
+  ],
+  "definition_of_done": [
+    "Expense, Income, and Transfer forms include a DateTimePicker pre-filled with current system time",
+    "Transactions are recorded with the user-specified date",
+    "Transactions appear in the Timeline at the correct point in history"
+  ]
+}

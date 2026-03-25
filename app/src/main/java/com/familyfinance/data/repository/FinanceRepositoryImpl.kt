@@ -23,6 +23,12 @@ class FinanceRepositoryImpl @Inject constructor(
     override suspend fun saveAccount(account: Account): Long =
         dao.upsertAccount(account.toEntity())
 
+    override suspend fun updateAccountReconciliationDate(accountId: Long, timestamp: Long) =
+        dao.updateReconciliationTimestamp(accountId, timestamp)
+
+    override suspend fun isAccountNameTaken(name: String): Boolean =
+        dao.isAccountNameTaken(name)
+
     override suspend fun deleteAccount(id: Long) =
         dao.deleteAccount(id)
 
@@ -32,11 +38,23 @@ class FinanceRepositoryImpl @Inject constructor(
     override suspend fun saveCategory(category: Category) =
         dao.upsertCategory(category.toEntity())
 
+    override suspend fun isCategoryNameTaken(name: String): Boolean =
+        dao.isCategoryNameTaken(name)
+
+    override suspend fun deleteCategory(id: Long) =
+        dao.deleteCategory(id)
+
     override fun getProjectsFlow(): Flow<List<Project>> =
         dao.getProjectsFlow().map { list -> list.map { it.toDomain() } }
 
     override suspend fun saveProject(project: Project) =
         dao.upsertProject(project.toEntity())
+
+    override suspend fun isProjectNameTaken(name: String): Boolean =
+        dao.isProjectNameTaken(name)
+
+    override suspend fun deleteProject(id: Long) =
+        dao.deleteProject(id)
 
     override fun getTransactionsFlow(): Flow<List<Transaction>> =
         dao.getTransactionsFlow().map { list -> list.map { it.toDomain() } }
@@ -59,7 +77,9 @@ class FinanceRepositoryImpl @Inject constructor(
         name = name,
         type = com.familyfinance.domain.model.AccountType.valueOf(type.name),
         currency = currency,
-        color = color
+        color = color,
+        ownerLabel = ownerLabel,
+        lastReconciledAt = lastReconciledAt
     )
 
     private fun Account.toEntity() = AccountEntity(
@@ -67,13 +87,16 @@ class FinanceRepositoryImpl @Inject constructor(
         name = name,
         type = com.familyfinance.data.local.entity.AccountType.valueOf(type.name),
         currency = currency,
-        color = color
+        color = color,
+        ownerLabel = ownerLabel,
+        lastReconciledAt = lastReconciledAt
     )
 
     private fun CategoryEntity.toDomain() = Category(
         id = id,
         name = name,
         type = com.familyfinance.domain.model.CategoryType.valueOf(type.name),
+        icon = icon,
         color = color
     )
 
@@ -81,19 +104,24 @@ class FinanceRepositoryImpl @Inject constructor(
         id = id,
         name = name,
         type = com.familyfinance.data.local.entity.CategoryType.valueOf(type.name),
+        icon = icon,
         color = color
     )
 
     private fun ProjectEntity.toDomain() = Project(
         id = id,
         name = name,
-        color = color
+        color = color,
+        startDate = startDate,
+        endDate = endDate
     )
 
     private fun Project.toEntity() = ProjectEntity(
         id = id,
         name = name,
-        color = color
+        color = color,
+        startDate = startDate,
+        endDate = endDate
     )
 
     private fun TransactionEntity.toDomain() = Transaction(
@@ -105,7 +133,9 @@ class FinanceRepositoryImpl @Inject constructor(
         projectId = projectId,
         note = note,
         type = com.familyfinance.domain.model.TransactionType.valueOf(type.name),
-        targetAccountId = targetAccountId
+        targetAccountId = targetAccountId,
+        receiptGroupId = receiptGroupId,
+        transferLinkedId = transferLinkedId
     )
 
     private fun Transaction.toEntity() = TransactionEntity(
@@ -117,6 +147,8 @@ class FinanceRepositoryImpl @Inject constructor(
         projectId = projectId,
         note = note,
         type = com.familyfinance.data.local.entity.TransactionType.valueOf(type.name),
-        targetAccountId = targetAccountId
+        targetAccountId = targetAccountId,
+        receiptGroupId = receiptGroupId,
+        transferLinkedId = transferLinkedId
     )
 }

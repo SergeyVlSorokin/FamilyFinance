@@ -4,13 +4,21 @@
   "type": "Feature",
   "routine": "Feature",
   "objective": "Build Settings hub with dedicated screens for CRUD of Accounts, Categories, and Projects. Account creation must include opening balance field and auto-create OPENING_BALANCE transaction.",
-  "status": "Pending",
+  "status": "Done",
   "priority": 65,
   "verification_regime": "Hybrid",
-  "dependencies": ["TASK-103"],
+  "dependencies": [
+    "TASK-103"
+  ],
   "trace_to": {
-    "requirements": ["FR-007", "UR-007"],
-    "design_nodes": ["VIEW-001", "VIEW-004"]
+    "requirements": [
+      "FR-007",
+      "UR-007"
+    ],
+    "design_nodes": [
+      "VIEW-001",
+      "VIEW-004"
+    ]
   },
   "tdd_cycle": {
     "test_file": "app/src/test/java/com/familyfinance/ui/settings/SettingsViewModelTest.kt",

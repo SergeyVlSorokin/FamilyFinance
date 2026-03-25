@@ -1,0 +1,45 @@
+{
+  "id": "TASK-200",
+  "title": "Global Navigation Refactor — Centralized & Type-Safe",
+  "type": "Scaffold",
+  "routine": "Process",
+  "objective": "Refactor the hardcoded navigation in MainActivity into a dedicated NavGraph component with type-safe Screen routes, enabling clean access to Settings from the Dashboard.",
+  "status": "Done",
+  "priority": 50,
+  "verification_regime": "Hybrid",
+  "dependencies": [
+    "TASK-101",
+    "TASK-105"
+  ],
+  "trace_to": {
+    "requirements": [
+      "FR-014"
+    ],
+    "design_nodes": [
+      "VIEW-001",
+      "VIEW-004",
+      "ADR-002",
+      "ADR-005"
+    ]
+  },
+  "execution_steps": [
+    "Establish ui.navigation package and defined sealed class Screen",
+    "Create NavGraph component and extract logic from MainActivity",
+    "Update DashboardScreen with TopAppBar and Settings entry point",
+    "Verify navigation works across all screens",
+    "Run ./gradlew assembleDebug"
+  ],
+  "definition_of_done": [
+    "Navigation logic extracted to dedicated package",
+    "Routes are type-safe using Screen sealed class",
+    "Settings entry point visible on Dashboard",
+    "Project builds and back-navigation works"
+  ],
+  "context": {
+    "relevant_files": [
+      "app/src/main/java/com/familyfinance/ui/navigation/NavGraph.kt",
+      "app/src/main/java/com/familyfinance/ui/navigation/Screen.kt",
+      "app/src/main/java/com/familyfinance/ui/MainActivity.kt"
+    ]
+  }
+}

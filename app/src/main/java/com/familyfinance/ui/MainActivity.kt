@@ -26,13 +26,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = "dashboard") {
-                        composable("dashboard") { Text("Dashboard Placeholder") }
-                        composable("timeline") { Text("Timeline Placeholder") }
-                        composable("fast_entry") { Text("Fast Entry Placeholder") }
-                        composable("settings") { Text("Settings Placeholder") }
-                        composable("reconcile") { Text("Reconcile Placeholder") }
-                    }
+                    com.familyfinance.ui.navigation.NavGraph(navController = navController)
                 }
             }
         }

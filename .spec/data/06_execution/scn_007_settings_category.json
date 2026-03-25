@@ -1,13 +1,14 @@
 {
   "id": "SCN-007",
-  "title": "Create a new category and use it in an expense",
-  "objective": "Verify that a new Category created in Settings is immediately usable in the expense entry form",
+  "title": "Create a new category and verify uniqueness",
+  "objective": "Verify that a new Category created in Settings is immediately usable and that the system prevents duplicate names.",
   "type": "Manual",
   "status": "Draft",
-  "trace_to": { "requirements": ["FR-007", "UR-007"] },
+  "trace_to": { "requirements": ["FR-007", "FR-015", "UR-007"] },
   "steps": [
     { "step": "Open Settings → Categories → Add New", "expected_result": "New category form opens" },
     { "step": "Enter name = 'Pet Care', select an icon and color, tap Save", "expected_result": "Category 'Pet Care' appears in the categories list" },
+    { "step": "Tap Add New again, enter name = 'Pet Care', tap Save", "expected_result": "System shows 'Name already exists' alert; dialog remains open" },
     { "step": "Open Fast Entry sheet and open the Category picker", "expected_result": "'Pet Care' appears in the category list" },
     { "step": "Select 'Pet Care', complete and save the expense", "expected_result": "Expense saved with Category = 'Pet Care', visible in Timeline" }
   ]

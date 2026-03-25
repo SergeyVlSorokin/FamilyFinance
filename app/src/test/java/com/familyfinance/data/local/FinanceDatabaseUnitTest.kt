@@ -5,6 +5,9 @@ import androidx.test.core.app.ApplicationProvider
 import com.familyfinance.data.local.dao.FinanceDao
 import com.familyfinance.data.local.entity.AccountEntity
 import com.familyfinance.data.local.entity.AccountType
+import com.familyfinance.data.local.entity.CategoryEntity
+import com.familyfinance.data.local.entity.CategoryType
+import com.familyfinance.data.local.entity.ProjectEntity
 import com.familyfinance.data.local.entity.TransactionEntity
 import com.familyfinance.data.local.entity.TransactionType
 import kotlinx.coroutines.flow.first
@@ -77,5 +80,29 @@ class FinanceDatabaseUnitTest {
         val transactions = dao.getTransactionsByAccountFlow(accountId).first()
         assertEquals(1, transactions.size)
         assertEquals(-200L, transactions[0].amountCents)
+    }
+
+    @Test(expected = android.database.sqlite.SQLiteConstraintException::class)
+    fun duplicateAccountNameThrowsException() = runBlocking<Unit> {
+        val account1 = AccountEntity(name = "Dup", type = AccountType.BANK, currency = "USD", color = 0)
+        val account2 = AccountEntity(name = "Dup", type = AccountType.BANK, currency = "USD", color = 0)
+        dao.upsertAccount(account1)
+        dao.upsertAccount(account2)
+    }
+
+    @Test(expected = android.database.sqlite.SQLiteConstraintException::class)
+    fun duplicateCategoryNameThrowsException() = runBlocking<Unit> {
+        val cat1 = CategoryEntity(name = "Dup", type = CategoryType.EXPENSE, icon = "", color = 0)
+        val cat2 = CategoryEntity(name = "Dup", type = CategoryType.EXPENSE, icon = "", color = 0)
+        dao.upsertCategory(cat1)
+        dao.upsertCategory(cat2)
+    }
+
+    @Test(expected = android.database.sqlite.SQLiteConstraintException::class)
+    fun duplicateProjectNameThrowsException() = runBlocking<Unit> {
+        val proj1 = ProjectEntity(name = "Dup", color = 0)
+        val proj2 = ProjectEntity(name = "Dup", color = 0)
+        dao.upsertProject(proj1)
+        dao.upsertProject(proj2)
     }
 }

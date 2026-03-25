@@ -1,0 +1,29 @@
+{
+  "id": "VIEW-005",
+  "name": "Design System — Shared Components",
+  "viewpoint": "Logical",
+  "concerns": ["Consistency", "Reusability", "UX"],
+  "elements": [
+    {
+      "name": "CurrencyInput",
+      "type": "UI Component",
+      "description": "Shared composable for monetary input with decimal scaling and bold formatting",
+      "trace_refs": ["FR-016"]
+    },
+    {
+      "name": "IconPicker",
+      "type": "UI Component",
+      "description": "Visual grid-based picker for category and account icons",
+      "trace_refs": ["FR-007"]
+    },
+    {
+      "name": "NormalizedInputStyle",
+      "type": "Design Guideline",
+      "description": "Project-wide standard for OutlinedTextFields using MaterialTheme.shapes.large for a rounded, premium feel.",
+      "trace_refs": ["FR-014", "FR-015", "FR-016"]
+    }
+  ],
+  "trace_to": {
+    "functional_requirements": ["FR-016", "FR-015", "FR-007"]
+  }
+}

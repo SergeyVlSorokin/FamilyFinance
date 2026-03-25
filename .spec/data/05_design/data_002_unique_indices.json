@@ -1,0 +1,12 @@
+{
+  "id": "DATA-002",
+  "specification": {
+    "type": "ODCS",
+    "path": ".spec/data/05_design/data_002_unique_indices.json"
+  },
+  "trace_to": {
+    "functional_requirements": [
+      "FR-015"
+    ]
+  }
+}

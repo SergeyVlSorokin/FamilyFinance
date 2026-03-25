@@ -21,7 +21,7 @@ class SaveSplitReceiptUseCase @Inject constructor(
         val receiptGroupId = UUID.randomUUID().toString()
         val processedSplits = splits.map { 
             it.copy(
-                note = if (it.note.isEmpty()) "Split Receipt ($receiptGroupId)" else "${it.note} (Split: $receiptGroupId)",
+                receiptGroupId = receiptGroupId,
                 type = TransactionType.EXPENSE // Split receipts are typically expenses
             )
         }

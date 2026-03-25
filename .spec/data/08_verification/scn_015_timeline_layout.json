@@ -1,0 +1,14 @@
+{
+  "id": "SCN-015",
+  "title": "Timeline Visual Layout Verification",
+  "objective": "Verify the visual layout of transaction rows, including date placement, account labels, and system entry formatting.",
+  "type": "Manual",
+  "status": "Draft",
+  "trace_to": { "requirements": ["FR-006"] },
+  "steps": [
+    { "step": "Navigate to the Timeline screen", "expected_result": "Transactions are listed with full digital dates (DD/MM/YY) on the left" },
+    { "step": "Observe an Expense or Income transaction", "expected_result": "Account name (e.g., 'Cash') is visible on the right, below the amount" },
+    { "step": "Observe a Transfer transaction", "expected_result": "Account label shows 'Source -> Target' (e.g., 'Cash -> Savings')" },
+    { "step": "Observe an 'Opening balance' or 'Reconciliation adjustment'", "expected_result": "Labels have no underscores and no redundant duplicate notes below the title" }
+  ]
+}

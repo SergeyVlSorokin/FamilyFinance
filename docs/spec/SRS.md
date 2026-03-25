@@ -215,6 +215,17 @@ The system shall persist a transfer as exactly two linked rows (debit + credit) 
 
 ---
 
+#### FR-014: Application Navigation & Structure
+The system shall provide a centralized and type-safe navigation mechanism. All screens must be reachable via a defined navigation graph. Back navigation must be handled consistently across all feature areas.
+
+**Acceptance Criteria:**
+- All routes are defined in a centralized sealed class
+- NavGraph encapsulates the NavHost configuration
+- Back navigation from sub-screens always returns to the correct parent or hub
+- MainActivity contains zero navigation business logic
+
+---
+
 ### Dashboard & Timeline
 
 #### FR-005: Account Balances Dashboard

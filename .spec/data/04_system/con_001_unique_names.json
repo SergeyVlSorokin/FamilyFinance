@@ -1,0 +1,12 @@
+{
+  "id": "CON-001",
+  "category": "Business",
+  "statement": "The names of Accounts, Categories, and Projects must be unique within their respective collections.",
+  "rationale": "Prevent ambiguity for users and ensure data integrity in the shared vault, where all family members interact with the same reference data.",
+  "trace_to": {
+    "stakeholders": [
+      "STK-003"
+    ],
+    "assumptions": []
+  }
+}

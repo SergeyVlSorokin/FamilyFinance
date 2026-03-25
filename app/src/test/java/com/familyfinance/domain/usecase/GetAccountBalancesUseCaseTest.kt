@@ -10,6 +10,8 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
+// @trace TASK-113
+
 class GetAccountBalancesUseCaseTest {
 
     private lateinit var repository: FakeFinanceRepository
@@ -48,6 +50,25 @@ class GetAccountBalancesUseCaseTest {
         assertEquals(300L, bal2)
     }
 
+    @Test
+    fun `compute balances up to specific date`() = runBlocking {
+        // Given
+        val account = Account(id = 1, name = "Cash", type = AccountType.CASH, currency = "USD", color = 0)
+        repository.accounts.value = listOf(account)
+        repository.transactions.value = listOf(
+            Transaction(id = 1, date = 1000, amountCents = 1000, accountId = 1, categoryId = null, projectId = null, note = "Opening", type = TransactionType.OPENING_BALANCE),
+            Transaction(id = 2, date = 2000, amountCents = 500, accountId = 1, categoryId = 1, projectId = null, note = "Income", type = TransactionType.INCOME),
+            Transaction(id = 3, date = 3000, amountCents = 200, accountId = 1, categoryId = 2, projectId = null, note = "Expense", type = TransactionType.EXPENSE)
+        )
+
+        // When - calculate up to date 2000
+        val balances = useCase(2000L).first()
+
+        // Then - should only include transactions 1 and 2 (1000 + 500 = 1500)
+        val bal = balances.find { it.account.id == 1L }?.balanceCents
+        assertEquals(1500L, bal)
+    }
+
     private class FakeFinanceRepository : FinanceRepository {
         val accounts = MutableStateFlow<List<Account>>(emptyList())
         val transactions = MutableStateFlow<List<Transaction>>(emptyList())
@@ -55,11 +76,17 @@ class GetAccountBalancesUseCaseTest {
         override fun getAccountsFlow(): Flow<List<Account>> = accounts
         override suspend fun getAccountById(id: Long): Account? = accounts.value.find { it.id == id }
         override suspend fun saveAccount(account: Account): Long = 0
+        override suspend fun updateAccountReconciliationDate(accountId: Long, timestamp: Long) {}
+        override suspend fun isAccountNameTaken(name: String): Boolean = false
         override suspend fun deleteAccount(id: Long) {}
         override fun getCategoriesFlow(): Flow<List<Category>> = MutableStateFlow(emptyList())
         override suspend fun saveCategory(category: Category) {}
+        override suspend fun isCategoryNameTaken(name: String): Boolean = false
+        override suspend fun deleteCategory(id: Long) {}
         override fun getProjectsFlow(): Flow<List<Project>> = MutableStateFlow(emptyList())
         override suspend fun saveProject(project: Project) {}
+        override suspend fun isProjectNameTaken(name: String): Boolean = false
+        override suspend fun deleteProject(id: Long) {}
         override fun getTransactionsFlow(): Flow<List<Transaction>> = transactions
         override fun getTransactionsByAccountFlow(accountId: Long): Flow<List<Transaction>> = MutableStateFlow(emptyList())
         override suspend fun saveTransaction(transaction: Transaction): Long = 0

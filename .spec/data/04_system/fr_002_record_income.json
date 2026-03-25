@@ -1,14 +1,16 @@
 {
   "id": "FR-002",
   "title": "Record Income",
-  "description": "The system shall allow the user to create an income transaction linked to a mandatory Category and Account, with an amount, date, optional source, and optional note.",
+  "description": "The system shall allow the user to create an income transaction linked to a mandatory Category and Account, with an amount, user-specified date/time, optional source, and optional note.",
   "priority": "Must-have",
   "stability": "Stable",
   "verification_method": "Test",
   "acceptance_criteria": [
     "Income transaction increases the linked account balance",
     "Saving income without a Category or Account is rejected",
-    "Income appears in the timeline with a distinct visual indicator (positive direction)"
+    "The entry UI provides a date/time picker pre-filled with the current system time",
+    "User can modify the date and time to any past or future value",
+    "Income appears in the timeline at the selected date with a distinct visual indicator (positive direction)"
   ],
   "trace_to": {
     "user_requirements": ["UR-001"],

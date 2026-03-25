@@ -1,0 +1,14 @@
+{
+  "id": "SCN-016",
+  "title": "Verify Currency Normalization",
+  "description": "Verify that all currency inputs (New Transaction, Add Account, Reconciliation) follow the same decimal-based style with a '$ ' prefix and bold formatting.",
+  "steps": [
+    "Navigate to 'New Transaction' and verify amount entry style",
+    "Navigate to 'Settings' -> 'Manage Accounts' -> '+' and verify amount entry style matches",
+    "Navigate to 'Dashboard' -> Select Account -> 'Reconcile' and verify amount entry style matches",
+    "Enter a decimal value (e.g., 12.50) in each and verify no 'cents' labels are present"
+  ],
+  "trace_to": {
+    "functional_requirements": ["FR-016"]
+  }
+}
