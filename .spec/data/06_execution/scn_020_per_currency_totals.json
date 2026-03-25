@@ -1,0 +1,20 @@
+{
+  "id": "SCN-020",
+  "title": "Per-Currency Totals — No Cross-Currency Aggregation (FR-020)",
+  "type": "Functional",
+  "trace_to": {
+    "functional_requirements": ["FR-020"]
+  },
+  "steps": [
+    {
+      "given": "The user has a EUR account with balance 1500 EUR and a USD account with balance 2000 USD",
+      "when": "The user opens the Account List / Dashboard",
+      "then": "Each account card shows its balance in its own currency ('1 500 EUR' and '2 000 USD'). No single combined balance total is displayed."
+    },
+    {
+      "given": "The timeline for a given month contains EUR expenses and USD expenses",
+      "when": "The user views the monthly summary",
+      "then": "The summary shows separate totals: one for EUR and one for USD. No combined total is computed."
+    }
+  ]
+}

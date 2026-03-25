@@ -1,0 +1,19 @@
+{
+  "id": "FR-021",
+  "title": "Currency Code Display Alongside All Monetary Amounts",
+  "description": "The system shall display the ISO 4217 currency code (or its standard symbol where unambiguous) next to every monetary amount shown in the UI. This applies to account balances, transaction amounts in the timeline, receipt splits, transfer amounts, and reconciliation screens. The currency indicator shall be derived from the account associated with the transaction, not from a global app setting.",
+  "priority": "Must-have",
+  "stability": "Stable",
+  "verification_method": "Manual",
+  "acceptance_criteria": [
+    "Account balance cards show the currency code next to the balance (e.g., '1 500,00 EUR')",
+    "Each transaction row in the timeline shows its amount with the account's currency code",
+    "The fast entry sheet displays the currency of the selected account next to the amount field",
+    "Split receipt rows each show the currency of the parent account",
+    "Transfer entries show the source currency for the debit amount and the target currency for the credit amount"
+  ],
+  "trace_to": {
+    "user_requirements": ["UR-001", "UR-004", "UR-005", "UR-010"],
+    "business_rules": ["BR-006"]
+  }
+}

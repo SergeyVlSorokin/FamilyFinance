@@ -1,0 +1,49 @@
+{
+  "id": "TASK-117",
+  "title": "FX Transfer Use Case — Dual Amount Entry and Validation",
+  "description": "Update SaveTransferUseCase to support cross-currency transfers. When source and target accounts have different currencies, the caller must provide targetAmountCents. Validate that FX transfers always have both amounts set.",
+  "type": "Feature",
+  "priority": "High",
+  "status": "Pending",
+  "dependencies": ["TASK-115"],
+  "trace_to": {
+    "functional_requirements": ["FR-019"],
+    "user_requirements": ["UR-011"]
+  },
+  "context": [
+    "app/src/main/java/com/familyfinance/domain/usecase/SaveTransferUseCase.kt",
+    "app/src/main/java/com/familyfinance/domain/model/Account.kt",
+    "app/src/main/java/com/familyfinance/domain/model/Transaction.kt",
+    ".spec/data/04_system/fr_019_fx_transfer.json",
+    ".spec/data/06_execution/scn_018_fx_transfer.json"
+  ],
+  "execution_steps": [
+    "Run 'loom start TASK-117' to lock active context",
+    "Run 'loom context TASK-117' to ingest requirements",
+    "Write failing tests for SaveTransferUseCase (Red Phase):",
+    "  - Same-currency transfer: one amount, succeeds; targetAmountCents remains null",
+    "  - FX transfer (currencies differ): null targetAmountCents → Result.failure with descriptive error",
+    "  - FX transfer (currencies differ): valid targetAmountCents → Result.success; transaction has currencyCode = fromAccount.currency and targetAmountCents set",
+    "Refactor SaveTransferUseCase.invoke() signature: add `fromAccount: Account`, `toAccount: Account`, `targetAmountCents: Long? = null`",
+    "Derive currencyCode from fromAccount.currency",
+    "Add validation: if (fromAccount.currency != toAccount.currency && targetAmountCents == null) return Result.failure(...)",
+    "Set transaction.currencyCode = fromAccount.currency, transaction.targetAmountCents = targetAmountCents (null for same-currency)",
+    "Add `@trace TASK-117` to SaveTransferUseCase.kt",
+    "Run './gradlew :app:testDebugUnitTest' and confirm all tests pass",
+    "Run 'loom complete TASK-117'"
+  ],
+  "definition_of_done": [
+    "SaveTransferUseCase accepts fromAccount and toAccount objects instead of bare IDs",
+    "Same-currency transfer: targetAmountCents is null on saved transaction",
+    "FX transfer with missing targetAmountCents returns Result.failure",
+    "FX transfer with valid targetAmountCents saves with correct currencyCode and targetAmountCents",
+    "Unit tests cover all three cases and pass",
+    "All modified files have @trace TASK-117",
+    "loom validate passes"
+  ],
+  "tdd_cycle": {
+    "test_file": "app/src/test/java/com/familyfinance/domain/usecase/SaveTransferUseCaseTest.kt",
+    "implementation_file": "app/src/main/java/com/familyfinance/domain/usecase/SaveTransferUseCase.kt",
+    "verification_command": "./gradlew :app:testDebugUnitTest"
+  }
+}

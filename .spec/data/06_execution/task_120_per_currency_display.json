@@ -1,0 +1,54 @@
+{
+  "id": "TASK-120",
+  "title": "Per-Currency Display — Timeline, Dashboard and Reconciliation Screens",
+  "description": "Update Timeline, Dashboard, and Reconciliation screens to display amounts with their currency codes and show per-currency totals instead of a single aggregated figure.",
+  "type": "Feature",
+  "priority": "Medium",
+  "status": "Pending",
+  "dependencies": ["TASK-116", "TASK-119"],
+  "trace_to": {
+    "functional_requirements": ["FR-020", "FR-021"],
+    "user_requirements": ["UR-004", "UR-005"]
+  },
+  "context": [
+    "app/src/main/java/com/familyfinance/ui/dashboard/",
+    "app/src/main/java/com/familyfinance/ui/timeline/",
+    "app/src/main/java/com/familyfinance/ui/reconcile/",
+    "app/src/main/java/com/familyfinance/domain/usecase/GetAccountBalancesUseCase.kt",
+    ".spec/data/04_system/fr_020_per_currency_totals.json",
+    ".spec/data/04_system/fr_021_currency_display.json",
+    ".spec/data/06_execution/scn_019_transaction_currency.json",
+    ".spec/data/06_execution/scn_020_per_currency_totals.json",
+    ".spec/data/06_execution/scn_021_currency_display.json"
+  ],
+  "execution_steps": [
+    "Run 'loom start TASK-120' to lock active context",
+    "Run 'loom context TASK-120' to ingest requirements",
+    "Write failing tests (Red Phase):",
+    "  - DashboardViewModelTest: AccountBalance list with mixed currencies does NOT produce a single summed total; each balance has a currencyCode",
+    "  - TimelineViewModelTest: monthly group total is Map<String, Long> (per currency), not a single Long",
+    "Dashboard: Update account card Composable to display balance as '{amount} {currencyCode}' using AccountBalance.account.currency",
+    "Dashboard: If a single combined net total is currently shown, replace it with per-currency totals list (or remove if N/A)",
+    "Timeline: Update transaction row Composable to show amount with transaction's currencyCode (from account)",
+    "Timeline: Update monthly header/total row to show per-currency breakdown (e.g., '-500 EUR / -200 USD') instead of one sum",
+    "Reconciliation: Display account balance with its currencyCode next to the amount field; update ReconciliationViewModel to pass currencyCode from AccountBalance",
+    "Add `@trace TASK-120` to all modified files",
+    "Run './gradlew :app:testDebugUnitTest' and confirm ALL tests (including DashboardViewModelTest, TimelineViewModelTest, ReconciliationViewModelTest) pass",
+    "Run 'loom complete TASK-120'"
+  ],
+  "definition_of_done": [
+    "Dashboard account cards show balance in own currency (e.g., '1 500 EUR', '2 000 USD')",
+    "No single cross-currency sum shown anywhere in Dashboard",
+    "Timeline transaction rows show amount with currency code",
+    "Timeline monthly total shows per-currency breakdown, not a single aggregated Long",
+    "Reconciliation balance fields show the account's currency code",
+    "DashboardViewModelTest, TimelineViewModelTest, ReconciliationViewModelTest pass",
+    "All modified files have @trace TASK-120",
+    "loom validate passes"
+  ],
+  "tdd_cycle": {
+    "test_file": "app/src/test/java/com/familyfinance/ui/dashboard/DashboardViewModelTest.kt",
+    "implementation_file": "app/src/main/java/com/familyfinance/ui/dashboard/",
+    "verification_command": "./gradlew :app:testDebugUnitTest"
+  }
+}

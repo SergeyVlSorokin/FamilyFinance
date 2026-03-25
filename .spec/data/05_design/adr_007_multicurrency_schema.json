@@ -1,0 +1,43 @@
+{
+  "id": "ADR-007",
+  "title": "Multi-Currency Schema — currency_code on Accounts and Transactions",
+  "status": "Accepted",
+  "supersedes": "ADR-004",
+  "context": "ADR-004 deferred multi-currency support for the MVP. BR-005 has now been superseded by BR-006 as the user has confirmed multi-currency accounts are a core requirement. ADR-004 anticipated this migration and noted that adding currency_code columns to accounts and transactions would be the correct path. The user has confirmed that: (1) each account has one fixed currency, (2) transactions inherit the account's currency, (3) FX transfers store both legs with their respective currencies, (4) no exchange rate is stored or calculated, (5) the existing DB can be cleared (no live user data to migrate).",
+  "decision": "Add a mandatory non-null currency_code column (ISO 4217, e.g. 'EUR', 'USD') to both the accounts table and the transactions table. No separate currencies look-up table is required in the database — the valid currency list is hardcoded in the application layer as a curated set of common currencies. FX transfers are handled by the existing two-leg (debit + credit) transfer model: each leg stores its own currency_code and amount. No exchange_rate column is added.",
+  "alternatives": [
+    {
+      "name": "Dedicated currencies table",
+      "description": "Store currencies as DB rows with code, symbol, name, and decimal_places.",
+      "pros": ["Supports dynamic addition of custom currencies", "Normalised — single source of truth for symbol/name"],
+      "cons": ["Over-engineered for current scope (no custom currencies needed)", "Adds a FK join to every balance query", "Requires seeding migration script"]
+    },
+    {
+      "name": "Store exchange rate on FX transfer",
+      "description": "Add an exchange_rate column to the transfer record.",
+      "pros": ["Allows future cross-currency analytics"],
+      "cons": ["User confirmed no cross-currency totals are needed now", "Effective rate is implied by (source_amount, target_amount) — storing it separately is redundant and potentially inconsistent"]
+    }
+  ],
+  "consequences": {
+    "positive": [
+      "Clean separation between account currency and transaction currency allows independent evolution",
+      "FX transfers work naturally with the existing two-leg model",
+      "No exchange rate complexity — the system never needs to fetch or validate rates",
+      "Per-currency balance queries are trivial (filter by account, sum by that account's currency)"
+    ],
+    "negative": [
+      "All existing TransactionEntity and AccountEntity Room entity classes must be updated",
+      "Room schema migration required (version bump); since no live users, a destructive migration (drop & recreate) is acceptable per user decision",
+      "All balance queries, dashboard queries, and timeline queries must be reviewed to ensure they do not aggregate across currencies"
+    ],
+    "neutral": [
+      "Currency symbol display logic moves from a global app constant to a per-account lookup"
+    ]
+  },
+  "trace_to": {
+    "business_rules": ["BR-006"],
+    "functional_requirements": ["FR-017", "FR-018", "FR-019", "FR-020", "FR-021"],
+    "affected_design_nodes": ["DATA-001"]
+  }
+}

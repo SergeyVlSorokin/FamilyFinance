@@ -1,0 +1,47 @@
+{
+  "id": "TASK-116",
+  "title": "Use Case Updates — Propagate currencyCode Through All Write Operations",
+  "description": "Update SaveTransactionUseCase, SaveSplitReceiptUseCase, CreateAccountUseCase (opening balance), and GetAccountBalancesUseCase so that currencyCode is set on every transaction written, and the FX Transfer credit side uses targetAmountCents for balance calculation.",
+  "type": "Feature",
+  "priority": "High",
+  "status": "Pending",
+  "dependencies": ["TASK-115"],
+  "trace_to": {
+    "functional_requirements": ["FR-018", "FR-020"],
+    "design_nodes": ["ADR-007"]
+  },
+  "context": [
+    "app/src/main/java/com/familyfinance/domain/usecase/SaveTransactionUseCase.kt",
+    "app/src/main/java/com/familyfinance/domain/usecase/SaveSplitReceiptUseCase.kt",
+    "app/src/main/java/com/familyfinance/domain/usecase/CreateAccountUseCase.kt",
+    "app/src/main/java/com/familyfinance/domain/usecase/GetAccountBalancesUseCase.kt",
+    "app/src/main/java/com/familyfinance/domain/model/Account.kt",
+    ".spec/data/04_system/fr_018_transaction_currency.json",
+    ".spec/data/04_system/fr_020_per_currency_totals.json"
+  ],
+  "execution_steps": [
+    "Run 'loom start TASK-116' to lock active context",
+    "Run 'loom context TASK-116' to ingest requirements",
+    "Write failing tests: SaveTransaction saves currencyCode from account; CreateAccount opening balance carries account's currency; GetAccountBalances FX transfer credit uses targetAmountCents (Red Phase)",
+    "Update SaveTransactionUseCase to accept account (or currencyCode string) and set it on the Transaction",
+    "Update SaveSplitReceiptUseCase similarly for each split line",
+    "Update CreateAccountUseCase to set currencyCode on the OPENING_BALANCE transaction",
+    "Update GetAccountBalancesUseCase.calculateContribution(): for TRANSFER type where targetAmountCents != null and targetAccountId == accountId, use targetAmountCents for the incoming credit amount",
+    "Add `@trace TASK-116` to all modified files",
+    "Run './gradlew :app:testDebugUnitTest' and confirm ALL tests pass (including pre-existing ones)",
+    "Run 'loom complete TASK-116'"
+  ],
+  "definition_of_done": [
+    "Every new Transaction saved via SaveTransactionUseCase or SaveSplitReceiptUseCase has a non-empty currencyCode",
+    "Opening balance transaction in CreateAccountUseCase carries the account's currencyCode",
+    "GetAccountBalancesUseCase.calculateContribution() correctly uses targetAmountCents for FX transfer credit legs",
+    "GetAccountBalancesUseCaseTest passes including new FX balance test",
+    "All modified files have @trace TASK-116",
+    "loom validate passes"
+  ],
+  "tdd_cycle": {
+    "test_file": "app/src/test/java/com/familyfinance/domain/usecase/GetAccountBalancesUseCaseTest.kt",
+    "implementation_file": "app/src/main/java/com/familyfinance/domain/usecase/GetAccountBalancesUseCase.kt",
+    "verification_command": "./gradlew :app:testDebugUnitTest"
+  }
+}

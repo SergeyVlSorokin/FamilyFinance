@@ -1,0 +1,19 @@
+{
+  "id": "FR-018",
+  "title": "Transaction Currency Inheritance from Account",
+  "description": "The system shall automatically assign the currency of the source account to each transaction record at the time of creation. The transaction's currency_code shall be stored as a non-null field on the TransactionEntity. For standard (same-currency) transactions, no currency selection UI is shown to the user — the currency is inherited implicitly.",
+  "priority": "Must-have",
+  "stability": "Stable",
+  "verification_method": "Functional Test",
+  "acceptance_criteria": [
+    "Every TransactionEntity row in the database has a non-null currency_code",
+    "The currency_code on a transaction row matches the currency_code of its parent account",
+    "No currency selector is shown in the standard expense/income entry UI",
+    "Historical transactions retain their original currency_code even if the account's currency were somehow changed (immutability guard)"
+  ],
+  "trace_to": {
+    "user_requirements": ["UR-010"],
+    "business_rules": ["BR-006"],
+    "design_nodes": ["DATA-001"]
+  }
+}

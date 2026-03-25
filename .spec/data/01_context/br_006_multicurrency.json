@@ -1,0 +1,10 @@
+{
+  "id": "BR-006",
+  "title": "Multi-Currency Accounts — Per-Account Currency, No Cross-Currency Aggregation",
+  "supersedes": "BR-005",
+  "statement": "The system MUST support accounts with different currencies (ISO 4217 codes). Each account MUST have exactly one currency assigned at creation time. Transactions MUST inherit the currency of their account. Cross-currency transfers (FX Transfers) MUST allow the user to enter both the source and target amounts manually; no exchange rate is stored or calculated by the system. The system MUST NOT aggregate monetary totals across different currencies. All balance and total displays MUST be per-currency. Automated exchange rate API lookup remains out of scope.",
+  "source": "User decision — 2026-03-25: Multi-currency moved from deferred to active scope",
+  "trace_to": {
+    "stakeholders": ["STK-001", "STK-002", "STK-003"]
+  }
+}
