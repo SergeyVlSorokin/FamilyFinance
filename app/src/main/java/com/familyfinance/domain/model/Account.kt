@@ -1,7 +1,7 @@
 package com.familyfinance.domain.model
 
 enum class AccountType {
-    CASH, BANK, INVESTMENT
+    CASH, BANK, INVESTMENT, CREDIT_CARD
 }
 
 data class Account(
@@ -9,5 +9,7 @@ data class Account(
     val name: String,
     val type: AccountType,
     val currency: String,
-    val color: Int
+    val color: Int,
+    val ownerLabel: String? = null,
+    val lastReconciledAt: Long? = null
 )

@@ -1,16 +1,17 @@
 {
   "id": "FR-010",
   "title": "Account Reconciliation — Balance Verification",
-  "description": "The system shall provide a Reconciliation flow for any account where the user enters the actual real-world balance. The system shall compute and display the discrepancy (actual minus recorded balance). If the discrepancy is zero, the system shall record a reconciliation timestamp on the account and require no further action. If a discrepancy exists, the system shall present the appropriate correction action based on account type (see FR-011 for non-investment, FR-012 for investment).",
+  "description": "The system shall provide a Reconciliation flow for any account where the user specifies a date/time and the actual real-world balance at that moment. The system shall compute and display the discrepancy (actual minus recorded balance at the selected moment). If the discrepancy is zero, the system shall record a reconciliation mark on the account for that timestamp. If a discrepancy exists, the system shall present appropriate correction actions.",
   "priority": "Must-have",
   "stability": "Stable",
   "verification_method": "Test",
   "acceptance_criteria": [
-    "Reconciliation can be initiated for any existing account",
-    "The screen shows: account name, currently recorded balance, user-entered actual balance, and computed discrepancy",
-    "Discrepancy = actual balance − recorded balance; a negative value means the app shows more money than exists",
-    "When discrepancy is exactly 0, a 'Reconciled ✓' confirmation is shown with a timestamp; no transaction is created",
-    "When discrepancy is non-zero, the flow proceeds to account-type-appropriate correction (FR-011 or FR-012)"
+    "Reconciliation flow includes a date/time picker pre-filled with the current system time",
+    "The screen displays the 'Recorded Balance' as the sum of all transactions for that account with `date <= selected_reconciliation_time` ",
+    "Transactions with `date > selected_reconciliation_time` are excluded from the recorded balance calculation",
+    "The discrepancy is computed as: user-entered balance minus recorded balance at selected time",
+    "When discrepancy is 0, a 'Reconciled ✓' confirmation is shown; no transaction is created",
+    "When discrepancy is non-zero, the flow proceeds to correction (FR-011 or FR-012) using the selected reconciliation date/time for the correction transaction"
   ],
   "trace_to": {
     "user_requirements": ["UR-009"],

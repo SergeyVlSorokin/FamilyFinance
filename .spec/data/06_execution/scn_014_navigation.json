@@ -1,0 +1,26 @@
+{
+  "id": "SCN-014",
+  "title": "Navigation Integrity & Type-Safe Routes",
+  "objective": "Verify that all app screens are navigable through the centralized NavGraph and that the navigation graph represents the intended application structure.",
+  "type": "Manual",
+  "status": "Draft",
+  "trace_to": { "requirements": ["FR-014"] },
+  "steps": [
+    {
+      "step": "Inspect ui.navigation package",
+      "expected_result": "Screen sealed class contains all feature routes and no hardcoded strings are used elsewhere."
+    },
+    {
+      "step": "Inspect NavGraph.kt wiring",
+      "expected_result": "NavGraph defines the complete application flow using the Screen sealed class."
+    },
+    {
+      "step": "Inspect MainActivity.kt",
+      "expected_result": "MainActivity is clean and only instantiates NavGraph."
+    },
+    {
+      "step": "Run the app and navigate Dashboard -> Settings -> Categories -> Back",
+      "expected_result": "Navigation is smooth and back-stack is maintained correctly."
+    }
+  ]
+}

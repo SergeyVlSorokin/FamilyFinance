@@ -4,13 +4,27 @@
   "type": "Feature",
   "routine": "Feature",
   "objective": "Build the ReconciliationScreen where the user enters the actual account balance, sees the discrepancy, and creates a correction transaction (RECONCILIATION_ADJUSTMENT for Bank/Cash/CreditCard, REVALUATION for Investment).",
-  "status": "Pending",
+  "status": "Done",
   "priority": 50,
   "verification_regime": "Hybrid",
-  "dependencies": ["TASK-103", "TASK-104"],
+  "dependencies": [
+    "TASK-103",
+    "TASK-104"
+  ],
   "trace_to": {
-    "requirements": ["FR-010", "FR-011", "FR-012", "UR-009"],
-    "design_nodes": ["VIEW-001", "VIEW-004", "ADR-003"]
+    "requirements": [
+      "FR-010",
+      "FR-011",
+      "FR-012",
+      "UR-009",
+      "FR-014"
+    ],
+    "design_nodes": [
+      "VIEW-001",
+      "VIEW-004",
+      "ADR-003",
+      "ADR-005"
+    ]
   },
   "tdd_cycle": {
     "test_file": "app/src/test/java/com/familyfinance/ui/reconcile/ReconciliationViewModelTest.kt",

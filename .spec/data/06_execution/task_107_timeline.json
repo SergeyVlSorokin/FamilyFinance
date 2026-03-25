@@ -4,13 +4,26 @@
   "type": "Feature",
   "routine": "Feature",
   "objective": "Build a scrollable, filterable transaction timeline grouped by month, with visual grouping of split receipt rows and transfer pairs. Filters: owner_label, category, project.",
-  "status": "Pending",
+  "status": "Done",
   "priority": 55,
   "verification_regime": "Hybrid",
-  "dependencies": ["TASK-103", "TASK-106"],
+  "dependencies": [
+    "TASK-103",
+    "TASK-106"
+  ],
   "trace_to": {
-    "requirements": ["FR-006", "FR-009", "UR-005", "UR-006"],
-    "design_nodes": ["VIEW-001", "VIEW-004"]
+    "requirements": [
+      "FR-006",
+      "FR-009",
+      "UR-005",
+      "UR-006",
+      "FR-014"
+    ],
+    "design_nodes": [
+      "VIEW-001",
+      "VIEW-004",
+      "ADR-005"
+    ]
   },
   "tdd_cycle": {
     "test_file": "app/src/test/java/com/familyfinance/ui/timeline/TimelineViewModelTest.kt",

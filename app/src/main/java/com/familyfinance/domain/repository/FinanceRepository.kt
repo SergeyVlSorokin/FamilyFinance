@@ -8,15 +8,21 @@ interface FinanceRepository {
     fun getAccountsFlow(): Flow<List<Account>>
     suspend fun getAccountById(id: Long): Account?
     suspend fun saveAccount(account: Account): Long
+    suspend fun updateAccountReconciliationDate(accountId: Long, timestamp: Long)
+    suspend fun isAccountNameTaken(name: String): Boolean
     suspend fun deleteAccount(id: Long)
 
     // Categories
     fun getCategoriesFlow(): Flow<List<Category>>
     suspend fun saveCategory(category: Category)
+    suspend fun isCategoryNameTaken(name: String): Boolean
+    suspend fun deleteCategory(id: Long)
 
     // Projects
     fun getProjectsFlow(): Flow<List<Project>>
     suspend fun saveProject(project: Project)
+    suspend fun isProjectNameTaken(name: String): Boolean
+    suspend fun deleteProject(id: Long)
 
     // Transactions
     fun getTransactionsFlow(): Flow<List<Transaction>>

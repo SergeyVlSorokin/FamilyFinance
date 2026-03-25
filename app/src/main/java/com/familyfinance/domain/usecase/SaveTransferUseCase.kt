@@ -28,8 +28,9 @@ class SaveTransferUseCase @Inject constructor(
             targetAccountId = toAccountId,
             categoryId = null,
             projectId = null,
-            note = if (note.isEmpty()) "Transfer $transferId" else "$note (Transfer: $transferId)",
-            type = TransactionType.TRANSFER
+            note = note,
+            type = TransactionType.TRANSFER,
+            transferLinkedId = transferId
         )
 
         // Repository saveTransaction is already marked @Transaction in DAO for single inserts,

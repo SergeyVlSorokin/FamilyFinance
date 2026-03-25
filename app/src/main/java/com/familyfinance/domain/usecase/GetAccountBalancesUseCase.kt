@@ -12,16 +12,24 @@ data class AccountBalance(
     val balanceCents: Long
 )
 
+// @trace TASK-113
+
+
 class GetAccountBalancesUseCase @Inject constructor(
     private val repository: FinanceRepository
 ) {
-    operator fun invoke(): Flow<List<AccountBalance>> {
+    operator fun invoke(upToDateMillis: Long? = null): Flow<List<AccountBalance>> {
         return combine(
             repository.getAccountsFlow(),
             repository.getTransactionsFlow()
         ) { accounts, transactions ->
+            val targetTransactions = if (upToDateMillis != null) {
+                transactions.filter { it.date <= upToDateMillis }
+            } else {
+                transactions
+            }
             accounts.map { account ->
-                val balance = transactions.filter { it.accountId == account.id || it.targetAccountId == account.id }
+                val balance = targetTransactions.filter { it.accountId == account.id || it.targetAccountId == account.id }
                     .sumOf { transaction ->
                         calculateContribution(account.id, transaction)
                     }

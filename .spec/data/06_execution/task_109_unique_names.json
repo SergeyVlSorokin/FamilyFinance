@@ -1,0 +1,37 @@
+{
+  "id": "TASK-109",
+  "title": "Implement Unique Name Validation",
+  "type": "Feature",
+  "routine": "Feature",
+  "status": "Done",
+  "execution_steps": [
+    "Add unique indices to Account, Category, and Project entities",
+    "Implement isNameUnique methods in FinanceRepository",
+    "Add pre-save validation logic in SettingsViewModel",
+    "Update UI dialogs to display error messages"
+  ],
+  "definition_of_done": [
+    "Unique indices added to entities",
+    "Repository has name check methods",
+    "ViewModel validates name before saving",
+    "Error message displayed in UI on duplicate"
+  ],
+  "trace_to": {
+    "requirements": [
+      "FR-015"
+    ],
+    "design_nodes": [
+      "ADR-006",
+      "DATA-002"
+    ]
+  },
+  "context": {
+    "relevant_files": [
+      "app/src/main/java/com/familyfinance/data/local/entity/AccountEntity.kt",
+      "app/src/main/java/com/familyfinance/data/local/entity/CategoryEntity.kt",
+      "app/src/main/java/com/familyfinance/data/local/entity/ProjectEntity.kt",
+      "app/src/main/java/com/familyfinance/domain/repository/FinanceRepository.kt",
+      "app/src/main/java/com/familyfinance/ui/settings/SettingsViewModel.kt"
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "id": "FR-015",
+  "title": "Unique Name Identification (Accounts, Categories, Projects)",
+  "description": "The system shall enforce name uniqueness for Accounts, Categories, and Projects to prevent data ambiguity. When a user attempts to save a duplicate name, the system shall provide clear visual feedback and prevent the record from being saved until a unique name is provided.",
+  "priority": "Must-have",
+  "stability": "Stable",
+  "verification_method": "Test",
+  "acceptance_criteria": [
+    "The system shall not allow saving an Account with a name that already exists in the accounts table.",
+    "The system shall not allow saving a Category with a name that already exists in the categories table.",
+    "The system shall not allow saving a Project with a name that already exists in the projects table.",
+    "When a duplicate name is entered in a creation/edit dialog, the system shall display an alert or error message (e.g., 'Name already exists').",
+    "The creation/edit dialog shall remain open if a name uniqueness violation is detected upon submission.",
+    "The 'Save' button may be disabled if the current name is detected as a duplicate (real-time validation)."
+  ],
+  "trace_to": {
+    "user_requirements": ["UR-007"],
+    "constraints": ["CON-001"],
+    "design_nodes": ["DATA-001", "DATA-002", "VIEW-005"],
+    "verification_plans": ["SCN-007"]
+  }
+}

@@ -1,15 +1,16 @@
 {
   "id": "FR-004",
   "title": "Account-to-Account Transfer",
-  "description": "The system shall allow the user to record a transfer of funds between two different accounts. The system shall persist this as exactly two linked TransactionEntity rows (one debit, one credit) sharing a transfer_linked_id UUID. Both rows must have type=TRANSFER.",
+  "description": "The system shall allow the user to record a transfer of funds between two different accounts at a specific date/time. The system shall persist this as exactly two linked TransactionEntity rows (one debit, one credit) sharing a transfer_linked_id UUID. Both rows must have type=TRANSFER.",
   "priority": "Must-have",
   "stability": "Stable",
   "verification_method": "Test",
   "acceptance_criteria": [
     "User must select distinct source and destination accounts (same account rejected)",
-    "Source account balance decreases by the transfer amount",
-    "Destination account balance increases by the transfer amount",
-    "Two database rows are created sharing a non-null transfer_linked_id",
+    "The entry UI provides a date/time picker pre-filled with the current system time",
+    "Source account balance decreases by the transfer amount as of the selected date",
+    "Destination account balance increases by the transfer amount as of the selected date",
+    "Two database rows are created sharing a non-null transfer_linked_id and the same user-selected date",
     "Timeline shows both legs of the transfer linked visually"
   ],
   "trace_to": {

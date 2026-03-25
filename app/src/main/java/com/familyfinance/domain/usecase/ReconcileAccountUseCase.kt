@@ -10,27 +10,32 @@ class ReconcileAccountUseCase @Inject constructor(
     private val repository: FinanceRepository,
     private val getAccountBalancesUseCase: GetAccountBalancesUseCase
 ) {
+    // @trace TASK-113
     suspend operator fun invoke(
         accountId: Long,
         actualBalanceCents: Long,
         date: Long
     ): Result<Long?> {
-        val currentBalances = getAccountBalancesUseCase().first()
+        val currentBalances = getAccountBalancesUseCase(date).first()
         val accountBalance = currentBalances.find { it.account.id == accountId }
             ?: return Result.failure(IllegalArgumentException("Account not found"))
 
         val discrepancy = actualBalanceCents - accountBalance.balanceCents
+        
+        // Update account with reconciliation timestamp regardless of discrepancy
+        repository.updateAccountReconciliationDate(accountId, date)
+
         if (discrepancy == 0L) return Result.success(null)
 
         val reconciliationTransaction = Transaction(
             date = date,
-            amountCents = Math.abs(discrepancy),
+            amountCents = discrepancy, // Use signed amount for these internal types
             accountId = accountId,
             categoryId = null,
             projectId = null,
-            note = "Reconciliation Adjustment",
-            type = if (discrepancy > 0) TransactionType.INCOME else TransactionType.EXPENSE // Simplified for MVP
-            // Ideally should use RECONCILIATION_ADJUSTMENT type and handle its sign in balance calc
+            note = if (accountBalance.account.type == com.familyfinance.domain.model.AccountType.INVESTMENT) "Investment Revaluation" else "Reconciliation Adjustment",
+            type = if (accountBalance.account.type == com.familyfinance.domain.model.AccountType.INVESTMENT) 
+                TransactionType.REVALUATION else TransactionType.RECONCILIATION_ADJUSTMENT
         )
 
         return Result.success(repository.saveTransaction(reconciliationTransaction))

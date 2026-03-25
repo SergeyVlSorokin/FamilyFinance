@@ -17,7 +17,7 @@ import com.familyfinance.data.local.entity.TransactionEntity
         ProjectEntity::class,
         TransactionEntity::class
     ],
-    version = 1,
+    version = 5,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

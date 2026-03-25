@@ -5,7 +5,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 enum class AccountType {
-    CASH, BANK, INVESTMENT
+    CASH, BANK, INVESTMENT, CREDIT_CARD
 }
 
 @Entity(
@@ -17,5 +17,7 @@ data class AccountEntity(
     val name: String,
     val type: AccountType,
     val currency: String,
-    val color: Int
+    val color: Int,
+    val ownerLabel: String? = null,
+    val lastReconciledAt: Long? = null
 )

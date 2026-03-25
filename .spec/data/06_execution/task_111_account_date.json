@@ -1,0 +1,21 @@
+{
+  "id": "TASK-111",
+  "title": "Date/Time Entry for Account Creation",
+  "description": "Add a user-editable date/time field to the Account creation form to specify the timestamp of the opening balance.",
+  "type": "Feature",
+  "priority": "Medium",
+  "status": "Verified",
+  "trace_to": {
+    "functional_requirements": [
+      "FR-007"
+    ]
+  },
+  "context": [
+    "app/src/main/java/com/familyfinance/ui/screens/settings/accounts/AccountManagementViewModel.kt"
+  ],
+  "definition_of_done": [
+    "Account creation UI includes a DateTimePicker pre-filled with current system time",
+    "System-generated OPENING_BALANCE transaction uses the user-specified date",
+    "Account appears in list immediately"
+  ]
+}

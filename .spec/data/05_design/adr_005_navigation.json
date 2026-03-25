@@ -1,0 +1,31 @@
+{
+  "id": "ADR-005",
+  "title": "Centralized and Type-Safe Navigation",
+  "status": "Accepted",
+  "context": "As the application grows, managing routes as strings in MainActivity becomes error-prone and hard to maintain. We need a centralized way to define routes and handle navigation logic to ensure consistency across the app.",
+  "decision": "Use a centralized NavGraph component located in the `ui.navigation` package. Routes are defined using a `Screen` sealed class to ensure type safety. MainActivity acts solely as an entry point, delegating all navigation to the NavHost controller within NavGraph.",
+  "alternatives": [
+    {
+      "name": "Hardcoded Navigation",
+      "description": "Keep all routes as strings in MainActivity.",
+      "pros": ["Simple for very small apps"],
+      "cons": ["High risk of typos", "MainActivity becomes bloated", "Hard to track all routes"]
+    }
+  ],
+  "consequences": {
+    "positive": [
+      "Type safety for routes reduces runtime crashes",
+      "Better separation of concerns: MainActivity is clean",
+      "Centralized NavGraph makes it easy to visualize and manage app flow",
+      "Easier to implement deep linking in the future"
+    ],
+    "negative": [
+      "Small amount of boilerplate for new routes"
+    ],
+    "neutral": []
+  },
+  "trace_to": {
+    "stakeholders": ["STK-003"],
+    "affected_design_nodes": ["VIEW-001", "VIEW-004"]
+  }
+}

@@ -9,7 +9,8 @@
 
 | Slug | Phase | B | P | PR | W | R | Priority | Started |
 |------|-------|:-:|:-:|:--:|:-:|:-:|----------|---------|
-| 2026-02-28-family-finance | Plan-Review | [✅](docs/brainstorms/2026-02-28-family-finance-brainstorm.md) | [✅](docs/plans/2026-02-28-family-finance-plan.md) | [✅](docs/plan-reviews/2026-03-01-00-45-family-finance-plan-review.md) | — | — | High | 2026-02-28 |
+| 2026-03-18-transaction-date-time | Done | [✅](docs/brainstorms/2026-02-28-family-finance-brainstorm.md) | [✅](docs/plans/2026-02-28-family-finance-plan.md) | [✅](docs/plan-reviews/2026-03-01-00-45-family-finance-plan-review.md) | [✅] | [✅] | High | 2026-03-18 |
+| 2026-03-16-unique-name-validation | Done | [✅](docs/brainstorms/2026-03-16-23-48-unique-name-validation-brainstorm.md) | [✅](docs/plans/2026-03-16-23-48-unique-name-validation-plan.md) | [✅](docs/plan-reviews/2026-03-16-23-48-unique-name-validation-plan.md) | [✅] | [✅] | Medium | 2026-03-16 |
 
 **Phase codes:** B=Brainstorm · P=Plan · PR=Plan-Review · W=Work · R=Code-Review
 **Status icons:** ✅ done · 🔄 in-progress · ⏳ pending · ❌ blocked · — not started
@@ -23,7 +24,9 @@ _Items added automatically when a phase completes. Agent picks up first `[ ]` it
 - [x] plan | slug: `2026-02-28-family-finance` | created: 2026-02-28-22-00
 - [x] plan-review | docs/plans/2026-02-28-family-finance-plan.md | created: 2026-02-28-22-29
 - [x] revise-plan | slug: `2026-02-28-family-finance` | created: 2026-03-01-00-45
-- [ ] work | slug: `2026-02-28-family-finance` | created: 2026-03-01-00-49
+- [x] work | slug: `2026-02-28-family-finance` | created: 2026-03-01-00-49
+- [x] plan | slug: `2026-03-16-unique-name-validation` | created: 2026-03-16-23-48
+- [x] plan-review | docs/plans/2026-03-16-unique-name-validation-plan.md | created: 2026-03-16-23-48
 
 <!-- compound-brainstorm → adds: plan pending -->
 <!-- compound-plan → adds: plan-review pending -->

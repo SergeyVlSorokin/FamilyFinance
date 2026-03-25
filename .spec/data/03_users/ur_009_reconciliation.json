@@ -1,15 +1,16 @@
 {
   "id": "UR-009",
   "user_role": "Active Recorder",
-  "story": "As an Active Recorder, I want to periodically reconcile an account by entering its actual real-world balance, so that I can detect discrepancies between the app's records and reality and correct them with a proper audit trail.",
+  "story": "As an Active Recorder, I want to reconcile an account by entering its actual real-world balance as of a specific date and time, so that I can detect and correct discrepancies while correctly accounting for transactions that occurred after the check.",
   "priority": "High",
   "acceptance_criteria": [
-    "User can initiate a reconciliation for any account from the dashboard or account detail screen",
-    "The app displays the account's currently recorded balance alongside a field to enter the actual verified balance",
-    "The app shows the discrepancy amount (actual minus recorded)",
-    "If discrepancy is zero, the account is marked as reconciled with a timestamp, no transaction is created",
-    "For Bank, Cash, and Credit Card accounts: if a discrepancy exists, user can create a correction transaction (Unrecorded Expense or Unrecorded Income) to bring the recorded balance in line with reality",
-    "For Investment accounts: if a discrepancy exists, user can create a Revaluation transaction to record the change in asset value",
+    "User can initiate a reconciliation for any account and select the date/time of the real-world balance check (pre-filled with current system time)",
+    "The app displays the account's recorded balance *as of the selected date/time* alongside a field to enter the actual verified balance",
+    "The app shows the discrepancy amount (actual minus recorded at that time)",
+    "If discrepancy is zero, the account is marked as reconciled at that date/time, no transaction is created",
+    "For Bank, Cash, and Credit Card accounts: if a discrepancy exists, user can create a correction transaction dated at the reconciliation time",
+    "Transactions dated *after* the reconciliation time are ignored during the balance check but preserved in the ledger",
+    "For Investment accounts: if a discrepancy exists, user can create a Revaluation transaction to record the change in asset value at that time",
     "All correction transactions are clearly labeled and distinct from manual entries in the timeline"
   ],
   "trace_to": {

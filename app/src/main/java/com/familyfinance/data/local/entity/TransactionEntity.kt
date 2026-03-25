@@ -41,7 +41,8 @@ enum class TransactionType {
         Index("accountId"),
         Index("categoryId"),
         Index("projectId"),
-        Index("targetAccountId")
+        Index("targetAccountId"),
+        Index("receiptGroupId")
     ]
 )
 data class TransactionEntity(
@@ -53,5 +54,7 @@ data class TransactionEntity(
     val projectId: Long?,
     val note: String,
     val type: TransactionType,
-    val targetAccountId: Long? = null // Used for transfers
+    val targetAccountId: Long? = null, // Used for transfers
+    val receiptGroupId: String? = null,
+    val transferLinkedId: String? = null
 )

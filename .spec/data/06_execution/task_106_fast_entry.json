@@ -4,13 +4,31 @@
   "type": "Feature",
   "routine": "Feature",
   "objective": "Build the single-screen FastEntrySheet bottom sheet handling all transaction types: single expense, income, account transfer, and multi-line receipt split with real-time remainder calculation.",
-  "status": "Pending",
+  "status": "Done",
   "priority": 60,
   "verification_regime": "Hybrid",
-  "dependencies": ["TASK-103", "TASK-105"],
+  "dependencies": [
+    "TASK-103",
+    "TASK-105"
+  ],
   "trace_to": {
-    "requirements": ["FR-001", "FR-002", "FR-003", "FR-004", "FR-009", "UR-001", "UR-002", "UR-003", "UR-006"],
-    "design_nodes": ["VIEW-001", "VIEW-002"]
+    "requirements": [
+      "FR-001",
+      "FR-002",
+      "FR-003",
+      "FR-004",
+      "FR-009",
+      "UR-001",
+      "UR-002",
+      "UR-003",
+      "UR-006",
+      "FR-014"
+    ],
+    "design_nodes": [
+      "VIEW-001",
+      "VIEW-002",
+      "ADR-005"
+    ]
   },
   "tdd_cycle": {
     "test_file": "app/src/test/java/com/familyfinance/ui/entry/FastEntryViewModelTest.kt",

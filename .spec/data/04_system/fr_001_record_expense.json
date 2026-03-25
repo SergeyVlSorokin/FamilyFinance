@@ -1,14 +1,16 @@
 {
   "id": "FR-001",
   "title": "Record Single Expense",
-  "description": "The system shall allow the user to create an expense transaction linked to a mandatory Category and Account, with an amount, date, optional note, and optional receiver.",
+  "description": "The system shall allow the user to create an expense transaction linked to a mandatory Category and Account, with an amount, user-specified date/time, optional note, and optional receiver.",
   "priority": "Must-have",
   "stability": "Stable",
   "verification_method": "Test",
   "acceptance_criteria": [
     "Saving an expense without a Category is rejected with a validation message",
     "Saving an expense without an Account is rejected with a validation message",
-    "A valid expense is persisted to Room and appears in the timeline immediately"
+    "The entry UI provides a date/time picker pre-filled with the current system time",
+    "The user can modify the date and time to any past or future value",
+    "A valid expense is persisted to Room with the selected date and appears in the timeline immediately"
   ],
   "trace_to": {
     "user_requirements": ["UR-001"],
