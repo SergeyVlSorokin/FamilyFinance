@@ -49,8 +49,8 @@ class TimelineViewModelTest {
     @Test
     fun `initial state groups transactions by month`() = runTest {
         val trans = listOf(
-            Transaction(id = 1, date = septDate, amountCents = 1000, accountId = 1, categoryId = 1, projectId = null, note = "", type = TransactionType.EXPENSE),
-            Transaction(id = 2, date = octDate, amountCents = 5000, accountId = 1, categoryId = 2, projectId = null, note = "", type = TransactionType.INCOME)
+            Transaction(id = 1, date = septDate, amountCents = 1000, accountId = 1, categoryId = 1, projectId = null, note = "", type = TransactionType.EXPENSE, currencyCode = "USD"),
+            Transaction(id = 2, date = octDate, amountCents = 5000, accountId = 1, categoryId = 2, projectId = null, note = "", type = TransactionType.INCOME, currencyCode = "USD")
         )
         whenever(repository.getTransactionsFlow()).thenReturn(flowOf(trans))
 
@@ -66,8 +66,8 @@ class TimelineViewModelTest {
     @Test
     fun `filter by owner works correctly`() = runTest {
         val trans = listOf(
-            Transaction(id = 1, date = septDate, amountCents = 1000, accountId = 1, categoryId = 1, projectId = null, note = "", type = TransactionType.EXPENSE),
-            Transaction(id = 2, date = septDate, amountCents = 2000, accountId = 2, categoryId = 1, projectId = null, note = "", type = TransactionType.EXPENSE)
+            Transaction(id = 1, date = septDate, amountCents = 1000, accountId = 1, categoryId = 1, projectId = null, note = "", type = TransactionType.EXPENSE, currencyCode = "USD"),
+            Transaction(id = 2, date = septDate, amountCents = 2000, accountId = 2, categoryId = 1, projectId = null, note = "", type = TransactionType.EXPENSE, currencyCode = "USD")
         )
         whenever(repository.getTransactionsFlow()).thenReturn(flowOf(trans))
 
@@ -83,8 +83,8 @@ class TimelineViewModelTest {
     fun `split grouping identifies root and children`() = runTest {
         val groupId = "test-group"
         val trans = listOf(
-            Transaction(id = 1, date = septDate, amountCents = 1000, accountId = 1, categoryId = 1, projectId = null, note = "Root", type = TransactionType.EXPENSE, receiptGroupId = groupId),
-            Transaction(id = 2, date = septDate, amountCents = 500, accountId = 1, categoryId = 1, projectId = null, note = "Child", type = TransactionType.EXPENSE, receiptGroupId = groupId)
+            Transaction(id = 1, date = septDate - 1000, amountCents = 1000, accountId = 1, categoryId = 1, projectId = null, note = "Root", type = TransactionType.EXPENSE, receiptGroupId = groupId, currencyCode = "USD"),
+            Transaction(id = 2, date = septDate, amountCents = 500, accountId = 1, categoryId = 1, projectId = null, note = "Child", type = TransactionType.EXPENSE, receiptGroupId = groupId, currencyCode = "USD")
         )
         // Order in list matters for "firstInGroup" logic. 1 is root if it's the last one in filteredTransactions (which is sorted by date desc).
         // Actually findLast on sorted by date desc means the earliest transaction in that group on that date.
@@ -111,7 +111,7 @@ class TimelineViewModelTest {
     @Test
     fun `special transaction types are marked as system entries`() = runTest {
         val trans = listOf(
-            Transaction(id = 1, date = septDate, amountCents = 0, accountId = 1, categoryId = null, projectId = null, note = "", type = TransactionType.REVALUATION)
+            Transaction(id = 1, date = septDate, amountCents = 0, accountId = 1, categoryId = null, projectId = null, note = "", type = TransactionType.REVALUATION, currencyCode = "USD")
         )
         whenever(repository.getTransactionsFlow()).thenReturn(flowOf(trans))
 

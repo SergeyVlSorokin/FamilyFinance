@@ -4,8 +4,7 @@ import com.familyfinance.domain.model.Transaction
 import com.familyfinance.domain.model.TransactionType
 import com.familyfinance.domain.repository.FinanceRepository
 import java.util.UUID
-import javax.inject.Inject
-
+import javax.inject.Inject // @trace TASK-114, TASK-116
 class SaveSplitReceiptUseCase @Inject constructor(
     private val repository: FinanceRepository
 ) {
@@ -22,6 +21,7 @@ class SaveSplitReceiptUseCase @Inject constructor(
         val processedSplits = splits.map { 
             it.copy(
                 receiptGroupId = receiptGroupId,
+                note = if (it.note.isNotBlank()) "Split: ${it.note}" else "Split",
                 type = TransactionType.EXPENSE // Split receipts are typically expenses
             )
         }

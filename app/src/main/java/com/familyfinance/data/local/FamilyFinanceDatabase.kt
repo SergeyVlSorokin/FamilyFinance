@@ -17,10 +17,11 @@ import com.familyfinance.data.local.entity.TransactionEntity
         ProjectEntity::class,
         TransactionEntity::class
     ],
-    version = 5,
+    version = 6,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
+// @trace TASK-114
 abstract class FamilyFinanceDatabase : RoomDatabase() {
     abstract val dao: FinanceDao
 }

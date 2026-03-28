@@ -20,6 +20,7 @@ data class SplitLine(
 data class FastEntryUiState(
     val type: TransactionType = TransactionType.EXPENSE,
     val totalAmountCents: Long = 0,
+    val targetAmountCents: Long = 0, // For FX transfers
     val date: Long = System.currentTimeMillis(),
     val account: Account? = null,
     val targetAccount: Account? = null, // For transfers
@@ -37,18 +38,35 @@ data class FastEntryUiState(
     val remainderCents: Long
         get() = totalAmountCents - splitLines.sumOf { it.amountCents }
 
+    val currencyCode: String?
+        get() = account?.currency
+
+    val targetAccountCurrency: String?
+        get() = targetAccount?.currency
+
+    val isFxTransfer: Boolean
+        get() = type == TransactionType.TRANSFER && 
+                account != null && 
+                targetAccount != null && 
+                account.currency != targetAccount.currency
+
     val isValid: Boolean
         get() = when (type) {
             TransactionType.EXPENSE, TransactionType.INCOME -> {
                 totalAmountCents > 0 && account != null && (category != null || splitLines.isNotEmpty())
             }
             TransactionType.TRANSFER -> {
-                totalAmountCents > 0 && account != null && targetAccount != null && account.id != targetAccount.id
+                totalAmountCents > 0 && 
+                account != null && 
+                targetAccount != null && 
+                account.id != targetAccount.id &&
+                (!isFxTransfer || targetAmountCents > 0)
             }
             else -> false
         }
 }
 
+// @trace TASK-119
 @HiltViewModel
 class FastEntryViewModel @Inject constructor(
     private val repository: FinanceRepository,
@@ -83,6 +101,10 @@ class FastEntryViewModel @Inject constructor(
 
     fun onAmountChange(amountCents: Long) {
         _uiState.update { it.copy(totalAmountCents = amountCents) }
+    }
+
+    fun onTargetAmountChange(amountCents: Long) {
+        _uiState.update { it.copy(targetAmountCents = amountCents) }
     }
 
     fun onAccountChange(account: Account) {
@@ -136,12 +158,15 @@ class FastEntryViewModel @Inject constructor(
         viewModelScope.launch {
             val result = when {
                 state.type == TransactionType.TRANSFER -> {
+                    val selectedAccount = state.account ?: return@launch
+                    val targetAccount = state.targetAccount ?: return@launch
                     saveTransferUseCase(
                         date = state.date,
                         amountCents = state.totalAmountCents,
-                        fromAccountId = state.account!!.id,
-                        toAccountId = state.targetAccount!!.id,
-                        note = state.note
+                        fromAccount = selectedAccount,
+                        toAccount = targetAccount,
+                        note = state.note,
+                        targetAmountCents = if (state.isFxTransfer) state.targetAmountCents else null
                     )
                 }
                 state.splitLines.isNotEmpty() -> {
@@ -153,7 +178,8 @@ class FastEntryViewModel @Inject constructor(
                             categoryId = split.category?.id,
                             projectId = state.project?.id,
                             note = state.note,
-                            type = state.type
+                            type = state.type,
+                            currencyCode = state.account!!.currency
                         )
                     }
                     saveSplitReceiptUseCase(state.totalAmountCents, transactions)
@@ -167,7 +193,8 @@ class FastEntryViewModel @Inject constructor(
                             categoryId = state.category?.id,
                             projectId = state.project?.id,
                             note = state.note,
-                            type = state.type
+                            type = state.type,
+                            currencyCode = state.account!!.currency
                         )
                     )
                 }

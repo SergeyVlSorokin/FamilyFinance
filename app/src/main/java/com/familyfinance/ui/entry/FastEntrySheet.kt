@@ -26,6 +26,7 @@ import com.familyfinance.ui.components.toDecimalString
 import java.text.SimpleDateFormat
 import java.util.*
 
+// @trace TASK-119
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FastEntrySheet(
@@ -94,8 +95,19 @@ fun FastEntrySheet(
 
                 AmountField(
                     amountCents = uiState.totalAmountCents,
-                    onAmountChange = viewModel::onAmountChange
+                    onAmountChange = viewModel::onAmountChange,
+                    currency = uiState.currencyCode
                 )
+
+                if (uiState.isFxTransfer) {
+                    Spacer(modifier = Modifier.height(16.dp))
+                    AmountField(
+                        label = "Target Amount (${uiState.targetAccountCurrency})",
+                        amountCents = uiState.targetAmountCents,
+                        onAmountChange = viewModel::onTargetAmountChange,
+                        currency = uiState.targetAccountCurrency
+                    )
+                }
 
                 Spacer(modifier = Modifier.height(32.dp))
 
@@ -159,14 +171,15 @@ fun FastEntrySheet(
 
                         if (uiState.type == TransactionType.EXPENSE) {
                             item {
-                                SplitSection(
-                                    splits = uiState.splitLines,
-                                    categories = uiState.categories,
-                                    remainderCents = uiState.remainderCents,
-                                    onAddSplit = viewModel::addSplit,
-                                    onUpdateSplit = viewModel::updateSplit,
-                                    onRemoveSplit = viewModel::removeSplit
-                                )
+                                 SplitSection(
+                                     splits = uiState.splitLines,
+                                     categories = uiState.categories,
+                                     remainderCents = uiState.remainderCents,
+                                     currency = uiState.currencyCode,
+                                     onAddSplit = viewModel::addSplit,
+                                     onUpdateSplit = viewModel::updateSplit,
+                                     onRemoveSplit = viewModel::removeSplit
+                                 )
                             }
                         }
                     }
@@ -260,12 +273,15 @@ fun TypeSelector(
 @Composable
 fun AmountField(
     amountCents: Long,
-    onAmountChange: (Long) -> Unit
+    onAmountChange: (Long) -> Unit,
+    label: String = "Amount",
+    currency: String? = null
 ) {
     CurrencyInput(
         value = amountCents.toDecimalString(),
         onValueChange = { onAmountChange(it.toCents()) },
-        label = "Amount"
+        label = label,
+        currency = currency
     )
 }
 
@@ -415,6 +431,7 @@ fun SplitSection(
     splits: List<SplitLine>,
     categories: List<Category>,
     remainderCents: Long,
+    currency: String?,
     onAddSplit: () -> Unit,
     onUpdateSplit: (Int, SplitLine) -> Unit,
     onRemoveSplit: (Int) -> Unit
@@ -452,7 +469,7 @@ fun SplitSection(
             ) {
                 Row(Modifier.padding(12.dp), horizontalArrangement = Arrangement.SpaceBetween) {
                     Text("Remainder", fontWeight = FontWeight.Bold)
-                    Text("$ ${remainderCents / 100.0}", fontWeight = FontWeight.Bold)
+                    Text("${currency ?: "$"} ${String.format("%.2f", remainderCents / 100.0)}", fontWeight = FontWeight.Bold)
                 }
             }
         }

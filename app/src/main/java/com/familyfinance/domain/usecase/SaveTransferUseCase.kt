@@ -1,10 +1,11 @@
 package com.familyfinance.domain.usecase
 
+import com.familyfinance.domain.model.Account
 import com.familyfinance.domain.model.Transaction
 import com.familyfinance.domain.model.TransactionType
 import com.familyfinance.domain.repository.FinanceRepository
 import java.util.UUID
-import javax.inject.Inject
+import javax.inject.Inject // @trace TASK-114, TASK-117
 
 class SaveTransferUseCase @Inject constructor(
     private val repository: FinanceRepository
@@ -12,32 +13,33 @@ class SaveTransferUseCase @Inject constructor(
     suspend operator fun invoke(
         date: Long,
         amountCents: Long,
-        fromAccountId: Long,
-        toAccountId: Long,
-        note: String
+        fromAccount: Account,
+        toAccount: Account,
+        note: String,
+        targetAmountCents: Long? = null
     ): Result<Long> {
-        if (fromAccountId == toAccountId) {
+        if (fromAccount.id == toAccount.id) {
             return Result.failure(IllegalArgumentException("Source and target accounts must be different"))
+        }
+
+        if (fromAccount.currency != toAccount.currency && targetAmountCents == null) {
+            return Result.failure(IllegalArgumentException("Target amount is required for cross-currency transfers"))
         }
 
         val transferId = UUID.randomUUID().toString()
         val transaction = Transaction(
             date = date,
             amountCents = amountCents,
-            accountId = fromAccountId,
-            targetAccountId = toAccountId,
+            accountId = fromAccount.id,
+            targetAccountId = toAccount.id,
             categoryId = null,
             projectId = null,
             note = note,
             type = TransactionType.TRANSFER,
+            currencyCode = fromAccount.currency,
+            targetAmountCents = targetAmountCents,
             transferLinkedId = transferId
         )
-
-        // Repository saveTransaction is already marked @Transaction in DAO for single inserts,
-        // but for transfers we rely on the DAO @Transaction insertTransactionAndUpdateBalance 
-        // which I removed/simplified. 
-        // Actually, Room handles single TransactionEntity as one row. 
-        // In our model, a Transfer IS a single row with accountId and targetAccountId.
         
         return Result.success(repository.saveTransaction(transaction))
     }

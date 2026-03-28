@@ -4,7 +4,7 @@
   "description": "Update SaveTransferUseCase to support cross-currency transfers. When source and target accounts have different currencies, the caller must provide targetAmountCents. Validate that FX transfers always have both amounts set.",
   "type": "Feature",
   "priority": "High",
-  "status": "Pending",
+  "status": "Done",
   "dependencies": ["TASK-115"],
   "trace_to": {
     "functional_requirements": ["FR-019"],

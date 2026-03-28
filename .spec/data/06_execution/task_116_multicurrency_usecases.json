@@ -4,7 +4,7 @@
   "description": "Update SaveTransactionUseCase, SaveSplitReceiptUseCase, CreateAccountUseCase (opening balance), and GetAccountBalancesUseCase so that currencyCode is set on every transaction written, and the FX Transfer credit side uses targetAmountCents for balance calculation.",
   "type": "Feature",
   "priority": "High",
-  "status": "Pending",
+  "status": "Done",
   "dependencies": ["TASK-115"],
   "trace_to": {
     "functional_requirements": ["FR-018", "FR-020"],
