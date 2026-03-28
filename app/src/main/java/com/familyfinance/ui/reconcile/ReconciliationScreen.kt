@@ -25,7 +25,7 @@ import java.util.*
 import androidx.compose.material3.TimePicker
 import androidx.compose.material3.rememberTimePickerState
 
-// @trace TASK-113
+// @trace TASK-113, TASK-120
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -189,7 +189,7 @@ fun ReconciliationContent(
                 ) {
                     Text("Recorded Balance", style = MaterialTheme.typography.bodyMedium)
                     Text(
-                        text = accountBalance.balanceCents.formatAsCurrency(),
+                        text = accountBalance.balanceCents.formatAsCurrency(accountBalance.account.currency),
                         style = MaterialTheme.typography.bodyLarge,
                         fontWeight = FontWeight.Bold
                     )
@@ -210,7 +210,8 @@ fun ReconciliationContent(
         CurrencyInput(
             value = uiState.actualBalanceInput,
             onValueChange = onBalanceChange,
-            label = "Actual Balance"
+            label = "Actual Balance",
+            currency = accountBalance.account.currency
         )
 
         Spacer(modifier = Modifier.height(32.dp))
@@ -220,7 +221,7 @@ fun ReconciliationContent(
             enter = fadeIn() + expandVertically(),
             exit = fadeOut() + shrinkVertically()
         ) {
-            DiscrepancyIndicator(uiState.discrepancyCents ?: 0L)
+            DiscrepancyIndicator(uiState.discrepancyCents ?: 0L, accountBalance.account.currency)
         }
 
         Spacer(modifier = Modifier.weight(1f))
@@ -259,7 +260,7 @@ fun ReconciliationContent(
 }
 
 @Composable
-fun DiscrepancyIndicator(discrepancyCents: Long) {
+fun DiscrepancyIndicator(discrepancyCents: Long, currencyCode: String?) {
     val color = when {
         discrepancyCents == 0L -> Color(0xFF4CAF50)
         else -> MaterialTheme.colorScheme.error
@@ -280,7 +281,7 @@ fun DiscrepancyIndicator(discrepancyCents: Long) {
                 modifier = Modifier.weight(1f)
             )
             Text(
-                text = (if (discrepancyCents > 0) "+" else "") + discrepancyCents.formatAsCurrency(),
+                text = (if (discrepancyCents > 0) "+" else "") + discrepancyCents.formatAsCurrency(currencyCode),
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold,
                 color = color

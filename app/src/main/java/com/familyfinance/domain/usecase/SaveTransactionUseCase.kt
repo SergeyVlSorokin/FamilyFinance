@@ -4,6 +4,7 @@ import com.familyfinance.domain.model.Transaction
 import com.familyfinance.domain.repository.FinanceRepository
 import javax.inject.Inject
 
+// @trace TASK-114, TASK-116
 class SaveTransactionUseCase @Inject constructor(
     private val repository: FinanceRepository
 ) {

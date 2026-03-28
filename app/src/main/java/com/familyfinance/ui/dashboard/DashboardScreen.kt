@@ -82,15 +82,17 @@ fun DashboardScreen(
                 color = MaterialTheme.colorScheme.secondary
             )
             
-            Text(
-                text = uiState.totalWealthCents.formatAsCurrency(),
-                style = MaterialTheme.typography.headlineLarge.copy(
-                    fontSize = 42.sp,
-                    fontWeight = FontWeight.Bold,
-                    letterSpacing = (-1).sp
-                ),
-                color = MaterialTheme.colorScheme.onBackground
-            )
+            uiState.totalWealth.forEach { (currencyCode, amountCents) ->
+                Text(
+                    text = amountCents.formatAsCurrency(currencyCode),
+                    style = MaterialTheme.typography.headlineLarge.copy(
+                        fontSize = 42.sp,
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = (-1).sp
+                    ),
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+            }
 
             Spacer(modifier = Modifier.height(40.dp))
 
@@ -171,7 +173,7 @@ fun AccountCard(
             }
 
             Text(
-                text = accountBalance.balanceCents.formatAsCurrency(),
+                text = accountBalance.balanceCents.formatAsCurrency(accountBalance.account.currency),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold
             )
@@ -208,9 +210,9 @@ fun EmptyState() {
     }
 }
 
-fun Long.formatAsCurrency(): String {
-    val currencyFormat = NumberFormat.getCurrencyInstance(Locale.US)
-    return currencyFormat.format(this / 100.0)
+// @trace TASK-120
+fun Long.formatAsCurrency(currencyCode: String? = null): String {
+    return "${currencyCode ?: "$"} ${String.format("%.2f", this / 100.0)}"
 }
 
 fun getIconForAccountType(type: AccountType): ImageVector {

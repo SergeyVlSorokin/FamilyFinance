@@ -25,8 +25,9 @@ class FastEntryViewModelTest {
     private val saveTransferUseCase: SaveTransferUseCase = mock()
 
     private val accounts = listOf(
-        Account(id = 1, name = "Bank", type = AccountType.BANK, currency = "USD", color = 0),
-        Account(id = 2, name = "Cash", type = AccountType.CASH, currency = "USD", color = 0)
+        Account(id = 1, name = "Bank USD", type = AccountType.BANK, currency = "USD", color = 0),
+        Account(id = 2, name = "Cash SEK", type = AccountType.CASH, currency = "SEK", color = 0),
+        Account(id = 3, name = "Visa USD", type = AccountType.CREDIT_CARD, currency = "USD", color = 0)
     )
     private val categories = listOf(
         Category(id = 1, name = "Food", type = CategoryType.EXPENSE, icon = "", color = 0)
@@ -50,7 +51,7 @@ class FastEntryViewModelTest {
         val viewModel = FastEntryViewModel(repository, saveTransactionUseCase, saveSplitReceiptUseCase, saveTransferUseCase)
         val state = viewModel.uiState.value
         assertFalse(state.isLoading)
-        assertEquals(2, state.accounts.size)
+        assertEquals(3, state.accounts.size)
         assertEquals(1, state.categories.size)
     }
 
@@ -116,16 +117,53 @@ class FastEntryViewModelTest {
 
     @Test
     fun `save calls saveTransferUseCase for transfer`() = runTest {
-        whenever(saveTransferUseCase.invoke(any(), any(), any(), any(), any())).thenReturn(Result.success(1L))
+        whenever(saveTransferUseCase.invoke(any(), any(), any(), any(), any(), anyOrNull())).thenReturn(Result.success(1L))
         val viewModel = FastEntryViewModel(repository, saveTransactionUseCase, saveSplitReceiptUseCase, saveTransferUseCase)
         
         viewModel.onTypeChange(TransactionType.TRANSFER)
         viewModel.onAmountChange(5000L)
         viewModel.onAccountChange(accounts[0])
-        viewModel.onTargetAccountChange(accounts[1])
+        viewModel.onTargetAccountChange(accounts[2])
         viewModel.save()
         
-        verify(saveTransferUseCase).invoke(any(), eq(5000L), eq(accounts[0].id), eq(accounts[1].id), any())
+        verify(saveTransferUseCase).invoke(any(), eq(5000L), eq(accounts[0]), eq(accounts[2]), any(), anyOrNull())
+        assertTrue(viewModel.uiState.value.isSaved)
+    }
+
+    @Test
+    fun `isFxTransfer is true when accounts have different currencies`() = runTest {
+        val viewModel = FastEntryViewModel(repository, saveTransactionUseCase, saveSplitReceiptUseCase, saveTransferUseCase)
+        viewModel.onTypeChange(TransactionType.TRANSFER)
+        viewModel.onAccountChange(accounts[0]) // USD
+        viewModel.onTargetAccountChange(accounts[1]) // SEK
+        
+        assertTrue(viewModel.uiState.value.isFxTransfer)
+    }
+
+    @Test
+    fun `isValid is false for FX transfer with zero target amount`() = runTest {
+        val viewModel = FastEntryViewModel(repository, saveTransactionUseCase, saveSplitReceiptUseCase, saveTransferUseCase)
+        viewModel.onTypeChange(TransactionType.TRANSFER)
+        viewModel.onAmountChange(5000L)
+        viewModel.onAccountChange(accounts[0]) // USD
+        viewModel.onTargetAccountChange(accounts[1]) // SEK
+        
+        assertFalse(viewModel.uiState.value.isValid)
+    }
+
+    @Test
+    fun `save passes targetAmountCents for FX transfer`() = runTest {
+        whenever(saveTransferUseCase.invoke(any(), any(), any(), any(), any(), anyOrNull())).thenReturn(Result.success(1L))
+        val viewModel = FastEntryViewModel(repository, saveTransactionUseCase, saveSplitReceiptUseCase, saveTransferUseCase)
+        
+        viewModel.onTypeChange(TransactionType.TRANSFER)
+        viewModel.onAmountChange(5000L) // 50.00 USD
+        viewModel.onAccountChange(accounts[0]) // USD
+        viewModel.onTargetAccountChange(accounts[1]) // SEK
+        viewModel.onTargetAmountChange(55000L) // 550.00 SEK
+        viewModel.save()
+        
+        verify(saveTransferUseCase).invoke(any(), eq(5000L), eq(accounts[0]), eq(accounts[1]), any(), eq(55000L))
         assertTrue(viewModel.uiState.value.isSaved)
     }
 

@@ -4,7 +4,7 @@
   "description": "Add a mandatory currency selector to the Add Account form. Display the currency as a read-only chip on the Edit Account screen. Integrate with AccountManageViewModel.",
   "type": "Feature",
   "priority": "High",
-  "status": "Pending",
+  "status": "Done",
   "dependencies": ["TASK-114"],
   "trace_to": {
     "functional_requirements": ["FR-017", "FR-021"],

@@ -49,7 +49,6 @@ class FinanceDatabaseTest {
             name = "Test Account",
             type = AccountType.BANK,
             currency = "USD",
-            currentBalanceCents = 10000,
             color = 0xFF00FF00.toInt()
         )
         dao.upsertAccount(account)
@@ -64,7 +63,6 @@ class FinanceDatabaseTest {
             name = "Main Wallet",
             type = AccountType.CASH,
             currency = "USD",
-            currentBalanceCents = 1000,
             color = 0xFF00FF00.toInt()
         )
         val accountId = dao.upsertAccount(account)
@@ -76,13 +74,14 @@ class FinanceDatabaseTest {
             categoryId = null,
             projectId = null,
             note = "Coffee",
-            type = TransactionType.EXPENSE
+            type = TransactionType.EXPENSE,
+            currencyCode = "USD"
         )
         
-        dao.insertTransactionAndUpdateBalance(transaction)
+        dao.insertTransaction(transaction)
 
-        val updatedAccount = dao.getAccountById(accountId)
-        assertNotNull(updatedAccount)
-        assertEquals(800, updatedAccount?.currentBalanceCents)
+        val transactions = dao.getTransactionsByAccountFlow(accountId).first()
+        assertEquals(1, transactions.size)
+        assertEquals(-200L, transactions[0].amountCents)
     }
 }

@@ -25,8 +25,8 @@ class SaveSplitReceiptUseCaseTest {
     fun `validate split sum does not exceed total`() = runBlocking {
         // Given
         val splits = listOf(
-            Transaction(amountCents = 600, accountId = 1, categoryId = 1, projectId = null, date = 0, note = "", type = TransactionType.EXPENSE),
-            Transaction(amountCents = 500, accountId = 1, categoryId = 2, projectId = null, date = 0, note = "", type = TransactionType.EXPENSE)
+            Transaction(amountCents = 600, accountId = 1, categoryId = 1, projectId = null, date = 0, note = "", type = TransactionType.EXPENSE, currencyCode = "USD"),
+            Transaction(amountCents = 500, accountId = 1, categoryId = 2, projectId = null, date = 0, note = "", type = TransactionType.EXPENSE, currencyCode = "USD")
         )
 
         // When
@@ -41,8 +41,8 @@ class SaveSplitReceiptUseCaseTest {
     fun `generate receipt group id and save splits`() = runBlocking {
         // Given
         val splits = listOf(
-            Transaction(amountCents = 400, accountId = 1, categoryId = 1, projectId = null, date = 0, note = "Milk", type = TransactionType.EXPENSE),
-            Transaction(amountCents = 600, accountId = 1, categoryId = 2, projectId = null, date = 0, note = "Bread", type = TransactionType.EXPENSE)
+            Transaction(amountCents = 400, accountId = 1, categoryId = 1, projectId = null, date = 0, note = "Milk", type = TransactionType.EXPENSE, currencyCode = "USD"),
+            Transaction(amountCents = 600, accountId = 1, categoryId = 2, projectId = null, date = 0, note = "Bread", type = TransactionType.EXPENSE, currencyCode = "USD")
         )
 
         // When

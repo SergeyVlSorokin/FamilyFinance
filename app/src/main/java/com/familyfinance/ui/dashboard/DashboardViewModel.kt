@@ -13,10 +13,11 @@ import javax.inject.Inject
 
 data class DashboardUiState(
     val accounts: List<AccountBalance> = emptyList(),
-    val totalWealthCents: Long = 0,
+    val totalWealth: Map<String, Long> = emptyMap(),
     val isLoading: Boolean = true
 )
 
+// @trace TASK-120
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
     getAccountBalancesUseCase: GetAccountBalancesUseCase
@@ -26,7 +27,8 @@ class DashboardViewModel @Inject constructor(
         .map { balances ->
             DashboardUiState(
                 accounts = balances,
-                totalWealthCents = balances.sumOf { it.balanceCents },
+                totalWealth = balances.groupBy { it.account.currency }
+                    .mapValues { (_, group) -> group.sumOf { it.balanceCents } },
                 isLoading = false
             )
         }

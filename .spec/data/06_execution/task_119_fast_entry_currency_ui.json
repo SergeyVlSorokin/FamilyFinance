@@ -4,7 +4,7 @@
   "description": "Update FastEntrySheet and FastEntryViewModel to show the selected account's currency code next to the amount field. For Transfer transactions, detect when source and target accounts differ in currency and present a second amount field for the target amount.",
   "type": "Feature",
   "priority": "High",
-  "status": "Pending",
+  "status": "Done",
   "dependencies": ["TASK-116", "TASK-117", "TASK-118"],
   "trace_to": {
     "functional_requirements": ["FR-019", "FR-021"],

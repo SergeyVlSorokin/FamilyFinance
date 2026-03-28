@@ -10,6 +10,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
+// @trace TASK-114, TASK-115
 class FinanceRepositoryImpl @Inject constructor(
     private val dao: FinanceDao
 ) : FinanceRepository {
@@ -133,7 +134,9 @@ class FinanceRepositoryImpl @Inject constructor(
         projectId = projectId,
         note = note,
         type = com.familyfinance.domain.model.TransactionType.valueOf(type.name),
+        currencyCode = currencyCode,
         targetAccountId = targetAccountId,
+        targetAmountCents = targetAmountCents,
         receiptGroupId = receiptGroupId,
         transferLinkedId = transferLinkedId
     )
@@ -147,7 +150,9 @@ class FinanceRepositoryImpl @Inject constructor(
         projectId = projectId,
         note = note,
         type = com.familyfinance.data.local.entity.TransactionType.valueOf(type.name),
+        currencyCode = currencyCode,
         targetAccountId = targetAccountId,
+        targetAmountCents = targetAmountCents,
         receiptGroupId = receiptGroupId,
         transferLinkedId = transferLinkedId
     )

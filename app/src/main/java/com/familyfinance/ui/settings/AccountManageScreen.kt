@@ -22,6 +22,7 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
+// @trace TASK-118
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AccountManageScreen(
@@ -78,13 +79,13 @@ fun AccountManageScreen(
             AddAccountDialog(
                 error = uiState.error,
                 onDismiss = { showAddDialog = false },
-                onSave = { name, type, owner, balance, timestamp ->
+                onSave = { name, type, owner, currency, balance, timestamp ->
                     viewModel.saveAccount(
                         Account(
                             name = name,
                             type = type,
                             ownerLabel = owner,
-                            currency = "SEK", // Default for now
+                            currency = currency,
                             color = 0 // Default for now
                         ),
                         balance,
@@ -108,7 +109,7 @@ fun AccountItem(account: Account, onDelete: () -> Unit) {
             Column(modifier = Modifier.weight(1f)) {
                 Text(account.name, style = MaterialTheme.typography.titleMedium)
                 Text(
-                    "${account.type.name} • ${account.ownerLabel ?: "No owner"}",
+                    "${account.type.name} • ${account.currency} • ${account.ownerLabel ?: "No owner"}",
                     style = MaterialTheme.typography.bodySmall
                 )
             }
@@ -124,13 +125,15 @@ fun AccountItem(account: Account, onDelete: () -> Unit) {
 fun AddAccountDialog(
     error: String?,
     onDismiss: () -> Unit,
-    onSave: (String, AccountType, String, Long, Long) -> Unit
+    onSave: (String, AccountType, String, String, Long, Long) -> Unit
 ) {
     var name by remember { mutableStateOf("") }
     var type by remember { mutableStateOf(AccountType.BANK) }
     var owner by remember { mutableStateOf("") }
+    var currency by remember { mutableStateOf("") }
     var balance by remember { mutableStateOf("") }
-    var expanded by remember { mutableStateOf(false) }
+    var typeExpanded by remember { mutableStateOf(false) }
+    var currencyExpanded by remember { mutableStateOf(false) }
 
     var selectedTimestamp by remember { mutableStateOf(System.currentTimeMillis()) }
     var showDatePicker by remember { mutableStateOf(false) }
@@ -159,8 +162,8 @@ fun AddAccountDialog(
                 )
                 
                 ExposedDropdownMenuBox(
-                    expanded = expanded,
-                    onExpandedChange = { expanded = !expanded },
+                    expanded = typeExpanded,
+                    onExpandedChange = { typeExpanded = !typeExpanded },
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     OutlinedTextField(
@@ -168,22 +171,54 @@ fun AddAccountDialog(
                         onValueChange = {},
                         readOnly = true,
                         label = { Text("Type") },
-                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = typeExpanded) },
                         modifier = Modifier
                             .menuAnchor()
                             .fillMaxWidth(),
                         shape = MaterialTheme.shapes.large
                     )
                     ExposedDropdownMenu(
-                        expanded = expanded,
-                        onDismissRequest = { expanded = false }
+                        expanded = typeExpanded,
+                        onDismissRequest = { typeExpanded = false }
                     ) {
                         AccountType.values().forEach { accountType ->
                             DropdownMenuItem(
                                 text = { Text(accountType.name) },
                                 onClick = {
                                     type = accountType
-                                    expanded = false
+                                    typeExpanded = false
+                                }
+                            )
+                        }
+                    }
+                }
+
+                ExposedDropdownMenuBox(
+                    expanded = currencyExpanded,
+                    onExpandedChange = { currencyExpanded = !currencyExpanded },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    OutlinedTextField(
+                        value = currency,
+                        onValueChange = {},
+                        readOnly = true,
+                        label = { Text("Currency") },
+                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = currencyExpanded) },
+                        modifier = Modifier
+                            .menuAnchor()
+                            .fillMaxWidth(),
+                        shape = MaterialTheme.shapes.large
+                    )
+                    ExposedDropdownMenu(
+                        expanded = currencyExpanded,
+                        onDismissRequest = { currencyExpanded = false }
+                    ) {
+                        Account.SupportedCurrencies.forEach { cur ->
+                            DropdownMenuItem(
+                                text = { Text(cur) },
+                                onClick = {
+                                    currency = cur
+                                    currencyExpanded = false
                                 }
                             )
                         }
@@ -215,7 +250,8 @@ fun AddAccountDialog(
                 CurrencyInput(
                     value = balance,
                     onValueChange = { balance = it },
-                    label = "Opening Balance"
+                    label = "Opening Balance",
+                    currency = currency
                 )
 
                 if (error != null) {
@@ -231,9 +267,9 @@ fun AddAccountDialog(
         confirmButton = {
             Button(
                 onClick = {
-                    onSave(name, type, owner, balance.toCents(), selectedTimestamp)
+                    onSave(name, type, owner, currency, balance.toCents(), selectedTimestamp)
                 },
-                enabled = name.isNotBlank()
+                enabled = name.isNotBlank() && currency.isNotBlank()
             ) {
                 Text("Save")
             }

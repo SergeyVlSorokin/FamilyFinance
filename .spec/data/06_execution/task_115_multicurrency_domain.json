@@ -4,7 +4,7 @@
   "description": "Update the domain Transaction model and the FinanceRepositoryImpl entity↔domain mappers to carry currencyCode and targetAmountCents through the full data pipeline.",
   "type": "Feature",
   "priority": "Critical",
-  "status": "Pending",
+  "status": "Done",
   "dependencies": ["TASK-114"],
   "trace_to": {
     "functional_requirements": ["FR-018", "FR-019"],

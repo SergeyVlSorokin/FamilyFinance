@@ -6,6 +6,7 @@ import com.familyfinance.domain.model.TransactionType
 import com.familyfinance.domain.repository.FinanceRepository
 import javax.inject.Inject
 
+// @trace TASK-114, TASK-116
 class CreateAccountUseCase @Inject constructor(
     private val repository: FinanceRepository
 ) {
@@ -25,7 +26,8 @@ class CreateAccountUseCase @Inject constructor(
                     categoryId = null,
                     projectId = null,
                     note = "Opening Balance",
-                    type = TransactionType.OPENING_BALANCE
+                    type = TransactionType.OPENING_BALANCE,
+                    currencyCode = account.currency
                 )
                 repository.saveTransaction(openingTransaction)
             }

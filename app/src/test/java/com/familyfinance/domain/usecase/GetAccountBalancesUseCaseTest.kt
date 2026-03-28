@@ -31,10 +31,10 @@ class GetAccountBalancesUseCaseTest {
         repository.accounts.value = listOf(account1, account2)
 
         repository.transactions.value = listOf(
-            Transaction(id = 1, date = 0, amountCents = 1000, accountId = 1, categoryId = null, projectId = null, note = "Opening", type = TransactionType.OPENING_BALANCE),
-            Transaction(id = 2, date = 1, amountCents = 500, accountId = 1, categoryId = 1, projectId = null, note = "Income", type = TransactionType.INCOME),
-            Transaction(id = 3, date = 2, amountCents = 200, accountId = 1, categoryId = 2, projectId = null, note = "Expense", type = TransactionType.EXPENSE),
-            Transaction(id = 4, date = 3, amountCents = 300, accountId = 1, targetAccountId = 2, categoryId = null, projectId = null, note = "Transfer Out", type = TransactionType.TRANSFER)
+            Transaction(id = 1, date = 0, amountCents = 1000, accountId = 1, categoryId = null, projectId = null, note = "Opening", type = TransactionType.OPENING_BALANCE, currencyCode = "USD"),
+            Transaction(id = 2, date = 1, amountCents = 500, accountId = 1, categoryId = 1, projectId = null, note = "Income", type = TransactionType.INCOME, currencyCode = "USD"),
+            Transaction(id = 3, date = 2, amountCents = 200, accountId = 1, categoryId = 2, projectId = null, note = "Expense", type = TransactionType.EXPENSE, currencyCode = "USD"),
+            Transaction(id = 4, date = 3, amountCents = 300, accountId = 1, targetAccountId = 2, categoryId = null, projectId = null, note = "Transfer Out", type = TransactionType.TRANSFER, currencyCode = "USD")
         )
 
         // When
@@ -56,9 +56,9 @@ class GetAccountBalancesUseCaseTest {
         val account = Account(id = 1, name = "Cash", type = AccountType.CASH, currency = "USD", color = 0)
         repository.accounts.value = listOf(account)
         repository.transactions.value = listOf(
-            Transaction(id = 1, date = 1000, amountCents = 1000, accountId = 1, categoryId = null, projectId = null, note = "Opening", type = TransactionType.OPENING_BALANCE),
-            Transaction(id = 2, date = 2000, amountCents = 500, accountId = 1, categoryId = 1, projectId = null, note = "Income", type = TransactionType.INCOME),
-            Transaction(id = 3, date = 3000, amountCents = 200, accountId = 1, categoryId = 2, projectId = null, note = "Expense", type = TransactionType.EXPENSE)
+            Transaction(id = 1, date = 1000, amountCents = 1000, accountId = 1, categoryId = null, projectId = null, note = "Opening", type = TransactionType.OPENING_BALANCE, currencyCode = "USD"),
+            Transaction(id = 2, date = 2000, amountCents = 500, accountId = 1, categoryId = 1, projectId = null, note = "Income", type = TransactionType.INCOME, currencyCode = "USD"),
+            Transaction(id = 3, date = 3000, amountCents = 200, accountId = 1, categoryId = 2, projectId = null, note = "Expense", type = TransactionType.EXPENSE, currencyCode = "USD")
         )
 
         // When - calculate up to date 2000

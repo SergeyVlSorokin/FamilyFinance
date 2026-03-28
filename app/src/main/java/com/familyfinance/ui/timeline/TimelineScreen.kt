@@ -243,7 +243,7 @@ fun TransactionRow(item: TimelineItem) {
         // Amount & Account
         Column(horizontalAlignment = Alignment.End) {
             Text(
-                text = if (transaction.type == TransactionType.EXPENSE) "-${transaction.amountCents.format()}" else transaction.amountCents.format(),
+                text = if (transaction.type == TransactionType.EXPENSE) "-${transaction.amountCents.format(transaction.currencyCode)}" else transaction.amountCents.format(transaction.currencyCode),
                 style = MaterialTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Bold,
                 color = when (transaction.type) {
@@ -278,9 +278,9 @@ fun EmptyState() {
     }
 }
 
-fun Long.format(): String {
-    val currencyFormat = NumberFormat.getCurrencyInstance(Locale.US)
-    return currencyFormat.format(this / 100.0)
+// @trace TASK-120
+fun Long.format(currencyCode: String? = null): String {
+    return "${currencyCode ?: "$"} ${String.format("%.2f", this / 100.0)}"
 }
 
 fun getIconForType(type: TransactionType): ImageVector {

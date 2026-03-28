@@ -4,7 +4,7 @@
   "description": "Update Timeline, Dashboard, and Reconciliation screens to display amounts with their currency codes and show per-currency totals instead of a single aggregated figure.",
   "type": "Feature",
   "priority": "Medium",
-  "status": "Pending",
+  "status": "Done",
   "dependencies": ["TASK-116", "TASK-119"],
   "trace_to": {
     "functional_requirements": ["FR-020", "FR-021"],

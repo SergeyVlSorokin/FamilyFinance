@@ -48,12 +48,31 @@ class DashboardViewModelTest {
         // Then
         val state = viewModel.uiState.first { !it.isLoading }
         assertEquals(2, state.accounts.size)
-        assertEquals(6500L, state.totalWealthCents)
+        assertEquals(6500L, state.totalWealth["USD"])
         assertFalse(state.isLoading)
     }
 
     @Test
-    fun `when no accounts then wealth is zero and accounts list empty`() = runTest {
+    fun `when multi-currency balances are provided then state reflects per-currency wealth`() = runTest {
+        // Given
+        val balances = listOf(
+            AccountBalance(Account(id = 1, name = "Cash USD", type = AccountType.CASH, currency = "USD", color = 0), 1000L),
+            AccountBalance(Account(id = 2, name = "Cash SEK", type = AccountType.CASH, currency = "SEK", color = 0), 5000L)
+        )
+        whenever(getAccountBalancesUseCase()).thenReturn(flowOf(balances))
+
+        // When
+        val viewModel = DashboardViewModel(getAccountBalancesUseCase)
+        
+        // Then
+        val state = viewModel.uiState.first { !it.isLoading }
+        assertEquals(2, state.accounts.size)
+        assertEquals(1000L, state.totalWealth["USD"])
+        assertEquals(5000L, state.totalWealth["SEK"])
+    }
+
+    @Test
+    fun `when no accounts then wealth is empty and accounts list empty`() = runTest {
         // Given
         whenever(getAccountBalancesUseCase()).thenReturn(flowOf(emptyList()))
 
@@ -63,7 +82,7 @@ class DashboardViewModelTest {
         // Then
         val state = viewModel.uiState.first { !it.isLoading }
         assertEquals(0, state.accounts.size)
-        assertEquals(0L, state.totalWealthCents)
+        assertEquals(0, state.totalWealth.size)
         assertFalse(state.isLoading)
     }
 }

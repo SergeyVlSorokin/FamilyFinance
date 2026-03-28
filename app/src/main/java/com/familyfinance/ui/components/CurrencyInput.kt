@@ -9,13 +9,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.sp
 
+// @trace TASK-119
 @Composable
 fun CurrencyInput(
     value: String,
     onValueChange: (String) -> Unit,
     label: String = "Amount",
     modifier: Modifier = Modifier,
-    placeholder: String = "0.00"
+    placeholder: String = "0.00",
+    currency: String? = null
 ) {
     OutlinedTextField(
         value = value,
@@ -26,7 +28,7 @@ fun CurrencyInput(
         },
         label = { Text(label) },
         placeholder = { Text(placeholder) },
-        prefix = { Text("$ ") },
+        prefix = { Text("${currency ?: "$"} ") },
         modifier = modifier.fillMaxWidth(),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
         textStyle = LocalTextStyle.current.copy(

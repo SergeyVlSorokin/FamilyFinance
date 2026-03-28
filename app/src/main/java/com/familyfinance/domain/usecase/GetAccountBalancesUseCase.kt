@@ -12,9 +12,7 @@ data class AccountBalance(
     val balanceCents: Long
 )
 
-// @trace TASK-113
-
-
+// @trace TASK-114, TASK-116
 class GetAccountBalancesUseCase @Inject constructor(
     private val repository: FinanceRepository
 ) {
@@ -48,7 +46,7 @@ class GetAccountBalancesUseCase @Inject constructor(
             TransactionType.TRANSFER -> {
                 when {
                     transaction.accountId == accountId -> -transaction.amountCents // Outgoing
-                    transaction.targetAccountId == accountId -> transaction.amountCents // Incoming
+                    transaction.targetAccountId == accountId -> transaction.targetAmountCents ?: transaction.amountCents // Incoming
                     else -> 0
                 }
             }

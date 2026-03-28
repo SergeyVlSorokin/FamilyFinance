@@ -72,7 +72,8 @@ class FinanceDatabaseUnitTest {
             categoryId = null,
             projectId = null,
             note = "Coffee",
-            type = TransactionType.EXPENSE
+            type = TransactionType.EXPENSE,
+            currencyCode = "USD"
         )
         
         dao.insertTransaction(transaction)
@@ -104,5 +105,34 @@ class FinanceDatabaseUnitTest {
         val proj2 = ProjectEntity(name = "Dup", color = 0)
         dao.upsertProject(proj1)
         dao.upsertProject(proj2)
+    }
+
+    @Test
+    fun transactionHasCurrencyAndTargetAmount() = runBlocking {
+        val account = AccountEntity(
+            name = "FX Account",
+            type = AccountType.BANK,
+            currency = "EUR",
+            color = 0
+        )
+        val accountId = dao.upsertAccount(account)
+
+        val transaction = TransactionEntity(
+            date = System.currentTimeMillis(),
+            amountCents = 1000,
+            accountId = accountId,
+            categoryId = null,
+            projectId = null,
+            note = "Exchange",
+            type = TransactionType.TRANSFER,
+            currencyCode = "EUR",
+            targetAmountCents = 1100
+        )
+        
+        dao.insertTransaction(transaction)
+
+        val transactions = dao.getTransactionsByAccountFlow(accountId).first()
+        assertEquals("EUR", transactions[0].currencyCode)
+        assertEquals(1100L, transactions[0].targetAmountCents)
     }
 }

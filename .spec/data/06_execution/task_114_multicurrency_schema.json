@@ -4,7 +4,7 @@
   "description": "Add currency tracking fields to the transaction table. Bump DB version to 6 with destructive migration. This is the foundation for all other multi-currency tasks.",
   "type": "Feature",
   "priority": "Critical",
-  "status": "Pending",
+  "status": "Done",
   "dependencies": [],
   "trace_to": {
     "functional_requirements": ["FR-017", "FR-018", "FR-019"],
