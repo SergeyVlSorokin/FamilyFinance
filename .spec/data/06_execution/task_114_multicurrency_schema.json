@@ -4,11 +4,18 @@
   "description": "Add currency tracking fields to the transaction table. Bump DB version to 6 with destructive migration. This is the foundation for all other multi-currency tasks.",
   "type": "Feature",
   "priority": "Critical",
-  "status": "Pending",
+  "status": "Done",
   "dependencies": [],
   "trace_to": {
-    "functional_requirements": ["FR-017", "FR-018", "FR-019"],
-    "design_nodes": ["ADR-007", "DATA-001"]
+    "functional_requirements": [
+      "FR-017",
+      "FR-018",
+      "FR-019"
+    ],
+    "design_nodes": [
+      "ADR-007",
+      "DATA-001"
+    ]
   },
   "context": [
     "app/src/main/java/com/familyfinance/data/local/entity/TransactionEntity.kt",

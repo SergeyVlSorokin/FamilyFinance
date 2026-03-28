@@ -20,6 +20,9 @@ class SaveTransferUseCase @Inject constructor(
             return Result.failure(IllegalArgumentException("Source and target accounts must be different"))
         }
 
+        val account = repository.getAccountById(fromAccountId)
+            ?: return Result.failure(IllegalArgumentException("Account not found"))
+
         val transferId = UUID.randomUUID().toString()
         val transaction = Transaction(
             date = date,
@@ -30,6 +33,7 @@ class SaveTransferUseCase @Inject constructor(
             projectId = null,
             note = note,
             type = TransactionType.TRANSFER,
+            currencyCode = account.currency,
             transferLinkedId = transferId
         )
 

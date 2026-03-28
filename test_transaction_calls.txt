@@ -1,0 +1,77 @@
+
+app\src\test\java\com\familyfinance\data\local\FinanceDatabaseUnitTest.kt:59:    fun 
+insertAndReadTransaction() = runBlocking {
+app\src\test\java\com\familyfinance\data\local\FinanceDatabaseUnitTest.kt:79:        
+dao.insertTransaction(transaction)
+app\src\test\java\com\familyfinance\data\local\FinanceDatabaseUnitTest.kt:126:        
+dao.insertTransaction(transaction)
+app\src\test\java\com\familyfinance\data\repository\FinanceRepositoryMapperTest.kt:37:        
+val domain = Transaction(
+app\src\test\java\com\familyfinance\domain\usecase\CreateAccountUseCaseTest.kt:35:        
+verify(repository).saveTransaction(transactionCaptor.capture())
+app\src\test\java\com\familyfinance\domain\usecase\CreateAccountUseCaseTest.kt:53:        
+verify(repository, org.mockito.kotlin.never()).saveTransaction(any())
+app\src\test\java\com\familyfinance\domain\usecase\GetAccountBalancesUseCaseTest.kt:34:       
+     Transaction(id = 1, date = 0, amountCents = 1000, accountId = 1, categoryId = null, 
+projectId = null, note = "Opening", type = TransactionType.OPENING_BALANCE),
+app\src\test\java\com\familyfinance\domain\usecase\GetAccountBalancesUseCaseTest.kt:35:       
+     Transaction(id = 2, date = 1, amountCents = 500, accountId = 1, categoryId = 1, 
+projectId = null, note = "Income", type = TransactionType.INCOME),
+app\src\test\java\com\familyfinance\domain\usecase\GetAccountBalancesUseCaseTest.kt:36:       
+     Transaction(id = 3, date = 2, amountCents = 200, accountId = 1, categoryId = 2, 
+projectId = null, note = "Expense", type = TransactionType.EXPENSE),
+app\src\test\java\com\familyfinance\domain\usecase\GetAccountBalancesUseCaseTest.kt:37:       
+     Transaction(id = 4, date = 3, amountCents = 300, accountId = 1, targetAccountId = 2, 
+categoryId = null, projectId = null, note = "Transfer Out", type = TransactionType.TRANSFER)
+app\src\test\java\com\familyfinance\domain\usecase\GetAccountBalancesUseCaseTest.kt:59:       
+     Transaction(id = 1, date = 1000, amountCents = 1000, accountId = 1, categoryId = null, 
+projectId = null, note = "Opening", type = TransactionType.OPENING_BALANCE),
+app\src\test\java\com\familyfinance\domain\usecase\GetAccountBalancesUseCaseTest.kt:60:       
+     Transaction(id = 2, date = 2000, amountCents = 500, accountId = 1, categoryId = 1, 
+projectId = null, note = "Income", type = TransactionType.INCOME),
+app\src\test\java\com\familyfinance\domain\usecase\GetAccountBalancesUseCaseTest.kt:61:       
+     Transaction(id = 3, date = 3000, amountCents = 200, accountId = 1, categoryId = 2, 
+projectId = null, note = "Expense", type = TransactionType.EXPENSE)
+app\src\test\java\com\familyfinance\domain\usecase\GetAccountBalancesUseCaseTest.kt:92:       
+ override suspend fun saveTransaction(transaction: Transaction): Long = 0
+app\src\test\java\com\familyfinance\domain\usecase\GetAccountBalancesUseCaseTest.kt:94:       
+ override suspend fun deleteTransaction(id: Long) {}
+app\src\test\java\com\familyfinance\domain\usecase\SaveSplitReceiptUseCaseTest.kt:28:         
+   Transaction(amountCents = 600, accountId = 1, categoryId = 1, projectId = null, date = 0, 
+note = "", type = TransactionType.EXPENSE),
+app\src\test\java\com\familyfinance\domain\usecase\SaveSplitReceiptUseCaseTest.kt:29:         
+   Transaction(amountCents = 500, accountId = 1, categoryId = 2, projectId = null, date = 0, 
+note = "", type = TransactionType.EXPENSE)
+app\src\test\java\com\familyfinance\domain\usecase\SaveSplitReceiptUseCaseTest.kt:44:         
+   Transaction(amountCents = 400, accountId = 1, categoryId = 1, projectId = null, date = 0, 
+note = "Milk", type = TransactionType.EXPENSE),
+app\src\test\java\com\familyfinance\domain\usecase\SaveSplitReceiptUseCaseTest.kt:45:         
+   Transaction(amountCents = 600, accountId = 1, categoryId = 2, projectId = null, date = 0, 
+note = "Bread", type = TransactionType.EXPENSE)
+app\src\test\java\com\familyfinance\domain\usecase\SaveSplitReceiptUseCaseTest.kt:76:        
+override suspend fun saveTransaction(transaction: Transaction): Long = 0
+app\src\test\java\com\familyfinance\domain\usecase\SaveSplitReceiptUseCaseTest.kt:81:        
+override suspend fun deleteTransaction(id: Long) {}
+app\src\test\java\com\familyfinance\ui\timeline\TimelineViewModelTest.kt:52:            
+Transaction(id = 1, date = septDate, amountCents = 1000, accountId = 1, categoryId = 1, 
+projectId = null, note = "", type = TransactionType.EXPENSE),
+app\src\test\java\com\familyfinance\ui\timeline\TimelineViewModelTest.kt:53:            
+Transaction(id = 2, date = octDate, amountCents = 5000, accountId = 1, categoryId = 2, 
+projectId = null, note = "", type = TransactionType.INCOME)
+app\src\test\java\com\familyfinance\ui\timeline\TimelineViewModelTest.kt:69:            
+Transaction(id = 1, date = septDate, amountCents = 1000, accountId = 1, categoryId = 1, 
+projectId = null, note = "", type = TransactionType.EXPENSE),
+app\src\test\java\com\familyfinance\ui\timeline\TimelineViewModelTest.kt:70:            
+Transaction(id = 2, date = septDate, amountCents = 2000, accountId = 2, categoryId = 1, 
+projectId = null, note = "", type = TransactionType.EXPENSE)
+app\src\test\java\com\familyfinance\ui\timeline\TimelineViewModelTest.kt:86:            
+Transaction(id = 1, date = septDate, amountCents = 1000, accountId = 1, categoryId = 1, 
+projectId = null, note = "Root", type = TransactionType.EXPENSE, receiptGroupId = groupId),
+app\src\test\java\com\familyfinance\ui\timeline\TimelineViewModelTest.kt:87:            
+Transaction(id = 2, date = septDate, amountCents = 500, accountId = 1, categoryId = 1, 
+projectId = null, note = "Child", type = TransactionType.EXPENSE, receiptGroupId = groupId)
+app\src\test\java\com\familyfinance\ui\timeline\TimelineViewModelTest.kt:114:            
+Transaction(id = 1, date = septDate, amountCents = 0, accountId = 1, categoryId = null, 
+projectId = null, note = "", type = TransactionType.REVALUATION)
+
+

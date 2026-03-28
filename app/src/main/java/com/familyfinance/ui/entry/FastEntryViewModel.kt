@@ -153,7 +153,8 @@ class FastEntryViewModel @Inject constructor(
                             categoryId = split.category?.id,
                             projectId = state.project?.id,
                             note = state.note,
-                            type = state.type
+                            type = state.type,
+                            currencyCode = state.account!!.currency
                         )
                     }
                     saveSplitReceiptUseCase(state.totalAmountCents, transactions)
@@ -167,7 +168,8 @@ class FastEntryViewModel @Inject constructor(
                             categoryId = state.category?.id,
                             projectId = state.project?.id,
                             note = state.note,
-                            type = state.type
+                            type = state.type,
+                            currencyCode = state.account!!.currency
                         )
                     )
                 }

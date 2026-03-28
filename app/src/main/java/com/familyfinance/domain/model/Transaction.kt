@@ -13,7 +13,9 @@ data class Transaction(
     val projectId: Long?,
     val note: String,
     val type: TransactionType,
+    val currencyCode: String,
     val targetAccountId: Long? = null,
+    val targetAmountCents: Long? = null,
     val receiptGroupId: String? = null,
     val transferLinkedId: String? = null
 )

@@ -35,7 +35,8 @@ class ReconcileAccountUseCase @Inject constructor(
             projectId = null,
             note = if (accountBalance.account.type == com.familyfinance.domain.model.AccountType.INVESTMENT) "Investment Revaluation" else "Reconciliation Adjustment",
             type = if (accountBalance.account.type == com.familyfinance.domain.model.AccountType.INVESTMENT) 
-                TransactionType.REVALUATION else TransactionType.RECONCILIATION_ADJUSTMENT
+                TransactionType.REVALUATION else TransactionType.RECONCILIATION_ADJUSTMENT,
+            currencyCode = accountBalance.account.currency
         )
 
         return Result.success(repository.saveTransaction(reconciliationTransaction))

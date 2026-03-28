@@ -25,7 +25,8 @@ class CreateAccountUseCase @Inject constructor(
                     categoryId = null,
                     projectId = null,
                     note = "Opening Balance",
-                    type = TransactionType.OPENING_BALANCE
+                    type = TransactionType.OPENING_BALANCE,
+                    currencyCode = account.currency
                 )
                 repository.saveTransaction(openingTransaction)
             }

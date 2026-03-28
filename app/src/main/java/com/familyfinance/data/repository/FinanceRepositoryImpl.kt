@@ -2,6 +2,7 @@ package com.familyfinance.data.repository
 
 import com.familyfinance.data.local.dao.FinanceDao
 import com.familyfinance.data.local.entity.*
+import com.familyfinance.data.local.*
 import com.familyfinance.domain.model.*
 import com.familyfinance.domain.repository.FinanceRepository
 import kotlinx.coroutines.flow.Flow
@@ -70,85 +71,4 @@ class FinanceRepositoryImpl @Inject constructor(
 
     override suspend fun deleteTransaction(id: Long) =
         dao.deleteTransaction(id)
-
-    // Mappers
-    private fun AccountEntity.toDomain() = Account(
-        id = id,
-        name = name,
-        type = com.familyfinance.domain.model.AccountType.valueOf(type.name),
-        currency = currency,
-        color = color,
-        ownerLabel = ownerLabel,
-        lastReconciledAt = lastReconciledAt
-    )
-
-    private fun Account.toEntity() = AccountEntity(
-        id = id,
-        name = name,
-        type = com.familyfinance.data.local.entity.AccountType.valueOf(type.name),
-        currency = currency,
-        color = color,
-        ownerLabel = ownerLabel,
-        lastReconciledAt = lastReconciledAt
-    )
-
-    private fun CategoryEntity.toDomain() = Category(
-        id = id,
-        name = name,
-        type = com.familyfinance.domain.model.CategoryType.valueOf(type.name),
-        icon = icon,
-        color = color
-    )
-
-    private fun Category.toEntity() = CategoryEntity(
-        id = id,
-        name = name,
-        type = com.familyfinance.data.local.entity.CategoryType.valueOf(type.name),
-        icon = icon,
-        color = color
-    )
-
-    private fun ProjectEntity.toDomain() = Project(
-        id = id,
-        name = name,
-        color = color,
-        startDate = startDate,
-        endDate = endDate
-    )
-
-    private fun Project.toEntity() = ProjectEntity(
-        id = id,
-        name = name,
-        color = color,
-        startDate = startDate,
-        endDate = endDate
-    )
-
-    private fun TransactionEntity.toDomain() = Transaction(
-        id = id,
-        date = date,
-        amountCents = amountCents,
-        accountId = accountId,
-        categoryId = categoryId,
-        projectId = projectId,
-        note = note,
-        type = com.familyfinance.domain.model.TransactionType.valueOf(type.name),
-        targetAccountId = targetAccountId,
-        receiptGroupId = receiptGroupId,
-        transferLinkedId = transferLinkedId
-    )
-
-    private fun Transaction.toEntity() = TransactionEntity(
-        id = id,
-        date = date,
-        amountCents = amountCents,
-        accountId = accountId,
-        categoryId = categoryId,
-        projectId = projectId,
-        note = note,
-        type = com.familyfinance.data.local.entity.TransactionType.valueOf(type.name),
-        targetAccountId = targetAccountId,
-        receiptGroupId = receiptGroupId,
-        transferLinkedId = transferLinkedId
-    )
 }

@@ -10,6 +10,10 @@ import com.familyfinance.data.local.entity.CategoryEntity
 import com.familyfinance.data.local.entity.ProjectEntity
 import com.familyfinance.data.local.entity.TransactionEntity
 
+/**
+ * Main Room database class for the Family Finance application.
+ * @trace TASK-114
+ */
 @Database(
     entities = [
         AccountEntity::class,
@@ -17,7 +21,7 @@ import com.familyfinance.data.local.entity.TransactionEntity
         ProjectEntity::class,
         TransactionEntity::class
     ],
-    version = 5,
+    version = 6,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
