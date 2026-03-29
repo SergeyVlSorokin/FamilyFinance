@@ -3,23 +3,25 @@
   "title": "Fast Entry Sheet — Currency Display and FX Transfer Dual Amount UI",
   "description": "Update FastEntrySheet and FastEntryViewModel to show the selected account's currency code next to the amount field. For Transfer transactions, detect when source and target accounts differ in currency and present a second amount field for the target amount.",
   "type": "Feature",
-  "priority": "High",
+  "priority": 3,
   "status": "Done",
   "dependencies": ["TASK-116", "TASK-117", "TASK-118"],
   "trace_to": {
     "functional_requirements": ["FR-019", "FR-021"],
     "user_requirements": ["UR-011"]
   },
-  "context": [
-    "app/src/main/java/com/familyfinance/ui/entry/FastEntrySheet.kt",
-    "app/src/main/java/com/familyfinance/ui/entry/FastEntryViewModel.kt",
-    "app/src/main/java/com/familyfinance/domain/usecase/SaveTransferUseCase.kt",
-    "app/src/main/java/com/familyfinance/domain/model/Account.kt",
-    ".spec/data/04_system/fr_019_fx_transfer.json",
-    ".spec/data/04_system/fr_021_currency_display.json",
-    ".spec/data/06_execution/scn_018_fx_transfer.json",
-    ".spec/data/06_execution/scn_021_currency_display.json"
-  ],
+  "context": {
+    "relevant_files": [
+      "app/src/main/java/com/familyfinance/ui/entry/FastEntrySheet.kt",
+      "app/src/main/java/com/familyfinance/ui/entry/FastEntryViewModel.kt",
+      "app/src/main/java/com/familyfinance/domain/usecase/SaveTransferUseCase.kt",
+      "app/src/main/java/com/familyfinance/domain/model/Account.kt",
+      ".spec/data/04_system/fr_019_fx_transfer.json",
+      ".spec/data/04_system/fr_021_currency_display.json",
+      ".spec/data/06_execution/scn_018_fx_transfer.json",
+      ".spec/data/06_execution/scn_021_currency_display.json"
+    ]
+  },
   "execution_steps": [
     "Run 'loom start TASK-119' to lock active context",
     "Run 'loom context TASK-119' to ingest requirements",

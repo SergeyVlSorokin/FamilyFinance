@@ -1,12 +1,12 @@
 {
   "id": "TASK-003",
   "title": "Design System Architecture",
-  "type": "process",
+  "type": "Process",
   "routine": "Process",
   "status": "Done",
-  "priority": "High",
+  "priority": 3,
   "description": "Define the structural design (Views), interfaces (API), and data models (DATA).",
-  "ai_instructions": "You MUST follow the Architecture Agent Protocol (`architecture_agent_prompt.md`). Ensure 4+1 Views coverage.",
+  "ai_instructions": ["You MUST follow the Architecture Agent Protocol (`architecture_agent_prompt.md`). Ensure 4+1 Views coverage."],
   "dependencies": [
     "TASK-002"
   ],

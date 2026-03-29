@@ -4,7 +4,7 @@
   "description": "The system shall display financial totals (account balances, timeline monthly summaries, dashboard summaries) separately per currency. The system SHALL NOT sum or aggregate monetary values across different currencies. Where a view would normally show a single total but multiple currencies exist, the system shall show one total per currency present.",
   "priority": "Must-have",
   "stability": "Stable",
-  "verification_method": "Manual",
+  "verification_method": "Test",
   "acceptance_criteria": [
     "The account list shows each account's balance in its own currency with the currency code displayed",
     "The timeline monthly total row does not aggregate across currencies; if transactions in a month span multiple currencies, each currency total is shown separately",
@@ -13,6 +13,8 @@
   ],
   "trace_to": {
     "user_requirements": ["UR-004", "UR-005"],
-    "business_rules": ["BR-006"]
+    "business_rules": ["BR-006"],
+    "design_nodes": ["DATA-001"],
+    "verification_plans": ["TASK-120"]
   }
 }

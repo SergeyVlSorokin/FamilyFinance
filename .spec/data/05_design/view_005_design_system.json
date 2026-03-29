@@ -3,6 +3,7 @@
   "name": "Design System — Shared Components",
   "viewpoint": "Logical",
   "concerns": ["Consistency", "Reusability", "UX"],
+  "diagram_source": "graph TD\n  CurrencyInput --> FR-016\n  IconPicker --> FR-007\n  NormalizedInputStyle --> FR-014",
   "elements": [
     {
       "name": "CurrencyInput",

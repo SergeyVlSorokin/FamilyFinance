@@ -3,20 +3,22 @@
   "title": "FX Transfer Use Case — Dual Amount Entry and Validation",
   "description": "Update SaveTransferUseCase to support cross-currency transfers. When source and target accounts have different currencies, the caller must provide targetAmountCents. Validate that FX transfers always have both amounts set.",
   "type": "Feature",
-  "priority": "High",
+  "priority": 3,
   "status": "Done",
   "dependencies": ["TASK-115"],
   "trace_to": {
     "functional_requirements": ["FR-019"],
     "user_requirements": ["UR-011"]
   },
-  "context": [
-    "app/src/main/java/com/familyfinance/domain/usecase/SaveTransferUseCase.kt",
-    "app/src/main/java/com/familyfinance/domain/model/Account.kt",
-    "app/src/main/java/com/familyfinance/domain/model/Transaction.kt",
-    ".spec/data/04_system/fr_019_fx_transfer.json",
-    ".spec/data/06_execution/scn_018_fx_transfer.json"
-  ],
+  "context": {
+    "relevant_files": [
+      "app/src/main/java/com/familyfinance/domain/usecase/SaveTransferUseCase.kt",
+      "app/src/main/java/com/familyfinance/domain/model/Account.kt",
+      "app/src/main/java/com/familyfinance/domain/model/Transaction.kt",
+      ".spec/data/04_system/fr_019_fx_transfer.json",
+      ".spec/data/06_execution/scn_018_fx_transfer.json"
+    ]
+  },
   "execution_steps": [
     "Run 'loom start TASK-117' to lock active context",
     "Run 'loom context TASK-117' to ingest requirements",

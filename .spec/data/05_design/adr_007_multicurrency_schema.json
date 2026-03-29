@@ -36,8 +36,9 @@
     ]
   },
   "trace_to": {
+    "stakeholders": ["STK-001"],
     "business_rules": ["BR-006"],
-    "functional_requirements": ["FR-017", "FR-018", "FR-019", "FR-020", "FR-021"],
+    "functional_requirements": ["FR-016", "FR-017", "FR-018", "FR-019", "FR-020", "FR-021"],
     "affected_design_nodes": ["DATA-001"]
   }
 }

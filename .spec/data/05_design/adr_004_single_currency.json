@@ -1,7 +1,7 @@
 {
   "id": "ADR-004",
   "title": "Single-Currency MVP — No Currency Column on Transaction",
-  "status": "Accepted",
+  "status": "Superseded",
   "context": "The brainstorm listed multi-currency support as in-scope. However, adding currency conversion requires an exchange rate source, complex UI, and significantly more data model complexity. BR-005 explicitly defers multi-currency to post-MVP.",
   "decision": "For the MVP, the app operates in a single implicit default currency. There is NO currency field on the Transaction or Account tables. All amounts are stored as plain REAL values in the same implicit currency. When multi-currency is added post-MVP, a migration will add a currency_code column to both accounts and transactions, and a currencies table with exchange rates.",
   "alternatives": [
@@ -32,6 +32,6 @@
   },
   "trace_to": {
     "stakeholders": ["STK-003"],
-    "affected_design_nodes": ["DATA-001", "VIEW-003"]
+    "affected_design_nodes": []
   }
 }

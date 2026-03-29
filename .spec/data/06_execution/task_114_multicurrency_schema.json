@@ -3,18 +3,20 @@
   "title": "DB Schema Migration — Add currencyCode and targetAmountCents to TransactionEntity",
   "description": "Add currency tracking fields to the transaction table. Bump DB version to 6 with destructive migration. This is the foundation for all other multi-currency tasks.",
   "type": "Feature",
-  "priority": "Critical",
+  "priority": 4,
   "status": "Done",
   "dependencies": [],
   "trace_to": {
     "functional_requirements": ["FR-017", "FR-018", "FR-019"],
     "design_nodes": ["ADR-007", "DATA-001"]
   },
-  "context": [
-    "app/src/main/java/com/familyfinance/data/local/entity/TransactionEntity.kt",
-    "app/src/main/java/com/familyfinance/data/local/FamilyFinanceDatabase.kt",
-    ".spec/data/05_design/data_001_schema.dbml"
-  ],
+  "context": {
+    "relevant_files": [
+      "app/src/main/java/com/familyfinance/data/local/entity/TransactionEntity.kt",
+      "app/src/main/java/com/familyfinance/data/local/FamilyFinanceDatabase.kt",
+      ".spec/data/05_design/data_001_schema.dbml"
+    ]
+  },
   "execution_steps": [
     "Run 'loom start TASK-114' to lock active context",
     "Run 'loom context TASK-114' to ingest requirements",

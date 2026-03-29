@@ -3,7 +3,7 @@
   "title": "Date/Time Entry for Transactions",
   "description": "Add user-editable date/time fields to Expense, Income, and Transfer forms (Fast Entry sheet).",
   "type": "Feature",
-  "priority": "High",
+  "priority": 3,
   "status": "Verified",
   "trace_to": {
     "functional_requirements": [
@@ -12,9 +12,17 @@
       "FR-004"
     ]
   },
-  "context": [
-    "app/src/main/java/com/familyfinance/ui/screens/fastentry/FastEntryViewModel.kt",
-    "app/src/main/java/com/familyfinance/ui/screens/fastentry/FastEntrySheet.kt"
+  "context": {
+    "relevant_files": [
+      "app/src/main/java/com/familyfinance/ui/screens/fastentry/FastEntryViewModel.kt",
+      "app/src/main/java/com/familyfinance/ui/screens/fastentry/FastEntrySheet.kt"
+    ]
+  },
+  "execution_steps": [
+    "Identify Expense/Income/Transfer forms",
+    "Add DateTimePicker to UI",
+    "Update ViewModel to handle user date",
+    "Verify transaction order in Timeline"
   ],
   "definition_of_done": [
     "Expense, Income, and Transfer forms include a DateTimePicker pre-filled with current system time",

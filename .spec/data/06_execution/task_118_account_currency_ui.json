@@ -3,20 +3,22 @@
   "title": "Account Creation UI — Currency Picker (AccountManageScreen)",
   "description": "Add a mandatory currency selector to the Add Account form. Display the currency as a read-only chip on the Edit Account screen. Integrate with AccountManageViewModel.",
   "type": "Feature",
-  "priority": "High",
+  "priority": 3,
   "status": "Done",
   "dependencies": ["TASK-114"],
   "trace_to": {
     "functional_requirements": ["FR-017", "FR-021"],
     "user_requirements": ["UR-010"]
   },
-  "context": [
-    "app/src/main/java/com/familyfinance/ui/settings/AccountManageScreen.kt",
-    "app/src/main/java/com/familyfinance/ui/settings/AccountManageViewModel.kt",
-    "app/src/main/java/com/familyfinance/domain/usecase/CreateAccountUseCase.kt",
-    ".spec/data/04_system/fr_017_account_currency.json",
-    ".spec/data/06_execution/scn_017_account_currency.json"
-  ],
+  "context": {
+    "relevant_files": [
+      "app/src/main/java/com/familyfinance/ui/settings/AccountManageScreen.kt",
+      "app/src/main/java/com/familyfinance/ui/settings/AccountManageViewModel.kt",
+      "app/src/main/java/com/familyfinance/domain/usecase/CreateAccountUseCase.kt",
+      ".spec/data/04_system/fr_017_account_currency.json",
+      ".spec/data/06_execution/scn_017_account_currency.json"
+    ]
+  },
   "execution_steps": [
     "Run 'loom start TASK-118' to lock active context",
     "Run 'loom context TASK-118' to ingest requirements",

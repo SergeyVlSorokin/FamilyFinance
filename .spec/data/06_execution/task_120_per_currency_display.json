@@ -3,24 +3,26 @@
   "title": "Per-Currency Display — Timeline, Dashboard and Reconciliation Screens",
   "description": "Update Timeline, Dashboard, and Reconciliation screens to display amounts with their currency codes and show per-currency totals instead of a single aggregated figure.",
   "type": "Feature",
-  "priority": "Medium",
+  "priority": 2,
   "status": "Done",
   "dependencies": ["TASK-116", "TASK-119"],
   "trace_to": {
     "functional_requirements": ["FR-020", "FR-021"],
     "user_requirements": ["UR-004", "UR-005"]
   },
-  "context": [
-    "app/src/main/java/com/familyfinance/ui/dashboard/",
-    "app/src/main/java/com/familyfinance/ui/timeline/",
-    "app/src/main/java/com/familyfinance/ui/reconcile/",
-    "app/src/main/java/com/familyfinance/domain/usecase/GetAccountBalancesUseCase.kt",
-    ".spec/data/04_system/fr_020_per_currency_totals.json",
-    ".spec/data/04_system/fr_021_currency_display.json",
-    ".spec/data/06_execution/scn_019_transaction_currency.json",
-    ".spec/data/06_execution/scn_020_per_currency_totals.json",
-    ".spec/data/06_execution/scn_021_currency_display.json"
-  ],
+  "context": {
+    "relevant_files": [
+      "app/src/main/java/com/familyfinance/ui/dashboard/",
+      "app/src/main/java/com/familyfinance/ui/timeline/",
+      "app/src/main/java/com/familyfinance/ui/reconcile/",
+      "app/src/main/java/com/familyfinance/domain/usecase/GetAccountBalancesUseCase.kt",
+      ".spec/data/04_system/fr_020_per_currency_totals.json",
+      ".spec/data/04_system/fr_021_currency_display.json",
+      ".spec/data/06_execution/scn_019_transaction_currency.json",
+      ".spec/data/06_execution/scn_020_per_currency_totals.json",
+      ".spec/data/06_execution/scn_021_currency_display.json"
+    ]
+  },
   "execution_steps": [
     "Run 'loom start TASK-120' to lock active context",
     "Run 'loom context TASK-120' to ingest requirements",
