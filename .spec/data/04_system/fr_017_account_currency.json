@@ -4,7 +4,7 @@
   "description": "The system shall require each account to have exactly one ISO 4217 currency code assigned at creation time. The currency shall be selected from a predefined list of common currencies presented in the account creation UI. The currency field shall be mandatory; the system SHALL NOT allow an account to be saved without a currency code. Once saved, the account currency shall be immutable.",
   "priority": "Must-have",
   "stability": "Stable",
-  "verification_method": "Functional Test",
+  "verification_method": "Test",
   "acceptance_criteria": [
     "Account creation form presents a currency picker with common ISO 4217 codes (e.g., EUR, USD, SEK, GBP, CHF, JPY, CAD, AUD)",
     "Saving an account without selecting a currency is rejected with a validation error",
@@ -13,6 +13,8 @@
   ],
   "trace_to": {
     "user_requirements": ["UR-010"],
-    "business_rules": ["BR-006"]
+    "business_rules": ["BR-006"],
+    "design_nodes": ["DATA-001", "ADR-007"],
+    "verification_plans": ["TASK-118"]
   }
 }

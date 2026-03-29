@@ -5,13 +5,13 @@
   "superseded_by": ["FR-017", "FR-018", "FR-019", "FR-020", "FR-021"],
   "description": "SUPERSEDED. Multi-currency is now in scope. See FR-017 through FR-021.",
   "priority": "Must-have",
-  "stability": "Superseded",
+  "stability": "TBD",
   "verification_method": "Inspection",
-  "acceptance_criteria": [],
+  "acceptance_criteria": ["Superseded by FR-017 through FR-021"],
   "trace_to": {
     "user_requirements": ["UR-008"],
     "business_rules": ["BR-005"],
-    "design_nodes": ["DATA-001", "ADR-004"],
+    "design_nodes": [],
     "verification_plans": ["SCN-008"]
   }
 }

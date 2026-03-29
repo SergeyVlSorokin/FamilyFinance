@@ -3,18 +3,27 @@
   "title": "Point-in-Time Reconciliation",
   "description": "Implement the ability to reconcile an account as of a specific date/time by calculating the recorded balance specifically for that moment.",
   "type": "Feature",
-  "priority": "High",
+  "priority": 3,
   "status": "Verified",
   "trace_to": {
     "functional_requirements": [
       "FR-010"
     ]
   },
-  "context": [
-    "app/src/main/java/com/familyfinance/domain/repository/BalanceRepository.kt",
-    "app/src/main/java/com/familyfinance/data/local/TransactionDao.kt",
-    "app/src/main/java/com/familyfinance/ui/screens/reconciliation/ReconciliationViewModel.kt",
-    "app/src/main/java/com/familyfinance/ui/screens/reconciliation/ReconciliationScreen.kt"
+  "context": {
+    "relevant_files": [
+      "app/src/main/java/com/familyfinance/domain/repository/BalanceRepository.kt",
+      "app/src/main/java/com/familyfinance/data/local/TransactionDao.kt",
+      "app/src/main/java/com/familyfinance/ui/screens/reconciliation/ReconciliationViewModel.kt",
+      "app/src/main/java/com/familyfinance/ui/screens/reconciliation/ReconciliationScreen.kt"
+    ]
+  },
+  "execution_steps": [
+    "Identify Reconciliation screen UI",
+    "Add DateTimePicker for balance-check time",
+    "Update BalanceRepository to support point-in-time calculation",
+    "Verify discrepancy computation logic",
+    "Ensure corrections match reconciliation time"
   ],
   "definition_of_done": [
     "Reconciliation screen includes a DateTimePicker to select the balance-check time",

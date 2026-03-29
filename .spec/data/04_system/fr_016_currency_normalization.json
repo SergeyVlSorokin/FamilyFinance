@@ -4,7 +4,7 @@
   "description": "The system shall provide a consistent monetary entry UI across all screens. Users shall enter values as decimals which the system automatically scales to integer cents for storage. The currency indicator displayed next to amount fields shall reflect the currency of the selected account (per FR-021), not a hardcoded global symbol.",
   "priority": "Must-have",
   "stability": "Stable",
-  "verification_method": "Manual",
+  "verification_method": "Test",
   "acceptance_criteria": [
     "All amount fields use a consistent bold typography style",
     "Entry is decimal-based (no explicit 'cents' input required)",
@@ -14,6 +14,7 @@
   "trace_to": {
     "user_requirements": ["UR-001", "UR-007", "UR-009"],
     "design_nodes": ["VIEW-005"],
-    "functional_requirements": ["FR-021"]
+    "functional_requirements": ["FR-021"],
+    "verification_plans": ["TASK-119"]
   }
 }

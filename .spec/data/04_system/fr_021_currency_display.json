@@ -4,7 +4,7 @@
   "description": "The system shall display the ISO 4217 currency code (or its standard symbol where unambiguous) next to every monetary amount shown in the UI. This applies to account balances, transaction amounts in the timeline, receipt splits, transfer amounts, and reconciliation screens. The currency indicator shall be derived from the account associated with the transaction, not from a global app setting.",
   "priority": "Must-have",
   "stability": "Stable",
-  "verification_method": "Manual",
+  "verification_method": "Test",
   "acceptance_criteria": [
     "Account balance cards show the currency code next to the balance (e.g., '1 500,00 EUR')",
     "Each transaction row in the timeline shows its amount with the account's currency code",
@@ -14,6 +14,8 @@
   ],
   "trace_to": {
     "user_requirements": ["UR-001", "UR-004", "UR-005", "UR-010"],
-    "business_rules": ["BR-006"]
+    "business_rules": ["BR-006"],
+    "design_nodes": ["VIEW-005"],
+    "verification_plans": ["TASK-120"]
   }
 }

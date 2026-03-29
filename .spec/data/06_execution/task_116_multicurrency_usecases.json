@@ -3,22 +3,24 @@
   "title": "Use Case Updates — Propagate currencyCode Through All Write Operations",
   "description": "Update SaveTransactionUseCase, SaveSplitReceiptUseCase, CreateAccountUseCase (opening balance), and GetAccountBalancesUseCase so that currencyCode is set on every transaction written, and the FX Transfer credit side uses targetAmountCents for balance calculation.",
   "type": "Feature",
-  "priority": "High",
+  "priority": 3,
   "status": "Done",
   "dependencies": ["TASK-115"],
   "trace_to": {
     "functional_requirements": ["FR-018", "FR-020"],
     "design_nodes": ["ADR-007"]
   },
-  "context": [
-    "app/src/main/java/com/familyfinance/domain/usecase/SaveTransactionUseCase.kt",
-    "app/src/main/java/com/familyfinance/domain/usecase/SaveSplitReceiptUseCase.kt",
-    "app/src/main/java/com/familyfinance/domain/usecase/CreateAccountUseCase.kt",
-    "app/src/main/java/com/familyfinance/domain/usecase/GetAccountBalancesUseCase.kt",
-    "app/src/main/java/com/familyfinance/domain/model/Account.kt",
-    ".spec/data/04_system/fr_018_transaction_currency.json",
-    ".spec/data/04_system/fr_020_per_currency_totals.json"
-  ],
+  "context": {
+    "relevant_files": [
+      "app/src/main/java/com/familyfinance/domain/usecase/SaveTransactionUseCase.kt",
+      "app/src/main/java/com/familyfinance/domain/usecase/SaveSplitReceiptUseCase.kt",
+      "app/src/main/java/com/familyfinance/domain/usecase/CreateAccountUseCase.kt",
+      "app/src/main/java/com/familyfinance/domain/usecase/GetAccountBalancesUseCase.kt",
+      "app/src/main/java/com/familyfinance/domain/model/Account.kt",
+      ".spec/data/04_system/fr_018_transaction_currency.json",
+      ".spec/data/04_system/fr_020_per_currency_totals.json"
+    ]
+  },
   "execution_steps": [
     "Run 'loom start TASK-116' to lock active context",
     "Run 'loom context TASK-116' to ingest requirements",

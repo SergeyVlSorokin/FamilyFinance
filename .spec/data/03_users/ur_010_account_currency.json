@@ -1,8 +1,9 @@
 {
   "id": "UR-010",
   "title": "Assign Currency to Account",
-  "user_story": "As an Active Recorder, I want to assign a currency to each account when I create it, so that all balances and transactions for that account are shown in the correct currency.",
-  "priority": "Must-have",
+  "user_role": "Active Recorder",
+  "story": "As an Active Recorder, I want to assign a currency to each account when I create it, so that all balances and transactions for that account are shown in the correct currency.",
+  "priority": "High",
   "acceptance_criteria": [
     "The account creation form includes a currency selector showing common ISO 4217 currencies",
     "The currency is mandatory — an account cannot be created without a currency",

@@ -3,18 +3,20 @@
   "title": "Domain Model + Repository Mapper — Add currencyCode and targetAmountCents",
   "description": "Update the domain Transaction model and the FinanceRepositoryImpl entity↔domain mappers to carry currencyCode and targetAmountCents through the full data pipeline.",
   "type": "Feature",
-  "priority": "Critical",
+  "priority": 4,
   "status": "Done",
   "dependencies": ["TASK-114"],
   "trace_to": {
     "functional_requirements": ["FR-018", "FR-019"],
     "design_nodes": ["ADR-007"]
   },
-  "context": [
-    "app/src/main/java/com/familyfinance/domain/model/Transaction.kt",
-    "app/src/main/java/com/familyfinance/data/local/entity/TransactionEntity.kt",
-    "app/src/main/java/com/familyfinance/data/repository/FinanceRepositoryImpl.kt"
-  ],
+  "context": {
+    "relevant_files": [
+      "app/src/main/java/com/familyfinance/domain/model/Transaction.kt",
+      "app/src/main/java/com/familyfinance/data/local/entity/TransactionEntity.kt",
+      "app/src/main/java/com/familyfinance/data/repository/FinanceRepositoryImpl.kt"
+    ]
+  },
   "execution_steps": [
     "Run 'loom start TASK-115' to lock active context",
     "Run 'loom context TASK-115' to ingest requirements",
