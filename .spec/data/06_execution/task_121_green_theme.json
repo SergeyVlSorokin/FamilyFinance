@@ -1,0 +1,27 @@
+{
+  "id": "TASK-121",
+  "title": "Implement Green Color Scheme",
+  "type": "Feature",
+  "routine": "Feature",
+  "status": "Review",
+  "trace_to": {
+    "requirements": [
+      "NFR-001"
+    ]
+  },
+  "context": {
+    "relevant_files": [
+      "app/src/main/java/com/familyfinance/ui/theme/Theme.kt",
+      "app/src/main/java/com/familyfinance/ui/theme/Color.kt"
+    ]
+  },
+  "execution_steps": [
+    "Step 1: Create a Color.kt file in the theme package defining the green color palette.",
+    "Step 2: Update Theme.kt to utilize the new green color scheme for both light and dark themes.",
+    "Step 3: Ensure sufficient contrast for readability per WCAG AA standards."
+  ],
+  "definition_of_done": [
+    "Jetpack Compose theme definitions are updated with a green palette in Theme.kt and Color.kt.",
+    "Code builds successfully and aligns with NFR-001."
+  ]
+}
