@@ -31,8 +31,9 @@ interface FinanceDao {
     @Query("DELETE FROM accounts WHERE id = :id")
     suspend fun deleteAccount(id: Long)
 
-    @Query("SELECT EXISTS(SELECT 1 FROM accounts WHERE name = :name LIMIT 1)")
-    suspend fun isAccountNameTaken(name: String): Boolean
+    // @trace TASK-122
+    @Query("SELECT EXISTS(SELECT 1 FROM accounts WHERE name = :name AND currency = :currency AND IFNULL(ownerLabel, '') = IFNULL(:ownerLabel, '') LIMIT 1)")
+    suspend fun isAccountKeyTaken(name: String, currency: String, ownerLabel: String?): Boolean
 
     // Categories
     @Query("SELECT * FROM categories ORDER BY name ASC")

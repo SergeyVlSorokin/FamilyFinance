@@ -1,0 +1,31 @@
+{
+  "id": "ADR-008",
+  "title": "Tuple-Based Validation Strategy (Name, Currency, Owner)",
+  "status": "Accepted",
+  "supersedes": "ADR-006",
+  "context": "Preventing duplicate entities is critical for data integrity. Previously, ADR-006 established that Account, Category, and Project entities were unique by 'name' alone. However, the requirement has evolved to allow Accounts with the same name if they are in different currencies or hold different owners (e.g., 'Travel' in USD vs 'Travel' in EUR). Therefore, the uniqueness constraint for Accounts must be expanded to a tuple.",
+  "decision": "Use Room's @Index(unique = true) on the composite columns ['name', 'currency_code', 'owner_label'] for AccountEntity. For CategoryEntity and ProjectEntity, maintain the @Index(unique = true) on the 'name' column alone. Supplement both with FinanceRepository methods to check for existence before save operations in view models to provide immediate UI feedback instead of relying on SQLite exception handling.",
+  "consequences": {
+    "positive": [
+      "Rigid data integrity at the persistence layer that accurately reflects the business rules.",
+      "Clean UI feedback via explicit ViewModel checks.",
+      "Allows users to create logically distinct accounts that share a base name."
+    ],
+    "negative": [
+      "Slight performance overhead on inserts due to composite index maintenance.",
+      "Requires updating the existing Room schema and writing a migration or recreating the DB.",
+      "Need to update the isNameTaken checks in account save flows to check the full tuple."
+    ]
+  },
+  "trace_to": {
+    "stakeholders": [
+      "STK-003"
+    ],
+    "constraints": [
+      "CON-001"
+    ],
+    "affected_design_nodes": [
+      "DATA-002"
+    ]
+  }
+}

@@ -3,7 +3,7 @@
   "title": "Implement Green Color Scheme",
   "type": "Feature",
   "routine": "Feature",
-  "status": "Review",
+  "status": "Verified",
   "trace_to": {
     "requirements": [
       "NFR-001"

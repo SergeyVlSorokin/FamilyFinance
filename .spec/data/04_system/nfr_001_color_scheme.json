@@ -2,9 +2,11 @@
   "id": "NFR-001",
   "title": "Green Color Scheme Concept",
   "description": "The application's global UI/UX aesthetic shall employ a green-centric color scheme to convey a sense of financial growth, freshness, and balance.",
-  "trace_to": [
-    "STK-003"
-  ],
+  "trace_to": {
+    "stakeholders": [
+      "STK-003"
+    ]
+  },
   "acceptance_criteria": [
     "The primary brand color is a shade of green.",
     "The color palette ensures sufficient contrast for readability (WCAG AA compliant).",

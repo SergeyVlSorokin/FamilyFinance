@@ -9,7 +9,8 @@ interface FinanceRepository {
     suspend fun getAccountById(id: Long): Account?
     suspend fun saveAccount(account: Account): Long
     suspend fun updateAccountReconciliationDate(accountId: Long, timestamp: Long)
-    suspend fun isAccountNameTaken(name: String): Boolean
+    // @trace TASK-122
+    suspend fun isAccountKeyTaken(name: String, currency: String, ownerLabel: String?): Boolean
     suspend fun deleteAccount(id: Long)
 
     // Categories

@@ -11,7 +11,11 @@ Table accounts {
   owner_label   TEXT [not null, note: "E.g. 'Serge', 'Julia' — for filtering, NOT security"]
   created_at    INTEGER [not null, note: "Epoch millis"]
 
-  Note: "No 'balance' column — balance is always computed from TransactionEntity rows to maintain a single source of truth. Balance is always expressed in the account's currency_code."
+  indexes {
+    (name, currency_code, owner_label) [unique, name: "idx_account_unique"]
+  }
+
+  Note: "No 'balance' column — balance is always computed from TransactionEntity rows to maintain a single source of truth. Balance is always expressed in the account's currency_code. Unique constraint enforced by idx_account_unique."
 }
 
 Table categories {
@@ -19,6 +23,10 @@ Table categories {
   name  TEXT [not null]
   icon  TEXT [note: "Icon identifier string"]
   color TEXT [note: "Hex color string, e.g. #FF5733"]
+
+  indexes {
+    name [unique, name: "idx_category_name_unique"]
+  }
 }
 
 Table projects {
@@ -26,6 +34,10 @@ Table projects {
   name       TEXT [not null]
   start_date INTEGER [note: "Epoch millis, optional"]
   end_date   INTEGER [note: "Epoch millis, optional"]
+
+  indexes {
+    name [unique, name: "idx_project_name_unique"]
+  }
 }
 
 Table transactions {

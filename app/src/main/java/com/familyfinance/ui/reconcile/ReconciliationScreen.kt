@@ -155,7 +155,7 @@ fun ReconciliationContent(
         ) {
             Column(modifier = Modifier.padding(24.dp)) {
                 Text(
-                    text = accountBalance.account.name,
+                    text = accountBalance.account.displayNameWithOwner,
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.Bold
                 )
