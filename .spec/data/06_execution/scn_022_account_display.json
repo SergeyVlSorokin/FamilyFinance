@@ -1,0 +1,27 @@
+{
+  "id": "SCN-022",
+  "title": "Account Contextual Display Verification",
+  "description": "Verify that account names are displayed with the correct components based on the screen context.",
+  "type": "System",
+  "status": "Draft",
+  "steps": [
+    {
+      "step": 1,
+      "action": "Navigate to the 'Manage accounts' page (Settings).",
+      "expected_result": "Each account displays its name, currency, and owner clearly."
+    },
+    {
+      "step": 2,
+      "action": "Navigate to 'New transaction' (e.g., Add Expense) and open the Account selector dropdown.",
+      "expected_result": "The dropdown items show the full identity of the account, including name, currency, and owner."
+    },
+    {
+      "step": 3,
+      "action": "Select an account and view the transaction on the Timeline or Dashboard.",
+      "expected_result": "The account is listed as '{name} ({owner})' (or similar format) without the currency, since the transaction amount already shows the currency."
+    }
+  ],
+  "trace_to": {
+    "requirements": ["FR-022"]
+  }
+}

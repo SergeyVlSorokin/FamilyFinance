@@ -1,0 +1,20 @@
+{
+  "id": "FR-022",
+  "title": "Account Contextual Display",
+  "description": "The system shall format the display string of an Account dynamically depending on the UI context to ensure clarity without redundant information. On the 'Manage accounts' page, it displays name, currency, and owner in separate fields or inline as currently implemented. In 'New transaction' account selectors, it displays the full (name, currency, owner) tuple. On all other screens, it adds the owner after the account name, while omitting the currency since the currency is displayed contextually with the amount.",
+  "priority": "Must-have",
+  "stability": "Stable",
+  "verification_method": "Test",
+  "acceptance_criteria": [
+    "On the 'Manage accounts' page, the account name, currency, and owner are displayed as distinct visible components.",
+    "On 'New transaction' screens (Income, Expense, Transfer, Split Receipt), account dropdowns/selectors display the full key: '{name} ({currency}, {owner})' or similar clear representation of all three components.",
+    "On all other screens (Dashboard, Timeline, etc.), the account name is displayed with the owner appended (e.g., '{name} ({owner})' or '{name} - {owner}'), but without the currency string.",
+    "Currency is omitted in general account name displays because the currency symbol/code is natively displayed next to the monetary amounts on those screens."
+  ],
+  "trace_to": {
+    "user_requirements": ["UR-001", "UR-002", "UR-003", "UR-004", "UR-005", "UR-006", "UR-007"],
+    "business_rules": [],
+    "design_nodes": [],
+    "verification_plans": ["SCN-022"]
+  }
+}

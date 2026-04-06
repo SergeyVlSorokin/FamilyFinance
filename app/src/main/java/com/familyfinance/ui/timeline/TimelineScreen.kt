@@ -254,9 +254,9 @@ fun TransactionRow(item: TimelineItem) {
             )
             Text(
                 text = if (transaction.type == TransactionType.TRANSFER && item.targetAccount != null) {
-                    "${item.account?.name ?: "Unknown"} -> ${item.targetAccount.name}"
+                    "${item.account?.displayNameWithOwner ?: "Unknown"} -> ${item.targetAccount.displayNameWithOwner}"
                 } else {
-                    item.account?.name ?: "Unknown"
+                    item.account?.displayNameWithOwner ?: "Unknown"
                 },
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.secondary

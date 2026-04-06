@@ -62,8 +62,8 @@ class SettingsViewModel @Inject constructor(
 
     fun saveAccount(account: Account, openingBalanceCents: Long, openingBalanceTimestamp: Long) {
         viewModelScope.launch {
-            if (repository.isAccountNameTaken(account.name)) {
-                _uiState.update { it.copy(error = "Account name already taken") }
+            if (repository.isAccountKeyTaken(account.name, account.currency, account.ownerLabel)) {
+                _uiState.update { it.copy(error = "Account with this name, currency, and owner already exists") }
                 return@launch
             }
             createAccountUseCase(account, openingBalanceCents, openingBalanceTimestamp)

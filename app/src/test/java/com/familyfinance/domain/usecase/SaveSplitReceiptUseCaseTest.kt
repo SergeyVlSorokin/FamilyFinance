@@ -61,7 +61,7 @@ class SaveSplitReceiptUseCaseTest {
         override suspend fun getAccountById(id: Long): Account? = null
         override suspend fun saveAccount(account: Account): Long = 0
         override suspend fun updateAccountReconciliationDate(accountId: Long, timestamp: Long) {}
-        override suspend fun isAccountNameTaken(name: String): Boolean = false
+        override suspend fun isAccountUnique(name: String, currency: String, ownerLabel: String?): Boolean = false
         override suspend fun deleteAccount(id: Long) {}
         override fun getCategoriesFlow(): Flow<List<Category>> = MutableStateFlow(emptyList())
         override suspend fun saveCategory(category: Category) {}

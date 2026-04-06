@@ -1,8 +1,8 @@
 {
   "id": "CON-001",
   "category": "Business",
-  "statement": "The names of Accounts, Categories, and Projects must be unique within their respective collections.",
-  "rationale": "Prevent ambiguity for users and ensure data integrity in the shared vault, where all family members interact with the same reference data.",
+  "statement": "The unique key for Categories and Projects is their name. The unique key for Accounts is the tuple (name, currency, owner).",
+  "rationale": "Prevent ambiguity for users and ensure data integrity in the shared vault. Accounts with the same name can exist if they have different currencies or owners, reflecting real-world banking options.",
   "trace_to": {
     "stakeholders": [
       "STK-003"

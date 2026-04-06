@@ -85,8 +85,8 @@ class FinanceDatabaseUnitTest {
 
     @Test(expected = android.database.sqlite.SQLiteConstraintException::class)
     fun duplicateAccountNameThrowsException() = runBlocking<Unit> {
-        val account1 = AccountEntity(name = "Dup", type = AccountType.BANK, currency = "USD", color = 0)
-        val account2 = AccountEntity(name = "Dup", type = AccountType.BANK, currency = "USD", color = 0)
+        val account1 = AccountEntity(name = "Dup", type = AccountType.BANK, currency = "USD", color = 0, ownerLabel = "Owner1")
+        val account2 = AccountEntity(name = "Dup", type = AccountType.BANK, currency = "USD", color = 0, ownerLabel = "Owner1")
         dao.upsertAccount(account1)
         dao.upsertAccount(account2)
     }

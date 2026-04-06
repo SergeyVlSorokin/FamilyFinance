@@ -27,8 +27,9 @@ class FinanceRepositoryImpl @Inject constructor(
     override suspend fun updateAccountReconciliationDate(accountId: Long, timestamp: Long) =
         dao.updateReconciliationTimestamp(accountId, timestamp)
 
-    override suspend fun isAccountNameTaken(name: String): Boolean =
-        dao.isAccountNameTaken(name)
+    // @trace TASK-122
+    override suspend fun isAccountKeyTaken(name: String, currency: String, ownerLabel: String?): Boolean =
+        dao.isAccountKeyTaken(name, currency, ownerLabel)
 
     override suspend fun deleteAccount(id: Long) =
         dao.deleteAccount(id)

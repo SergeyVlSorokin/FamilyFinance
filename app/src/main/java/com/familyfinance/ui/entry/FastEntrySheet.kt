@@ -301,7 +301,7 @@ fun AccountPicker(
         modifier = Modifier.fillMaxWidth()
     ) {
         OutlinedTextField(
-            value = selectedAccount?.name ?: "",
+            value = selectedAccount?.displayNameFullTuple ?: "",
             onValueChange = {},
             readOnly = true,
             label = { Text(label) },
@@ -317,7 +317,7 @@ fun AccountPicker(
         ) {
             accounts.forEach { account ->
                 DropdownMenuItem(
-                    text = { Text(account.name) },
+                    text = { Text(account.displayNameFullTuple) },
                     onClick = {
                         onAccountSelected(account)
                         expanded = false

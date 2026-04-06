@@ -161,7 +161,7 @@ fun AccountCard(
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = accountBalance.account.name,
+                    text = accountBalance.account.displayNameWithOwner,
                     style = MaterialTheme.typography.bodyLarge,
                     fontWeight = FontWeight.SemiBold
                 )

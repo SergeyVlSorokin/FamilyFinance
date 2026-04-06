@@ -1,0 +1,33 @@
+{
+  "id": "TASK-122",
+  "title": "Implement Tuple-Based Account Uniqueness and Contextual Display",
+  "type": "Feature",
+  "routine": "Feature",
+  "status": "Verified",
+  "trace_to": {
+    "requirements": [
+      "FR-015",
+      "FR-022"
+    ],
+    "design_nodes": [
+      "DATA-002",
+      "ADR-008"
+    ],
+    "scenarios": [
+      "SCN-022"
+    ]
+  },
+  "context": {
+    "relevant_files": []
+  },
+  "execution_steps": [
+    "Step 1: Update Room AccountEntity to use composite unique index (name, currency_code, owner_label).",
+    "Step 2: Update FinanceRepository and SettingsViewModel unique constraint check logic for Accounts.",
+    "Step 3: Update Account mapping logic for UI display across all specified view models (Timeline, Dashboard, Settings, New Transaction)."
+  ],
+  "definition_of_done": [
+    "Composite unique index correctly prevents duplicate account creation at DB level.",
+    "UI correctly differentiates account display formats across contexts as specified in FR-022.",
+    "All unit and UI tests pass."
+  ]
+}
