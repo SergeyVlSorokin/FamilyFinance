@@ -1,17 +1,15 @@
 package com.familyfinance.ui.navigation
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.familyfinance.ui.dashboard.DashboardScreen
 import com.familyfinance.ui.settings.AccountManageScreen
 import com.familyfinance.ui.settings.CategoryManageScreen
 import com.familyfinance.ui.settings.ProjectManageScreen
 import com.familyfinance.ui.settings.SettingsScreen
-import com.familyfinance.ui.settings.SettingsViewModel
 import com.familyfinance.ui.entry.FastEntrySheet
 import com.familyfinance.ui.timeline.TimelineScreen
 import com.familyfinance.ui.reconcile.ReconciliationScreen
@@ -76,3 +74,4 @@ fun NavGraph(navController: NavHostController) {
         }
     }
 }
+

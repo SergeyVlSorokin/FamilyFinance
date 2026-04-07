@@ -11,6 +11,7 @@
 |------|-------|:-:|:-:|:--:|:-:|:-:|----------|---------|
 | 2026-03-18-transaction-date-time | Done | [✅](docs/brainstorms/2026-02-28-family-finance-brainstorm.md) | [✅](docs/plans/2026-02-28-family-finance-plan.md) | [✅](docs/plan-reviews/2026-03-01-00-45-family-finance-plan-review.md) | [✅] | [✅] | High | 2026-03-18 |
 | 2026-03-16-unique-name-validation | Done | [✅](docs/brainstorms/2026-03-16-23-48-unique-name-validation-brainstorm.md) | [✅](docs/plans/2026-03-16-23-48-unique-name-validation-plan.md) | [✅](docs/plan-reviews/2026-03-16-23-48-unique-name-validation-plan.md) | [✅] | [✅] | Medium | 2026-03-16 |
+| 2026-03-20-global-nav-refactor | Done | - | - | - | [✅](.spec/data/06_execution/task_200_navigation_refactor.json) | — | High | 2026-03-20 |
 
 **Phase codes:** B=Brainstorm · P=Plan · PR=Plan-Review · W=Work · R=Code-Review
 **Status icons:** ✅ done · 🔄 in-progress · ⏳ pending · ❌ blocked · — not started
@@ -27,6 +28,7 @@ _Items added automatically when a phase completes. Agent picks up first `[ ]` it
 - [x] work | slug: `2026-02-28-family-finance` | created: 2026-03-01-00-49
 - [x] plan | slug: `2026-03-16-unique-name-validation` | created: 2026-03-16-23-48
 - [x] plan-review | docs/plans/2026-03-16-unique-name-validation-plan.md | created: 2026-03-16-23-48
+- [ ] verify | task: `2026-03-20-global-nav-refactor` | created: 2026-04-07-23-11
 
 <!-- compound-brainstorm → adds: plan pending -->
 <!-- compound-plan → adds: plan-review pending -->
