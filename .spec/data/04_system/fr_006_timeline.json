@@ -12,6 +12,7 @@
     "Each row displays the full digital date (DD/MM/YY) on the left side",
     "The account name is displayed on the right side, directly below the amount",
     "Transfer transactions display both source and target accounts as 'From -> To'",
+    "For cross-currency (FX) transfers, both the source and target amounts are displayed as 'Amount -> TargetAmount'",
     "System transactions (Opening balance, Reconciliation) use clean names without underscores and hide redundant notes",
     "Filtering by category shows only transactions of that category",
     "Filtering by owner_label shows only transactions with that label",
