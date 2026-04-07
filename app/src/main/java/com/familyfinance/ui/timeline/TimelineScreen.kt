@@ -242,8 +242,15 @@ fun TransactionRow(item: TimelineItem) {
 
         // Amount & Account
         Column(horizontalAlignment = Alignment.End) {
+            val amountText = if (transaction.type == TransactionType.TRANSFER && item.targetAccount != null && transaction.targetAmountCents != null && transaction.currencyCode != item.targetAccount.currency) {
+                "${transaction.amountCents.format(transaction.currencyCode)} -> ${transaction.targetAmountCents.format(item.targetAccount.currency)}"
+            } else if (transaction.type == TransactionType.EXPENSE) {
+                "-${transaction.amountCents.format(transaction.currencyCode)}"
+            } else {
+                transaction.amountCents.format(transaction.currencyCode)
+            }
             Text(
-                text = if (transaction.type == TransactionType.EXPENSE) "-${transaction.amountCents.format(transaction.currencyCode)}" else transaction.amountCents.format(transaction.currencyCode),
+                text = amountText,
                 style = MaterialTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Bold,
                 color = when (transaction.type) {
