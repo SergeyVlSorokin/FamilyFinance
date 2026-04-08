@@ -6,7 +6,7 @@
   "diagram_source": "graph TD\n  subgraph UI [\"UI Layer (Jetpack Compose)\"]\n    Dashboard[\"DashboardScreen\"]\n    FastEntry[\"FastEntrySheet\"]\n    Timeline[\"TimelineScreen\"]\n    Settings[\"SettingsScreen\"]\n    Reconcile[\"ReconciliationScreen\"]\n  end\n  subgraph VM [\"ViewModel Layer (Hilt)\"]\n    DashVM[\"DashboardViewModel\"]\n    EntryVM[\"FastEntryViewModel\"]\n    TimelineVM[\"TimelineViewModel\"]\n    SettingsVM[\"SettingsViewModel\"]\n    ReconcileVM[\"ReconciliationViewModel\"]\n  end\n  subgraph Domain [\"Domain / Use Case Layer\"]\n    SaveTx[\"SaveTransactionUseCase\"]\n    SaveSplit[\"SaveSplitReceiptUseCase\"]\n    SaveTransfer[\"SaveTransferUseCase\"]\n    Reconcile2[\"ReconcileAccountUseCase\"]\n    GetBalance[\"GetAccountBalancesUseCase\"]\n  end\n  subgraph Repo [\"Repository Layer\"]\n    FinRepo[\"FinanceRepository\"]\n  end\n  subgraph Data [\"Data Layer (Room)\"]\n    TxDAO[\"TransactionDao\"]\n    AccDAO[\"AccountDao\"]\n    CatDAO[\"CategoryDao\"]\n    ProjDAO[\"ProjectDao\"]\n    DB[(\"AppDatabase (Room/SQLite)\")]\n  end\n  Dashboard --> DashVM\n  FastEntry --> EntryVM\n  Timeline --> TimelineVM\n  Settings --> SettingsVM\n  Reconcile --> ReconcileVM\n  DashVM --> GetBalance\n  EntryVM --> SaveTx\n  EntryVM --> SaveSplit\n  EntryVM --> SaveTransfer\n  ReconcileVM --> Reconcile2\n  SaveTx --> FinRepo\n  SaveSplit --> FinRepo\n  SaveTransfer --> FinRepo\n  Reconcile2 --> FinRepo\n  GetBalance --> FinRepo\n  FinRepo --> TxDAO\n  FinRepo --> AccDAO\n  FinRepo --> CatDAO\n  FinRepo --> ProjDAO\n  TxDAO --> DB\n  AccDAO --> DB\n  CatDAO --> DB\n  ProjDAO --> DB",
   "elements": [
     { "name": "DashboardScreen / DashboardViewModel", "type": "UI Component", "description": "Displays all accounts with reactive balances and total wealth", "trace_refs": ["FR-005"] },
-    { "name": "FastEntrySheet / FastEntryViewModel", "type": "UI Component", "description": "Single-screen entry for Expense, Income, Transfer, and Split Receipt", "trace_refs": ["FR-001", "FR-002", "FR-003", "FR-004"] },
+    { "name": "FastEntrySheet / FastEntryViewModel", "type": "UI Component", "description": "Single-screen entry for Expense, Income, Transfer, and Split Receipt", "trace_refs": ["FR-001", "FR-002", "FR-003", "FR-004", "FR-023"] },
     { "name": "TimelineScreen / TimelineViewModel", "type": "UI Component", "description": "Scrollable, filterable transaction history grouped by month", "trace_refs": ["FR-006"] },
     { "name": "SettingsScreen / SettingsViewModel", "type": "UI Component", "description": "Hub for managing Accounts, Categories, and Projects", "trace_refs": ["FR-007"] },
     { "name": "ReconciliationScreen / ReconciliationViewModel", "type": "UI Component", "description": "Balance verification and correction flow for all account types", "trace_refs": ["FR-010", "FR-011", "FR-012"] },
@@ -19,7 +19,7 @@
     { "name": "AppDatabase (Room)", "type": "Database", "description": "Room SQLite database with all entity tables. Provides DAOs via @Database annotation", "trace_refs": ["FR-008"] }
   ],
   "trace_to": {
-    "functional_requirements": ["FR-001","FR-002","FR-003","FR-004","FR-005","FR-006","FR-007","FR-008","FR-009","FR-010","FR-011","FR-012"],
+    "functional_requirements": ["FR-001","FR-002","FR-003","FR-004","FR-005","FR-006","FR-007","FR-008","FR-009","FR-010","FR-011","FR-012","FR-023"],
     "adrs": ["ADR-001", "ADR-002"]
   }
 }

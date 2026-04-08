@@ -1,0 +1,18 @@
+{
+  "id": "SCN-016",
+  "title": "Verify CurrencyInput Calculator Math and Workflow",
+  "objective": "Verify the basic mathematical calculations and UI state saving/cancellation workflows of the amount calculator.",
+  "type": "Manual",
+  "steps": [
+    { "step": "Open a Data Entry screen with a CurrencyInput field.", "expected_result": "Screen opens." },
+    { "step": "Enter '15.5' into the field, and tap the newly added Calculator Icon on the right side.", "expected_result": "The Calculator opens, with the current entry '15.5' displayed." },
+    { "step": "Tap '+', '10', and '='.", "expected_result": "The calculator display clearly updates to '25.5'." },
+    { "step": "Tap '*', '2', then immediately tap 'Save'.", "expected_result": "The calculator interface closes. The CurrencyInput field is updated to '51'." },
+    { "step": "Tap the Calculator Icon again. Tap 'C' to clear. Enter '100' and tap 'Cancel'.", "expected_result": "The calculator interface closes, and the CurrencyInput field retains '51' (not updated to 100)." },
+    { "step": "Open calculator again, tap 'C' to clear, enter '200' then '%' then '5' then '='.", "expected_result": "The calculator display updates to '10' (representing 5% of 200)." }
+  ],
+  "trace_to": {
+    "requirements": ["FR-023", "UR-012"]
+  },
+  "status": "Draft"
+}

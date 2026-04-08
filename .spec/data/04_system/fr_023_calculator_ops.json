@@ -1,0 +1,24 @@
+{
+  "id": "FR-023",
+  "title": "CurrencyInput Amount Calculator",
+  "description": "The system shall provide an inline calculator accessible from the CurrencyInput field.",
+  "priority": "Must-have",
+  "stability": "Stable",
+  "verification_method": "Test",
+  "acceptance_criteria": [
+    "A calculator icon is present on the right side of the CurrencyInput field.",
+    "Clicking the icon opens the calculator interface.",
+    "The initial value is preset to the current field value, or 0 if empty or invalid.",
+    "The calculator supports (+, -, *, /, %) operations. The % operator acts as a 'percentage of' operation (e.g. A % B = A * B / 100).",
+    "The calculator has a Clear (C) and Backspace (<-) button.",
+    "The calculator provides a Decimal (.) button for fractional values.",
+    "The calculator has an '=' button to evaluate the current expression.",
+    "The calculator has a standalone 'Save' button that evaluates any remaining expression and applies the result to the CurrencyInput field, closing the calculator.",
+    "The calculator has a 'Cancel' mechanism that discards changes and closes the interface without applying the result."
+  ],
+  "trace_to": {
+    "user_requirements": ["UR-012"],
+    "design_nodes": ["VIEW-001", "VIEW-005"],
+    "verification_plans": ["SCN-016"]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "TASK-201",
+  "title": "Implement Inline Amount Calculator",
+  "type": "Feature",
+  "routine": "Feature",
+  "objective": "Implement an inline calculator accessible via a trailing icon in CurrencyInput.",
+  "trace_to": {
+    "requirements": [
+      "FR-023"
+    ]
+  },
+  "compliance": {
+    "strict_trace": true
+  },
+  "status": "Done",
+  "tdd_cycle": {
+    "test_file": "app/src/test/java/com/familyfinance/ui/components/ExpressionEvaluatorTest.kt",
+    "implementation_file": "app/src/main/java/com/familyfinance/ui/components/AmountCalculator.kt",
+    "verification_command": "./gradlew testDebugUnitTest"
+  },
+  "execution_steps": [
+    "Design and implement AmountCalculator composable with a ModalBottomSheet.",
+    "Implement mathematical expression evaluator for operations +, -, *, /, %.",
+    "Add Calculator icon to CurrencyInput trailingIcon.",
+    "Wire state from AmountCalculator to CurrencyInput on Save."
+  ],
+  "definition_of_done": [
+    "AmountCalculator composable is implemented.",
+    "Mathematical expressions evaluate correctly adhering to standard math rules.",
+    "User can open calculator, type operations, and save the result back into CurrencyInput.",
+    "Cancel discards operations without replacing the CurrencyInput value."
+  ],
+  "context": {
+    "relevant_files": [
+      "app/src/main/java/com/familyfinance/ui/components/AmountCalculator.kt",
+      "app/src/main/java/com/familyfinance/ui/components/CurrencyInput.kt",
+      "app/src/main/java/com/familyfinance/ui/components/ExpressionEvaluator.kt"
+    ]
+  }
+}

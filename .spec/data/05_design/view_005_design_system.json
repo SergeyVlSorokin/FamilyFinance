@@ -3,13 +3,19 @@
   "name": "Design System — Shared Components",
   "viewpoint": "Logical",
   "concerns": ["Consistency", "Reusability", "UX"],
-  "diagram_source": "graph TD\n  CurrencyInput --> FR-016\n  IconPicker --> FR-007\n  NormalizedInputStyle --> FR-014",
+  "diagram_source": "graph TD\n  CurrencyInput --> FR-016\n  CurrencyInput --> FR-023\n  AmountCalculator --> FR-023\n  CurrencyInput --> AmountCalculator\n  IconPicker --> FR-007\n  NormalizedInputStyle --> FR-014",
   "elements": [
     {
       "name": "CurrencyInput",
       "type": "UI Component",
-      "description": "Shared composable for monetary input with decimal scaling and bold formatting",
-      "trace_refs": ["FR-016"]
+      "description": "Shared composable for monetary input with decimal scaling and bold formatting. Embeds inline AmountCalculator.",
+      "trace_refs": ["FR-016", "FR-023"]
+    },
+    {
+      "name": "AmountCalculator",
+      "type": "UI Component",
+      "description": "Transient inline bottom sheet or dialog calculator providing basic math (+, -, *, /, %) with an explicit save mechanism.",
+      "trace_refs": ["FR-023"]
     },
     {
       "name": "IconPicker",
@@ -25,6 +31,6 @@
     }
   ],
   "trace_to": {
-    "functional_requirements": ["FR-016", "FR-015", "FR-007"]
+    "functional_requirements": ["FR-016", "FR-015", "FR-007", "FR-023"]
   }
 }
