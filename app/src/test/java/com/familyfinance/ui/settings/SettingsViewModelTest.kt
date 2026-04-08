@@ -43,7 +43,7 @@ class SettingsViewModelTest {
         whenever(repository.getProjectsFlow()).thenReturn(flowOf(emptyList()))
         
         runBlocking {
-            whenever(repository.isAccountUnique(any(), any(), org.mockito.kotlin.anyOrNull())).thenReturn(false)
+            whenever(repository.isAccountKeyTaken(any(), any(), org.mockito.kotlin.anyOrNull())).thenReturn(false)
             whenever(repository.isCategoryNameTaken(any())).thenReturn(false)
             whenever(repository.isProjectNameTaken(any())).thenReturn(false)
         }

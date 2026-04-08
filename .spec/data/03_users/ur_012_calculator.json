@@ -1,0 +1,14 @@
+{
+  "id": "UR-012",
+  "user_role": "Active Recorder",
+  "story": "As an Active Recorder, I want to use a built-in calculator when entering monetary amounts, so that I can compute totals or perform on-the-fly math without leaving the app.",
+  "acceptance_criteria": [
+    "A calculator is accessible from the amount entry field.",
+    "The calculator supports basic mathematical operations (+, -, *, /, %). The % operator should calculate the 'percentage of' (A % B = A * B / 100).",
+    "Calculated values can be directly saved to the entry field."
+  ],
+  "trace_to": {
+    "stakeholders": ["STK-001"]
+  },
+  "priority": "Medium"
+}
