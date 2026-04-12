@@ -1,0 +1,17 @@
+{
+  "id": "UR-013",
+  "user_role": "Active Recorder",
+  "story": "As an Active Recorder, I want to flag an expense as 'Return Expected' and track its resolution, so that I don't forget to return items and verify the refund.",
+  "priority": "Medium",
+  "acceptance_criteria": [
+    "I can check a box on the Expense form indicating part or all of the transaction might be returned",
+    "I can see a summary of pending returns via a dashboard widget",
+    "Pending returns show a visual indicator on the timeline",
+    "I can log a refund (partial or full) directly from the pending list",
+    "I can dismiss an expected return if I decide to keep all items"
+  ],
+  "trace_to": {
+    "stakeholders": ["STK-001"],
+    "business_goals": []
+  }
+}

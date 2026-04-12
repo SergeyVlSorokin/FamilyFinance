@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.familyfinance.ui.components.CurrencyInput
-import com.familyfinance.ui.dashboard.formatAsCurrency
+import com.familyfinance.ui.components.formatAsCurrency
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*

@@ -17,5 +17,7 @@ data class Transaction(
     val targetAccountId: Long? = null,
     val targetAmountCents: Long? = null,
     val receiptGroupId: String? = null,
-    val transferLinkedId: String? = null
-)
+    val transferLinkedId: String? = null,
+    val isReturnExpected: Boolean = false,
+    val refundLinkedId: String? = null
+) // @trace TASK-202

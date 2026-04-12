@@ -37,9 +37,13 @@ fun NavGraph(navController: NavHostController) {
             ReconciliationScreen(onBack = { navController.popBackStack() })
         }
         composable(Screen.Timeline.route) {
-            TimelineScreen(onBack = { navController.popBackStack() })
+            TimelineScreen(
+                onBack = { navController.popBackStack() }
+            )
         }
-        composable(Screen.FastEntry.route) {
+        composable(
+            route = Screen.FastEntry.route
+        ) {
             FastEntrySheet(
                 onBack = { navController.popBackStack() }
             )

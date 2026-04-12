@@ -45,6 +45,9 @@ interface FinanceDao {
     @Query("DELETE FROM categories WHERE id = :id")
     suspend fun deleteCategory(id: Long)
 
+    @Query("SELECT * FROM categories WHERE id = :id")
+    suspend fun getCategoryById(id: Long): CategoryEntity?
+
     @Query("SELECT EXISTS(SELECT 1 FROM categories WHERE name = :name LIMIT 1)")
     suspend fun isCategoryNameTaken(name: String): Boolean
 
@@ -57,6 +60,9 @@ interface FinanceDao {
 
     @Query("DELETE FROM projects WHERE id = :id")
     suspend fun deleteProject(id: Long)
+
+    @Query("SELECT * FROM projects WHERE id = :id")
+    suspend fun getProjectById(id: Long): ProjectEntity?
 
     @Query("SELECT EXISTS(SELECT 1 FROM projects WHERE name = :name LIMIT 1)")
     suspend fun isProjectNameTaken(name: String): Boolean
@@ -75,6 +81,19 @@ interface FinanceDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTransactions(transactions: List<TransactionEntity>): List<Long>
 
+    // @trace TASK-114, TASK-202
+    @Query("SELECT * FROM transactions WHERE isReturnExpected = 1 ORDER BY date DESC")
+    fun getPendingReturns(): Flow<List<TransactionEntity>>
+
+    @Query("SELECT * FROM transactions WHERE id = :id")
+    suspend fun getTransactionById(id: Long): TransactionEntity?
+
+    @Query("UPDATE transactions SET isReturnExpected = 0 WHERE id = :transactionId")
+    suspend fun dismissReturnExpected(transactionId: Long)
+
     @Query("DELETE FROM transactions WHERE id = :id")
     suspend fun deleteTransaction(id: Long)
+
+    @Query("SELECT SUM(amountCents) FROM transactions WHERE refundLinkedId = :parentId")
+    suspend fun getRefundsSum(parentId: String): Long?
 }

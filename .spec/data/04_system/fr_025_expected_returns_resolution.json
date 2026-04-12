@@ -1,0 +1,27 @@
+{
+  "id": "FR-025",
+  "title": "Resolve Expected Returns",
+  "description": "The system shall allow users to act upon pending returns by either logging a refund (creating a reverse-expense) or dismissing the expected return flag.",
+  "priority": "Should-have",
+  "stability": "Stable",
+  "verification_method": "Test",
+  "acceptance_criteria": [
+    "Pending returns widget allows selecting an item to 'Log Refund' or 'Dismiss'",
+    "Dismiss action requires user confirmation via a dialog and removes the 'Return Expected' flag from the transaction upon confirmation",
+    "Log Refund action opens a dedicated dialog containing:",
+    "  - Non-editable original transaction info: full Account (with currency/owner), Category, Project",
+    "  - Original amount and total amount already returned",
+    "  - Data displayed in a row-based layout with labels and bold values",
+    "  - Entry field for current refund amount (defaulting to the remaining balance)",
+    "  - 'More refunds follow' checkbox (defaulting to OFF)",
+    "Logging a refund creates a negative expense under the original category and account, linked via refundLinkedId",
+    "If 'More refunds follow' is OFF, dismisses the return flag; if ON, keeps it active for future refunds",
+    "Completing a full refund or dismissal removes the item from the pending returns list"
+  ],
+  "trace_to": {
+    "user_requirements": ["UR-013"],
+    "business_rules": [],
+    "design_nodes": [],
+    "verification_plans": ["SCN-024"]
+  }
+}

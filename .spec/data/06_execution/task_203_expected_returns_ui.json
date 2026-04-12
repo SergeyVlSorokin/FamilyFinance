@@ -1,0 +1,44 @@
+{
+  "id": "TASK-203",
+  "title": "Returns Dashboard and Tracking UI",
+  "type": "Feature",
+  "routine": "Feature",
+  "objective": "Add UI widget for pending returns and allow logging refunds/dismissing.",
+  "dependencies": ["TASK-202"],
+  "trace_to": {
+    "requirements": ["FR-024", "FR-025"],
+    "design_nodes": ["VIEW-001"]
+  },
+  "compliance": { "strict_trace": true },
+  "status": "Done",
+  "tdd_cycle": {
+    "test_file": "app/src/test/java/com/familyfinance/ui/dashboard/DashboardViewModelTest.kt",
+    "implementation_file": "app/src/main/java/com/familyfinance/ui/dashboard/DashboardScreen.kt",
+    "verification_command": "./gradlew testDebugUnitTest"
+  },
+  "execution_steps": [
+    "Add checkbox to Expense entry screen for `isReturnExpected`.",
+    "Implement PendingReturnsWidget on Dashboard.",
+    "Implement confirmation dialog for dismissing return requests.",
+    "Implement dedicated `RefundEntryDialog` for 'Log Refund' flow.",
+    "Calculate 'amount already returned' by summing linked refunds.",
+    "Handle 'More refunds follow' logic for `isReturnExpected` flag persistence.",
+    "Add undo/return icon on Timeline items."
+  ],
+  "definition_of_done": [
+    "Widget displays transactions with the flag.",
+    "User can log a refund using a specific dialog pre-filled with remaining balances.",
+    "Log Refund creates a linked negative transaction and optionally clears flags.",
+    "User can dismiss the flag only after explicit confirmation via dialog."
+  ],
+  "context": {
+    "relevant_files": [
+      "app/src/main/java/com/familyfinance/ui/expense/ExpenseEntryScreen.kt",
+      "app/src/main/java/com/familyfinance/ui/dashboard/DashboardScreen.kt",
+      "app/src/main/java/com/familyfinance/ui/dashboard/DashboardViewModel.kt",
+      "app/src/main/java/com/familyfinance/ui/dashboard/RefundEntryDialog.kt",
+      "app/src/main/java/com/familyfinance/ui/timeline/TimelineScreen.kt",
+      "app/src/main/java/com/familyfinance/ui/components/CurrencyInput.kt"
+    ]
+  }
+}

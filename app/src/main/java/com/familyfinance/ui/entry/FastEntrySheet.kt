@@ -184,6 +184,27 @@ fun FastEntrySheet(
                         }
                     }
 
+                    if (uiState.type == TransactionType.EXPENSE) {
+                        item {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 8.dp)
+                            ) {
+                                Checkbox(
+                                    checked = uiState.isReturnExpected,
+                                    onCheckedChange = viewModel::onReturnExpectedChange
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    text = "Expect return of funds",
+                                    style = MaterialTheme.typography.bodyLarge
+                                )
+                            }
+                        }
+                    }
+
                     item {
                         OutlinedTextField(
                             value = uiState.note,

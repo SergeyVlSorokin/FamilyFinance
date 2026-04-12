@@ -10,6 +10,9 @@ import com.familyfinance.data.local.entity.CategoryEntity
 import com.familyfinance.data.local.entity.ProjectEntity
 import com.familyfinance.data.local.entity.TransactionEntity
 
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
+
 @Database(
     entities = [
         AccountEntity::class,
@@ -17,11 +20,20 @@ import com.familyfinance.data.local.entity.TransactionEntity
         ProjectEntity::class,
         TransactionEntity::class
     ],
-    version = 7,
+    version = 8,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
-// @trace TASK-114, TASK-122
+// @trace TASK-114, TASK-122, TASK-202
 abstract class FamilyFinanceDatabase : RoomDatabase() {
     abstract val dao: FinanceDao
+
+    companion object {
+        val MIGRATION_7_8 = object : Migration(7, 8) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE transactions ADD COLUMN isReturnExpected INTEGER NOT NULL DEFAULT 0")
+                db.execSQL("ALTER TABLE transactions ADD COLUMN refundLinkedId TEXT")
+            }
+        }
+    }
 }

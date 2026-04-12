@@ -1,0 +1,22 @@
+{
+  "id": "FR-024",
+  "title": "Track Expected Returns",
+  "description": "The system shall allow users to flag an expense as 'Return Expected'. A dashboard widget shall display pending returns, and the timeline shall visually indicate flagged expenses.",
+  "priority": "Should-have",
+  "stability": "Stable",
+  "verification_method": "Test",
+  "acceptance_criteria": [
+    "Expense entry UI includes a boolean 'Return Expected' toggle",
+    "Dashboard contains a widget showing a list or count of pending expected returns",
+    "Timeline items for flagged expenses show a visual indicator (Reply icon)",
+    "Refund transactions on the timeline display absolute sum values (without minus signs)",
+    "Refund transactions on the timeline use a distinct Blue color (e.g., #2196F3)",
+    "Refund transactions on the timeline include a small overlay icon at the bottom-left of the category icon"
+  ],
+  "trace_to": {
+    "user_requirements": ["UR-013"],
+    "business_rules": [],
+    "design_nodes": [],
+    "verification_plans": ["SCN-024"]
+  }
+}

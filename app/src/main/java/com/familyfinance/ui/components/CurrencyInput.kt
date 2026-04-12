@@ -96,3 +96,10 @@ fun String.toCents(): Long {
 fun Long.toDecimalString(): String {
     return if (this == 0L) "" else (this / 100.0).toString()
 }
+
+/**
+ * Format cents as a currency string.
+ */
+fun Long.formatAsCurrency(currencyCode: String? = null): String {
+    return "${currencyCode ?: "$"} ${String.format(java.util.`Locale`.US, "%.2f", this / 100.0)}"
+}

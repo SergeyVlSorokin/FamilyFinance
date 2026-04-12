@@ -135,4 +135,28 @@ class FinanceDatabaseUnitTest {
         assertEquals("EUR", transactions[0].currencyCode)
         assertEquals(1100L, transactions[0].targetAmountCents)
     }
+
+    @Test
+    fun getPendingReturnsOnly() = runBlocking {
+        val account = AccountEntity(name = "Store", type = AccountType.BANK, currency = "USD", color = 0)
+        val accountId = dao.upsertAccount(account)
+
+        // Normal expense
+        dao.insertTransaction(TransactionEntity(
+            date = System.currentTimeMillis(), amountCents = 100, accountId = accountId, 
+            categoryId = null, projectId = null, note = "Kept", type = TransactionType.EXPENSE,
+            currencyCode = "USD", isReturnExpected = false
+        ))
+
+        // Return expected
+        dao.insertTransaction(TransactionEntity(
+            date = System.currentTimeMillis(), amountCents = 500, accountId = accountId, 
+            categoryId = null, projectId = null, note = "To Return", type = TransactionType.EXPENSE,
+            currencyCode = "USD", isReturnExpected = true
+        ))
+
+        val pending = dao.getPendingReturns().first()
+        assertEquals(1, pending.size)
+        assertEquals("To Return", pending[0].note)
+    }
 }

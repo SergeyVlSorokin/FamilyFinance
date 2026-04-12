@@ -45,7 +45,7 @@ enum class TransactionType {
         Index("receiptGroupId")
     ]
 )
-// @trace TASK-114, TASK-115
+// @trace TASK-114, TASK-115, TASK-202
 data class TransactionEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val date: Long, // Epoch millis
@@ -59,5 +59,7 @@ data class TransactionEntity(
     val targetAccountId: Long? = null, // Used for transfers
     val targetAmountCents: Long? = null, // Used for FX transfers
     val receiptGroupId: String? = null,
-    val transferLinkedId: String? = null
+    val transferLinkedId: String? = null,
+    val isReturnExpected: Boolean = false,
+    val refundLinkedId: String? = null
 )

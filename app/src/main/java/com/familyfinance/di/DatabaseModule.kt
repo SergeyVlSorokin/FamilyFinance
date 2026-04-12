@@ -22,7 +22,9 @@ object DatabaseModule {
             context,
             FamilyFinanceDatabase::class.java,
             "family_finance.db"
-        ).fallbackToDestructiveMigration().build()
+        ).addMigrations(FamilyFinanceDatabase.MIGRATION_7_8)
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides

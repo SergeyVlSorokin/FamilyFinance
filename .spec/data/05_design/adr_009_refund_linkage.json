@@ -1,0 +1,22 @@
+{
+  "id": "ADR-009",
+  "title": "Refund Linkage via Parent ID",
+  "status": "Accepted",
+  "context": "When a user logs a refund for an expected return (FR-025), the refund is recorded as an identical transaction with a negative amount. To maintain data traceability and accurately compute how much of 'pending expected return' remains, we need a mechanism to explicitly link the refund transaction(s) back to the original purchase transaction. Furthermore, we need a contextual UI that doesn't disrupt the user's dashboard flow.",
+  "decision": "Add a `refund_linked_id` (nullable UUID) to the Transaction data model. A refund transaction will store the `id` of the original expense transaction in this field. Additionally, implement a **dedicated modal-based refund entry dialog** on the dashboard to provide context and allow multi-partial refund tracking without full-screen navigation.",
+  "consequences": {
+    "positive": [
+      "We can accurately sum all refunds for a specific expense to display partial return progress.",
+      "If the original expense is deleted, we can easily find and cascade-delete or flag the orphaned refunds."
+    ],
+    "negative": [
+      "Minor schema complexity, adding a new nullable foreign-key-like column to the transactions table."
+    ],
+    "neutral": []
+  },
+  "trace_to": {
+    "functional_requirements": ["FR-025"],
+    "affected_design_nodes": ["DATA-001"],
+    "stakeholders": ["STK-001"]
+  }
+}

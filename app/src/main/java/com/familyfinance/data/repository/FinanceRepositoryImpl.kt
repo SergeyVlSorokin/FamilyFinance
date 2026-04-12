@@ -40,6 +40,9 @@ class FinanceRepositoryImpl @Inject constructor(
     override suspend fun saveCategory(category: Category) =
         dao.upsertCategory(category.toEntity())
 
+    override suspend fun getCategoryById(id: Long): Category? =
+        dao.getCategoryById(id)?.toDomain()
+
     override suspend fun isCategoryNameTaken(name: String): Boolean =
         dao.isCategoryNameTaken(name)
 
@@ -51,6 +54,9 @@ class FinanceRepositoryImpl @Inject constructor(
 
     override suspend fun saveProject(project: Project) =
         dao.upsertProject(project.toEntity())
+
+    override suspend fun getProjectById(id: Long): Project? =
+        dao.getProjectById(id)?.toDomain()
 
     override suspend fun isProjectNameTaken(name: String): Boolean =
         dao.isProjectNameTaken(name)
@@ -64,8 +70,20 @@ class FinanceRepositoryImpl @Inject constructor(
     override fun getTransactionsByAccountFlow(accountId: Long): Flow<List<Transaction>> =
         dao.getTransactionsByAccountFlow(accountId).map { list -> list.map { it.toDomain() } }
 
+    override fun getPendingReturnsFlow(): Flow<List<Transaction>> = // @trace TASK-203
+        dao.getPendingReturns().map { list -> list.map { it.toDomain() } }
+
+    override suspend fun getTransactionById(id: Long): Transaction? = // @trace TASK-203
+        dao.getTransactionById(id)?.toDomain()
+
     override suspend fun saveTransaction(transaction: Transaction): Long =
         dao.insertTransaction(transaction.toEntity())
+
+    override suspend fun getRefundsSum(parentId: String): Long =
+        kotlin.math.abs(dao.getRefundsSum(parentId) ?: 0L)
+
+    override suspend fun dismissExpectedReturn(transactionId: Long) = // @trace TASK-203
+        dao.dismissReturnExpected(transactionId)
 
     override suspend fun saveTransactions(transactions: List<Transaction>): List<Long> =
         dao.insertTransactions(transactions.map { it.toEntity() })
@@ -139,7 +157,9 @@ class FinanceRepositoryImpl @Inject constructor(
         targetAccountId = targetAccountId,
         targetAmountCents = targetAmountCents,
         receiptGroupId = receiptGroupId,
-        transferLinkedId = transferLinkedId
+        transferLinkedId = transferLinkedId,
+        isReturnExpected = isReturnExpected,
+        refundLinkedId = refundLinkedId
     )
 
     private fun Transaction.toEntity() = TransactionEntity(
@@ -155,6 +175,8 @@ class FinanceRepositoryImpl @Inject constructor(
         targetAccountId = targetAccountId,
         targetAmountCents = targetAmountCents,
         receiptGroupId = receiptGroupId,
-        transferLinkedId = transferLinkedId
+        transferLinkedId = transferLinkedId,
+        isReturnExpected = isReturnExpected,
+        refundLinkedId = refundLinkedId
     )
 }

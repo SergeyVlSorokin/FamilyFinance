@@ -1,0 +1,18 @@
+{
+  "id": "SCN-024",
+  "title": "Expected Returns Lifecycle",
+  "objective": "Verify the ability to flag an expense, track it on dashboard/timeline, log partial/full refunds, and dismiss.",
+  "type": "Manual",
+  "steps": [
+    { "step": "Create a new expense for 100 EUR, Category 'Clothing', check 'Return Expected', and save.", "expected_result": "Expense is saved." },
+    { "step": "View Dashboard.", "expected_result": "Dashboard widget shows the pending return." },
+    { "step": "View Timeline.", "expected_result": "The new expense has an indicator for 'Return Expected'." },
+    { "step": "From Dashboard widget, select the expense and choose 'Log Refund' -> 'Partial', enter 30 EUR.", "expected_result": "UI creates a -30 EUR expense in 'Clothing'. The original item remains pending." },
+    { "step": "Select the expense again and choose 'Dismiss'.", "expected_result": "Return is dismissed. Dashboard widget removes the item." },
+    { "step": "View Timeline.", "expected_result": "The original 100 EUR expense no longer has the 'Return Expected' indicator." }
+  ],
+  "trace_to": {
+    "requirements": ["FR-024", "FR-025", "UR-013"]
+  },
+  "status": "Draft"
+}

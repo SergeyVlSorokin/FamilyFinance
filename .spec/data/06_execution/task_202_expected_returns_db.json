@@ -1,0 +1,37 @@
+{
+  "id": "TASK-202",
+  "title": "Returns Linkage Database Schema",
+  "type": "Feature",
+  "routine": "Feature",
+  "objective": "Add `isReturnExpected` and `refundLinkedId` to the Room schema with a migration and DAO updates.",
+  "dependencies": [],
+  "trace_to": {
+    "requirements": ["FR-024", "FR-025"],
+    "design_nodes": ["DATA-001", "ADR-009"]
+  },
+  "compliance": { "strict_trace": true },
+  "status": "Done",
+  "tdd_cycle": {
+    "test_file": "app/src/test/java/com/familyfinance/data/local/dao/TransactionDaoTest.kt",
+    "implementation_file": "app/src/main/java/com/familyfinance/data/local/entity/TransactionEntity.kt",
+    "verification_command": "./gradlew testDebugUnitTest"
+  },
+  "execution_steps": [
+    "Add `isReturnExpected` (Boolean) and `refundLinkedId` (String?) to `TransactionEntity`.",
+    "Add fields to Domain Model `Transaction` and mapper functions.",
+    "Create DB Migration script.",
+    "Update `TransactionDao` to include `getPendingReturns()` filtering by `isReturnExpected = 1`."
+  ],
+  "definition_of_done": [
+    "Database migration runs successfully.",
+    "DAO query fetches transactions with expected return flag correctly."
+  ],
+  "context": {
+    "relevant_files": [
+      "app/src/main/java/com/familyfinance/data/local/entity/TransactionEntity.kt",
+      "app/src/main/java/com/familyfinance/data/local/dao/TransactionDao.kt",
+      "app/src/main/java/com/familyfinance/domain/model/Transaction.kt",
+      "app/src/main/java/com/familyfinance/data/local/AppDatabase.kt"
+    ]
+  }
+}

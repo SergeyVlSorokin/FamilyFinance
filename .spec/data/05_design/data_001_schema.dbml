@@ -59,6 +59,8 @@ Table transactions {
   note                TEXT [note: "Free-text memo (optional)"]
   receipt_group_id    TEXT [note: "UUID — non-null only for split receipt rows. All rows of one receipt share this ID. (FR-003)"]
   transfer_linked_id  TEXT [note: "UUID — non-null only for TRANSFER rows. Pairs the debit and credit legs. For FX Transfers, debit and credit legs will have different currency_code values. (FR-004, FR-019)"]
+  is_return_expected  INTEGER [not null, default: 0, note: "Boolean (0/1). True if the user flagged this expense as expecting a return (FR-024)."]
+  refund_linked_id    TEXT [note: "UUID — non-null for refund transactions. Points to the ID of the original expense transaction (ADR-009)."]
   is_system_generated INTEGER [not null, default: 0,
                                 note: "Boolean (0/1). True for OPENING_BALANCE rows auto-created on account creation. Excluded from cash-flow reports."]
 

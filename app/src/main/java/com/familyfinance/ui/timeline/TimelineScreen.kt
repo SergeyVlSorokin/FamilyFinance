@@ -9,6 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.CompareArrows
 import androidx.compose.material.icons.automirrored.filled.ReceiptLong
+import androidx.compose.material.icons.automirrored.filled.Reply
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -178,18 +179,36 @@ fun TransactionRow(item: TimelineItem) {
         }
 
         // Icon
-        Surface(
-            shape = CircleShape,
-            color = if (item.isSplitChild) Color.Transparent else MaterialTheme.colorScheme.surfaceVariant,
-            modifier = Modifier.size(if (item.isSplitChild) 32.dp else 44.dp)
-        ) {
-            Box(contentAlignment = Alignment.Center) {
-                Icon(
-                    imageVector = item.category?.icon?.let { getIconByName(it) } ?: getIconForType(transaction.type),
-                    contentDescription = null,
-                    modifier = Modifier.size(if (item.isSplitChild) 16.dp else 24.dp),
-                    tint = if (item.isSplitChild) MaterialTheme.colorScheme.outline else MaterialTheme.colorScheme.onSurfaceVariant
-                )
+        Box(contentAlignment = Alignment.BottomStart) {
+            Surface(
+                shape = CircleShape,
+                color = if (item.isSplitChild) Color.Transparent else MaterialTheme.colorScheme.surfaceVariant,
+                modifier = Modifier.size(if (item.isSplitChild) 32.dp else 44.dp)
+            ) {
+                Box(contentAlignment = Alignment.Center) {
+                    Icon(
+                        imageVector = item.category?.icon?.let { getIconByName(it) } ?: getIconForType(transaction.type),
+                        contentDescription = null,
+                        modifier = Modifier.size(if (item.isSplitChild) 16.dp else 24.dp),
+                        tint = if (item.isSplitChild) MaterialTheme.colorScheme.outline else MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
+            
+            if (transaction.refundLinkedId != null) {
+                Surface(
+                    shape = CircleShape,
+                    color = Color(0xFF2196F3),
+                    modifier = Modifier.size(16.dp),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.surface)
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.Reply,
+                        contentDescription = null,
+                        modifier = Modifier.padding(2.dp),
+                        tint = Color.White
+                    )
+                }
             }
         }
 
@@ -208,6 +227,14 @@ fun TransactionRow(item: TimelineItem) {
                 fontWeight = FontWeight.SemiBold
             )
             Row(verticalAlignment = Alignment.CenterVertically) {
+                if (transaction.isReturnExpected) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.Reply,
+                        contentDescription = "Return Expected",
+                        modifier = Modifier.size(16.dp).padding(end = 4.dp),
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                }
                 // Full date (e.g., 17/03/26)
                 val formattedDate = java.time.Instant.ofEpochMilli(transaction.date)
                     .atZone(java.time.ZoneId.systemDefault())
@@ -242,20 +269,25 @@ fun TransactionRow(item: TimelineItem) {
 
         // Amount & Account
         Column(horizontalAlignment = Alignment.End) {
+            val isRefund = transaction.refundLinkedId != null
             val amountText = if (transaction.type == TransactionType.TRANSFER && item.targetAccount != null && transaction.targetAmountCents != null && transaction.currencyCode != item.targetAccount.currency) {
                 "${transaction.amountCents.format(transaction.currencyCode)} -> ${transaction.targetAmountCents.format(item.targetAccount.currency)}"
+            } else if (isRefund) {
+                kotlin.math.abs(transaction.amountCents).format(transaction.currencyCode)
             } else if (transaction.type == TransactionType.EXPENSE) {
                 "-${transaction.amountCents.format(transaction.currencyCode)}"
             } else {
                 transaction.amountCents.format(transaction.currencyCode)
             }
+            
             Text(
                 text = amountText,
                 style = MaterialTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Bold,
-                color = when (transaction.type) {
-                    TransactionType.INCOME -> Color(0xFF4CAF50)
-                    TransactionType.EXPENSE -> MaterialTheme.colorScheme.error
+                color = when {
+                    isRefund -> Color(0xFF2196F3) // Distinct Blue for refunds
+                    transaction.type == TransactionType.INCOME -> Color(0xFF4CAF50)
+                    transaction.type == TransactionType.EXPENSE -> MaterialTheme.colorScheme.error
                     else -> MaterialTheme.colorScheme.onSurface
                 }
             )

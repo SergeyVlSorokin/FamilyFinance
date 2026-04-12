@@ -16,19 +16,25 @@ interface FinanceRepository {
     // Categories
     fun getCategoriesFlow(): Flow<List<Category>>
     suspend fun saveCategory(category: Category)
+    suspend fun getCategoryById(id: Long): Category?
     suspend fun isCategoryNameTaken(name: String): Boolean
     suspend fun deleteCategory(id: Long)
 
     // Projects
     fun getProjectsFlow(): Flow<List<Project>>
     suspend fun saveProject(project: Project)
+    suspend fun getProjectById(id: Long): Project?
     suspend fun isProjectNameTaken(name: String): Boolean
     suspend fun deleteProject(id: Long)
 
     // Transactions
     fun getTransactionsFlow(): Flow<List<Transaction>>
     fun getTransactionsByAccountFlow(accountId: Long): Flow<List<Transaction>>
+    fun getPendingReturnsFlow(): Flow<List<Transaction>> // @trace TASK-203
+    suspend fun getTransactionById(id: Long): Transaction? // @trace TASK-203
     suspend fun saveTransaction(transaction: Transaction): Long
+    suspend fun getRefundsSum(parentId: String): Long // Returns absolute sum in cents
+    suspend fun dismissExpectedReturn(transactionId: Long) // @trace TASK-203
     suspend fun saveTransactions(transactions: List<Transaction>): List<Long>
     suspend fun deleteTransaction(id: Long)
 }

@@ -33,7 +33,9 @@ data class FastEntryUiState(
     val projects: List<Project> = emptyList(),
     val isLoading: Boolean = true,
     val error: String? = null,
-    val isSaved: Boolean = false
+    val isSaved: Boolean = false,
+    val isReturnExpected: Boolean = false,
+    val refundLinkedId: String? = null
 ) {
     val remainderCents: Long
         get() = totalAmountCents - splitLines.sumOf { it.amountCents }
@@ -131,6 +133,10 @@ class FastEntryViewModel @Inject constructor(
         _uiState.update { it.copy(date = date) }
     }
 
+    fun onReturnExpectedChange(expected: Boolean) {
+        _uiState.update { it.copy(isReturnExpected = expected) }
+    }
+
     fun addSplit() {
         _uiState.update { it.copy(splitLines = it.splitLines + SplitLine()) }
     }
@@ -179,7 +185,9 @@ class FastEntryViewModel @Inject constructor(
                             projectId = state.project?.id,
                             note = state.note,
                             type = state.type,
-                            currencyCode = state.account!!.currency
+                            currencyCode = state.account!!.currency,
+                            isReturnExpected = state.isReturnExpected,
+                            refundLinkedId = state.refundLinkedId
                         )
                     }
                     saveSplitReceiptUseCase(state.totalAmountCents, transactions)
@@ -194,7 +202,9 @@ class FastEntryViewModel @Inject constructor(
                             projectId = state.project?.id,
                             note = state.note,
                             type = state.type,
-                            currencyCode = state.account!!.currency
+                            currencyCode = state.account!!.currency,
+                            isReturnExpected = state.isReturnExpected,
+                            refundLinkedId = state.refundLinkedId
                         )
                     )
                 }
